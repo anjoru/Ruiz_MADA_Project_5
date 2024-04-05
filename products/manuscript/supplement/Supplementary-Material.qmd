@@ -1,0 +1,17 @@
+---
+title: "Supplement to Example Manuscript Template for a Data Analysis Project"
+
+subtitle: ""
+author: Andrew Ruiz
+date: "`r Sys.Date()`"
+format:
+  pdf:
+    toc: false
+    number-sections: true
+    highlight-style: github
+bibliography: ../../assets/dataanalysis_template_references.bib
+csl: ../../assets/vancouver.csl
+---
+
+This document will be populated later in the project. 
+

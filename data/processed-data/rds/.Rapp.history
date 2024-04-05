@@ -1,0 +1,6 @@
+load("/Users/andrewruiz/MADA_course/RUIZ-MADA-project/data/processed-data/rds/animal_cases_by_year.rds")
+animal_cases_by_year <- readRDS("/Users/andrewruiz/MADA_course/RUIZ-MADA-project/data/processed-data/rds/animal_cases_by_year.rds")
+animal_cases_by_year
+a_cases_by_year <- readRDS("/Users/andrewruiz/MADA_course/RUIZ-MADA-project/data/processed-data/rds/combined_eee_data.rds")
+a_cases_by_year
+load("/Users/andrewruiz/MADA_course/RUIZ-MADA-project/data/processed-data/rds/yearly_mel_ave.rds")

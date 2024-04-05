@@ -1,0 +1,54 @@
+---
+title: "Class Project"
+author: Andrew Ruiz
+date: "2024-03-13"
+output: html_document
+---
+
+# load needed packages. make sure they are installed.
+```{r}
+library(here) #for data loading/saving
+library(dplyr)
+library(skimr)
+library(ggplot2)
+library(tidyverse)
+library(lubridate)
+library(readr)
+library(forecast)
+library(tsibble) # For time series data wrangling
+library(feasts) # For decomposing and visualizing time series
+library(RColorBrewer)
+```
+
+# This file will contain the EDA code for the class project.
+### As the project progresses and the models finalized, the EDA QMD will be updated accordingly.
+
+## MIR heatmap
+### This heat map illustrates the timing and intensity of mosquito infection rates (MIR) over the weeks of the year.
+#### At least one previous study that a non-zero MIR at or before week 31 is common in years when human cases of EEE are reported. 
+```{r}
+# Load the saved function
+create_heatmap <- readRDS(here("data", "processed-data", "rds","create_heatmap_function.rds"))
+
+# Assuming MIR_by_week is loaded and prepared in this QMD as well
+# Now use the loaded function to create the heatmap
+MIR_by_week_heatmap <- create_heatmap(MIR_by_week)
+
+# Display the heatmap
+MIR_by_week_heatmap
+```
+
+## This is a scatter plot of the average number of mosquitoes that were captured in light traps and the mosquito infection rate (MIR).
+```{r}
+# Load the function from the RDS file
+MIRMEL_scatter_plot <- readRDS(here("data", "processed-data", "RDS", "create_scatter_plot_function.rds"))
+
+# Assuming combined_data_mir_all is available in your current session
+# Generate the plot
+scatter_plot <- create_scatter_plot(combined_data_mir_all)
+
+# Display the plot
+print(scatter_plot)
+
+```
+

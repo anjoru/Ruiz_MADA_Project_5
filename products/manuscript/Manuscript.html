@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.537">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>manuscript</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="Manuscript_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Manuscript_files/libs/quarto-html/quarto.js"></script>
+<script src="Manuscript_files/libs/quarto-html/popper.min.js"></script>
+<script src="Manuscript_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Manuscript_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Manuscript_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Manuscript_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Manuscript_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Manuscript_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Manuscript_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="Manuscript_files/libs/quarto-diagram/mermaid.min.js"></script>
+<script src="Manuscript_files/libs/quarto-diagram/mermaid-init.js"></script>
+<link href="Manuscript_files/libs/quarto-diagram/mermaid.css" rel="stylesheet">
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+
+
+
+<p>title: “DRAFT: Factors Influencing Abundance &amp; Virus Isolation in Mosquitoes” subtitle: “Which environmental, ecological, and temporal factors impact mosquito populations” author: Andrew Ruiz date: “2024-04-04” md_number: true format: docx: toc: false number-sections: true highlight-style: github editor: markdown: wrap: 72 bibliography: - ../../assets/project_mada.bib latex: preamble: | </p>
+<hr>
+<div id="summary" class="unnumbered">
+<section id="summaryabstract" class="level1">
+<h1>Summary/Abstract</h1>
+<p><em>This project will inform the development of my dissertation prospectus by identifying significant relationships between variables and guide the methods development.</em> Eastern equine encephalitis (EEE) is caused by an Alphavirus transmitted to humans by the bite of an infected mosquito. Human infections are rare, but serious. About 30-50% of symptomatic cases lead to death and those who survive are left with life-long disability. The transmission cycle for EEE includes two distinct cycles: an amplifying enzootic cycle in which the virus is transmitted between the Culiseta melanura mosquito and birds and an epizootic cycle in which bridge vector mosquitoes transmit the EEE virus (EEEv) from birds to humans and other mammals. Because C. melanura feeds almost exclusively on birds, it is not considered a direct human threat. However, EEEv isolations in C. melanura are an early warning sign that EEEv is circulating in the ecosystem. Isolations in bridge vector mosquito species indicate heightened transmission risk to humans.</p>
+</section>
+</div>
+<section id="problem-statement" class="level1">
+<h1>Problem statement</h1>
+<p>Which environmental,ecological, and temporal factors influence the transmission cycles for EEE in southeastern Massachusetts and which models best describe the relationship between these factors.</p>
+<p><strong>This project will lay the foundation for dissertation research that will begin in June, 2024.</strong></p>
+</section>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<section id="background" class="level2">
+<h2 class="anchored" data-anchor-id="background">Background</h2>
+<p>Eastern equine encephalitis (EEE) is caused by an Alphavirus transmitted to humans by the bite of an infected mosquito. Human infections are rare, but serious <span class="citation" data-cites="lindseyEasternEquineEncephalitis2018">[@lindseyEasternEquineEncephalitis2018]</span>. Humans and other mammals are dead-end hosts for EEE. About 94% of human EEE infections are asymptomatic. While symptomatic cases are rare, the consequences can be severe. Mortality rates associated with symptomatic infections range from 30 to 50%. Those who survive often experience lifelong disability that includes debilitating neurological damage. On average, there are 11 cases reported in the US annually. Most occur in Massachusetts and Florida. Until recently, nearly all human EEE cases in Massachusetts occurred in two counties: Bristol and Plymouth.</p>
+<p>Since 2000, there have been 45 human cases recorded in Massachusetts, resulting in 22 deaths. There are no human vaccines for EEE, and treatment consists of palliative care only. Prevention measures include personal behaviors to avoid mosquito bites and decreasing the mosquito population through pesticide use and environmental modifications like removing standing water.</p>
+<p>The Bristol County Mosquito Control Project (BCMCP) coordinates mosquito surveillance and testing in the county from June to October. BCMCP has used the same sentinel collection sites and trapping methods for over 20 years. Once trapped, mosquitoes are sorted by species, and vector species are submitted to the Massachusetts Department of Health’s (MDPH) State Lab for PCR virus testing. Results are available within 24 hours of submission. When rates of EEE mosquito infections are above a defined threshold, MDPH notifies the local boards of health and recommends preventive measures. Recommended measures include outreach and education to increase personal protective practices . Additionally, MDPH may recommend that cities and towns in the affected areas cancel evening outdoor events and discourage outdoor activities when mosquito vectors are most active (dawn and dusk). When infection rates are high enough to indicate imminent human transmission, the Commonwealth of Massachusetts will recommend and fund aerial pesticide applications over the affected areas.</p>
+</section>
+<section id="study-area" class="level2">
+<h2 class="anchored" data-anchor-id="study-area">Study area</h2>
+<p>Bristol County, Massachusetts covers an area of 691 square miles with a population density of 962 people per square mile. It borders Rhode Island to the west, Plymouth County, MA to the east, and Norfolk County, MA to the north. Naushon Island and Martha’s Vineyard are across Buzzard’s Bay to the Southeast.</p>
+<p>Atlantic White Cedar (AWC) swamps span over 4,300 acres within Massachusetts, primarily concentrated in Plymouth and Bristol counties. These swamps serve as critical breeding habitats for <em>Culiseta melanura</em> (MEL) <span class="citation" data-cites="commonwealthofmassachusettsdivisionoffisheries-wildlifeNaturalCommunityFact2007">[@commonwealthofmassachusettsdivisionoffisheries-wildlifeNaturalCommunityFact2007]</span>, which is recognized as the primary enzootic vector for Eastern Equine Encephalitis (EEE). AWC trees have large root systems that form “crypts” and hold water throughout the year. These crypts serve as a main habitat for MEL larval growth and provide shelter during winter months.</p>
+<p>Between 2003 and 2022 Plymouth and Bristol counties were the epicenters for EEE transmission in Massachusetts, accounting for 24 out of the state’s 41 human EEE cases.The Bristol County Mosquito Control Project (BCMCP) conducts mosquito surveillance and abatement activities for the county and often coordinates activities with Plymouth County Mosquito Control Project.</p>
+</section>
+<section id="questionshypotheses-to-be-addressed" class="level2">
+<h2 class="anchored" data-anchor-id="questionshypotheses-to-be-addressed">Questions/Hypotheses to be addressed</h2>
+<p><em>This project will lay the foundation for my dissertation research.</em> <strong>The goal for this phase of the project is to answer which environmental, ecological, and temporal factors influence the transmission cycles for EEE in southeastern Massachusetts.</strong> From prior research we know that the mosquito life cyle is influenced by a number of factors. Temperature plays a major role in the mosquito life cyle virus transmission dynamics. As temperature increases, the rate of larval development also increases and the time between when a mosquito ingests virus in a bloodmeal and when it can transmit it decreases. The result is that the mosquito population can grow at faster rate and they will have more time to transmit the virus. Precipitation increases the amount of standing water and increases the chances of larval survival during the mosquito season and also during the winter months for those species that overwinter in the larval stage. For EEE, the main enzootic vector, MEL, overwinters as larvae.</p>
+<p>While these relationships are well known, they are not well described for EEE, especially in terms of quantifying the role these two factors play in EEE transmission. Specifically, there’s a gap in our understanding of how these factors influence the number of mosquitoes caught in traps and the rate of virus infection among those mosquitoes. This gap is more pronounced when distinguishing the impacts on enzootic (mosquitoes that primarily feed on birds) versus bridge vector (mosquitoes that can transmit the virus from birds to humans) mosquito species. Even less well described is the effect the factors have on enzootic vs.&nbsp;bridge vector mosquito species.</p>
+<p>Moreover, the influence of other variables, such as bird populations, remains even less explored. Birds, particularly species of passerines, serve as amplifying hosts for EEEV and WNV, potentially affecting the level of virus present in an area. Despite their importance in the virus transmission cycle, the effect of fluctuations in bird populations on the prevalence of these viruses throughout a season has received minimal attention. Finally, given the migratory nature of many passerine species, it’s worth exploring whether EEEV activity in the warmer regions of the United States, during the months preceding mosquito season in Massachusetts, could serve as an early indicator of virus activity in the state. Understanding these dynamics is crucial for predicting outbreaks and implementing effective control measures.</p>
+<p>While the following questions will not be addressed in this phase, this project will hopefully inform research that will answer the following questions:</p>
+<p>1. Can an AI-driven model that leverages historic mosquito surveillance, ecological, and environmental data accurately quantify the risk of human EEEv infection in southeastern Massachusetts?</p>
+<p>2. What is the potential of machine learning algorithms to identify early warning signals for EEE outbreaks, enabling timely public health interventions in Massachusetts to prevent human infections?</p>
+<p>3. How can machine learning models use real-time data on mosquito activity, environmental factors, and weather to accurately predict when the risk of EEE transmission to humans is low enough to lift evening outdoor activity restrictions? *</p>
+</section>
+<section id="data-collection-and-processing" class="level2">
+<h2 class="anchored" data-anchor-id="data-collection-and-processing">Data collection and processing</h2>
+<p>The mosquito surveillance dataset encompasses counts by species from all mosquito traps deployed in Bristol County, MA, from 2007 to 2023. The raw dataset includes over 45,000 records and includes temporal and spatial variable. The BCMCP, perform mosquito surveillance from June through October annually.</p>
+<p>During this interval, CDC light traps baited with carbon dioxide are placed at various sentinel sites each week. Designed to attract mosquitoes in search of blood meals, light traps serve as a reliable measure of the actively feeding mosquito population, thereby establishing them as the standard method for EEE surveillance. Some of the sentinel site have been used for over 50 years.</p>
+<p>Additionally, the county employs gravid traps, which are specifically aimed at attracting and capturing gravid <em>Culex</em> mosquitoes looking for egg-laying sites. While these traps are primarily used for West Nile Virus (WNV) surveillance, they hold significant value for EEE monitoring as well. Given the role of <em>Culex</em> species as bridge vectors for EEE, their capture in gravid traps provides critical insight into the risk of virus transmission.</p>
+<p>The traps are installed in the afternoon and retrieved the following morning. After the traps are collected, the next are stored in a freezer to preserve and kill the mosquitoes. The mosquitoes are sorted by species using a dissecting scope. Counts for each species are recorded in the database and a portion of the vector species are driven to the Massachusetts State Laboratory in Boston. The lab tests each mosquito pool (or batch) for WNV and EEEv using PCR. Results are shared with BCMCP on the same day of testing. Virus isolation results are recorded in the collection records.</p>
+<p>In addition to mosquito counts by species, the dataset includes the town or city in which they were collected, the collection date, and whether the mosquitoes were submitted for virus testing.</p>
+<p>One indicator of the level of virus activity present in the mosquito population can be calculated from the information contained in dataset. The minimum infection rate (MIR) can be calculated at various scales from trap site to all sites over an entire season. MIR is calculated as: <span class="math display">\[
+MIR = \left( \frac{\text{Number of positive mosquito pools}}{\text{Total number of mosquitoes tested}} \right) \times 1000
+\]</span> MIR provides an estimate of the prevalence of a specific pathogen within a mosquito population. While it does not directly measure the risk to humans, a higher MIR in mosquitoes that commonly bite humans can indicate a higher risk of transmission. MIR allows for the comparison of infection rates across different geographical areas or time periods. This is crucial for identifying areas or times of higher risk and for evaluating the effectiveness of control measures.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/MIR_by_week_heatmap.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<figcaption>Minimum infection rate by week</figcaption>
+</figure>
+</div>
+<p>The surveillance dataset is structured to conform with state and federal reporting requirements. As a result, the format of the data must be transformed to in order to make it ready for analysis. Once the data structure is corrected, it can be joined to other relevant datasets using spatial or temporal attributes.</p>
+<p>Weather data played a significant role in this phase of the analysis. Daily weather summaries were downloaded from NOAA’s Climate Data Portal. The dataset covers the years 2007-2023 at the Taunton Airport in Bristol County.</p>
+<p>These datasets will be integrated with other datasets using spatial or temporal attributes. These datasets may include biological and ecological data, environmental and spatial data, and demographic data, which are crucial in understanding the transmission dynamics of EEE. Potential datasets with their sources are outlined in the table below. Other datasets may be included based on availability and need.</p>
+<table class="table">
+<colgroup>
+<col style="width: 26%">
+<col style="width: 47%">
+<col style="width: 26%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Data</th>
+<th>Description</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Mosquito Surveillance Data</td>
+<td>Records of mosquito species counts, locations, and dates of collection. Data on the presence of EEE in mosquito populations is particularly valuable.</td>
+<td>XXX County Mosquito Control</td>
+</tr>
+<tr class="even">
+<td>Weather Data</td>
+<td>Temperature, humidity, rainfall, and wind speed influence mosquito activity, population dynamics, and virus transmission.</td>
+<td>NOAA</td>
+</tr>
+<tr class="odd">
+<td>Bird Population Data</td>
+<td>Since birds are a natural reservoir for EEE, information on bird populations and migration patterns could be relevant.</td>
+<td>eBird</td>
+</tr>
+<tr class="even">
+<td>Human Case Reports</td>
+<td>Data on confirmed human cases of EEE, including location, date of onset, and clinical outcomes.</td>
+<td>MA Dept of Public Health publications</td>
+</tr>
+<tr class="odd">
+<td>Veterinary Surveillance Data</td>
+<td>Since horses and other mammals can also be affected by EEE, veterinary records could provide early warning signs of virus activity in an area.</td>
+<td>MA Dept of Public Health</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="data-aquisition" class="level2">
+<h2 class="anchored" data-anchor-id="data-aquisition">Data aquisition</h2>
+<p>With the exception of the mosquito collection data, all other datasets are publicly available for use without restrictions.</p>
+</section>
+<section id="data-import-and-cleaning" class="level2">
+<h2 class="anchored" data-anchor-id="data-import-and-cleaning">Data import and cleaning</h2>
+<p>Datasets will be loaded into R in a Quarto document to document and describe cleaning methods. There are two datasets that will require more extensive cleaning: the mosquito trap data and the crowd-sourced bird data. The process is outlined in detail in the MADAproject_pt2.qmd file. Less significant cleaning and data management steps not included in this manuscript are also outlined in that file.</p>
+<p><em>I am deciding how to handle the time period. I do have good data for some variables that span the entire period.</em> The mosquito dataset spans 2007 to 2023. However, the virus and case data only covers the years 2014 to 2020. Because mosquito populations can be influences by processes of the previous year. We will set the analytical horizon will span 2013 to 2021.</p>
+<p>Additionally, the Massachusetts Department of Public Health requires that all mosquito control district submit their collction data in a specific format. This format divides each trap event into separate rows based on mosquito species. However, this format is not useful for certain calculations where a zero count for a species is not explicitly recorded. For example, even when sorted by species to calculate the average count per trap, the average could be inflated since the records will not include trap events with a zero count of that species. In order to correct this, the data was pivoted to create a column for every unique “species code” then the “pool size” for each species code is summed for each trap event. A trap event is when “town”, “date of collection”, “trap type” are all the same.. For species codes not included in the orginal table for a trap event, the field will be assigned a zero value. The resulting table will have one row for every trap event.</p>
+<p>The bird observation dataset was obtained from Cornell University’s crowd sourced eBird program. The original dataset included all reported bird observations for Southeast Massachusetts and was over 600 MB of data. While all birds are potential amplifying hosts for EEE and West Nile Virus (WNV), birds from the Genus <em>Corvus</em> are of particular concern. The bird dataset processed to include records of <em>Corvus spp</em> sightings after 2014. The final dataset included 8 of the 50 variables, including location data. <em>this dataset is of poor quality. I am looking for a better dataset now. Looking into the annual breeding bird survey</em></p>
+</section>
+</section>
+<section id="methods" class="level1">
+<h1>Methods</h1>
+<p><em>This section is under development and will be completed after analysis is complete. The following is a general outline of the methods.</em> All datasets with a temporal attribute will be modifided to include a new for the week number. Week number calculations will be standardized according to ISO 8601 standards and will be stored an a YYYY-WW format. For example, week 8 in 2019 will be displayed as 2019-08. Week numbers will provide a common field by which all datasets with a temporal attribute can be joined. It will also allow for grouping records and making calculations by week number. This format helps to standardize temporal scales and make comparisons between years easier.</p>
+<p>Symptomatic EEE, and to a lesser extent WNV, human cases are rare. On average, the United States records only about 9 cases of EEE annually. Notably, Massachusetts reports more cases than any other state except Florida, highlighting regional disparities in disease occurrence. However, the incidence rate for neuroinvasive EEE cases in Bristol County, Massachusetts, is estimated to be only around 0.06 per 100,000 people. The infrequency of these cases poses significant challenges for traditional statistical models, making it difficult to accurately estimate human transmission risk. This difficulty is largely due to the sparse nature of the data and the variability in transmission patterns, which complicates efforts to predict outbreaks and necessitates alternative modeling approaches.</p>
+<section id="schematic-of-workflow" class="level3">
+<h3 class="anchored" data-anchor-id="schematic-of-workflow">Schematic of workflow</h3>
+<p><em>Schematic will be refined in later steps. The doc will also be reformatted to move the schematic to an appendix</em> <em>The image should appear upon rendering</em></p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TB
+    id1["Questions"] --&gt; id2["Data Collection"]
+    id2 --&gt; id3["Data Loading and Cleaning"]
+    id3 --&gt; id4["Data Cleaning"]
+    id4 --&gt; id5["Data Transformation"]
+    id5 --&gt; id6["Data Exploration &amp; Visualization"]
+    id6 --&gt; id7["Data Modeling"]
+    id7 --&gt; id8["Evaluation"]
+
+    id8 -.-&gt; id1
+    id8 --&gt; id9[Interpretation]
+    id9 --&gt; id10[Communication]
+
+    classDef mainProcess fill:#fff,stroke:#333,stroke-width:2px;
+
+    class id1,id2,id3,id4,id5,id6,id7,id8,id9,id10 mainProcess
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="exploratorydescriptive-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="exploratorydescriptive-analysis">Exploratory/Descriptive analysis</h2>
+<p>The first phase of the exploration is complete. The next phase will include statistical tests to determine if there are possible associations between the environmental variables and the mosquito abundance as measured by trap counts or EEE virus activity.</p>
+<p>It is important to know where the mosquitoes infected with EEE are captured. Below is a table showing the virus isolations for EEE in trapped mosquitoes by county between 2014 and 2020.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/eee_isolation_county.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>One factor to consider is if early virus isolations are associated with cases in humans and other mammals. The table below shows the date of the first EEE virus isolation in mosquitoes and the number of human of other animal cases by year.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/eee_isolation_cases-03.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>Unfortunately, the time horizon is limited by data availability. Additionally, EEE human infections are rare, so traditional statistical methods may be inadequate to suggest any relationships. What is clear is that 2019 was an exceptional year for EEE.</p>
+<p><em>Culiseta melanura</em> (MEL) plays an important role in EEE virus amplification in the enzootic cycle. Understanding the population dynamics might provide more insight into what is driving the 2019 spike.</p>
+<p>The graph below shows the proportion of MEL among all mosquito vector species trapped in Bristol County, MA.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/mel_proportion.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>From this we see a large proportion of MEL in the traps for 2019. In fact, they comprise more than half of all vector species for that year. Another interesting aspect is the high proportion in 2018. MEL overwinters as larvae and as long as there is sufficient standing water to last the winter, MEL hatched in the previous fall would survive to emerge the next year. This suggests it might be important to look at conditions in the previous year or season for a better understanding.</p>
+<p>Since water plays a significant role in the mosquito life cycle, let’s look at the annual precipitation.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/annual_precip-02.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>The graph indicates that the annual precipitation total for 2018 is higher than the other years. This suggest that there was enough water to support large MEL larval populations though out the winter.</p>
+<p>Another view plots the average annual MEL catch against total precipitation.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/combined_trends_mel_precip.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</section>
+<section id="basic-statistical-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="basic-statistical-analysis">Basic statistical analysis</h2>
+<p><em>More will be generated in later phases of the exercise</em> The initial tests have been basic regression models.</p>
+<p>The first models explored the relationship between virus isolation in mosquitoes and weather conditions (average temperature by week number and total precipitation by week). The outcome was whether there was at least 1 positive pool in a week. The predictor in the first model was the average maximum daily temperature the week before the pool week. The logistic model suggest that there was a relationship between the two. (The R code for the model can be found in the EDA-Code file: logistic_.pos_temp_precip.R) The average temperature in the week before is positively associated with the likelihood of a positive result, with an odds ratio of approximately 1.069 for each unit increase in temperature (Estimate = 0.06695, SE = 0.02033, p &lt; 0.001), indicating that higher temperatures significantly increase the probability of a positive outcome. The model’s improvement is highlighted by a decrease in residual deviance to 405.79 from the null deviance of 417.24, upon incorporating Lagged_Avg_TMAX as a predictor, demonstrating a better fit to the observed data. However, with a residual deviance of 405.79 on 299 degrees of freedom, it is evident that not all variability in the outcome is explained, suggesting the presence of other influential factors. The model’s AIC of 409.79 indicates a balance between model complexity and predictive power, supporting its relative utility in understanding the data. However, this relationship should be examined more closely as temperature is likely auto correlated with progressing weeks during summer months. While precipitation has been demonstrated to influence the population dynamics it did not show to have any effect on a positive result.</p>
+<p>Another model assessed whether the temperature precipitation in April, May, and June of each year effected the date of the first positive pool test. The date of the first positive pool was identified and assigned a day number from January 1st of that year. The predictors in this linear model were the average maximum temperature for April, May, and June and the sum of precipitation for the same time period. None of these predictors were significant.</p>
+<p>There was one other significant result. When MIR is set as the dependent, continuous variable in a linear regression and the average maximum temperature is used as the predictor, the model suggests there is a significant inverse relationship. As average temperature increases, the MIR decreases (model_mir_temp.R). This relationship is counterintutive, especially given the result of the logitic regression and requires more examination.</p>
+<p>More models assessing the effects of weather and other factors on positive pools by mosquito species and MIR values will be developed in Part 4 of the assignment. Future models will examine the the effects of weather conditions on mosquito population dynamics.</p>
+</section>
+<section id="statistical-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="statistical-analysis">Statistical analysis</h2>
+<p>This exercise will serve as the beginning of the exploratory data analysis phase. One of the main objectives for of this phase is describe the data, understand its structure, clean data, and identify associations within the datasets.</p>
+</section>
+</section>
+<section id="results" class="level1">
+<h1>Results</h1>
+<p><em>updated in later phases of the project</em></p>
+<section id="full-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="full-analysis">Full analysis</h2>
+<p><em>These will be generated in later phases of the exercise</em> # Discussion <em>this section will be completed when analysis is done</em></p>
+</section>
+<section id="strengths-and-limitations" class="level2">
+<h2 class="anchored" data-anchor-id="strengths-and-limitations">Strengths and Limitations</h2>
+<p><em>this section will be updated after analysis is complete</em> The accuracy and reliability of the mosquito collection data is excellent. The same procedures and sentinel sites have were in place for the entire analytical horizon. Further, there were only two people responsible for sorting, identifying and counting species over the entire period.</p>
+<p>MIR is not a perfect measure of virus activity in mosquitoes. It tends to underestimate the level of virus circulating in the environment. However, other measures require equal pool numbers for testing. There is a correction factor for variable pool numbers and I will explore this option in later phases of this project.</p>
+<p>The spatial scale is an issue with the human and veterinary cases data. Human case data is released only on a county scale to ensure patient privacy. Some veterinary case data is available on the town-level, but most remains only on the county-level. These limitations are barriers to accurate spatial analysis. The project will rely on virus isolation in mosquitoes to model risk. The available bird data relies heavily on crowd-sourced reports. There is one standardized survey (Breeding Bird Survey) that seems to be more accurate and reliable. However, this data is not available for every year.</p>
+</section>
+<section id="conclusions-this-section-will-be-completed-when-analysis-is-done" class="level2">
+<h2 class="anchored" data-anchor-id="conclusions-this-section-will-be-completed-when-analysis-is-done">Conclusions <em>this section will be completed when analysis is done</em></h2>
+</section>
+</section>
+<section id="references" class="level1">
+<h1>References</h1>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
