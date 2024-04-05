@@ -1,10 +1,10 @@
 Last updated: 2024-04-05
-# Overview
-<<<<<<< HEAD
+Overview
+
 These folders contain the files needed to reproduce the project outlined in the manuscript. 
-=======
+
 Most of the work associated with Part 3 is in the R/eda-code folder. it is still under development, as is the manuscript. 
->>>>>>> 0c6f8ede18c80a6e34a299f853dc67fe0367dbe0
+
 
 assets: Contains the figures and tables generated for the project.
 data: Contains the data used in the project. The raw-data folder contains the original data files. The processed-data folder contains the data files that have been cleaned and processed for analysis.
