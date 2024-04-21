@@ -1,0 +1,1104 @@
+---
+title: "statistical-analysis"
+author: "Andrew Ruiz"
+format: html
+editor: source
+---
+
+# Load the necessary libraries for the analysis
+
+```{r}
+library(here)
+library(dplyr)
+library(lubridate)
+library(readr)
+library(stargazer)
+library(mgcv)
+library(tidyr)
+library(caret)
+library(randomForest)
+library(tidymodels)
+library(ranger)
+library(dials)
+library(vip)
+library(ggplot2)
+library(boot)
+library(yardstick)
+library(glmnet) # For LASSO
+library(dials)
+library(mlr3)
+library(data.table)
+library(Matrix)
+library(gbm)
+```
+
+## First logistic model
+
+#### Effect of temperature and precipitation the week prior to mosquito collection on the likelihood of observing at least one positive mosquito test result in a week
+
+```{r}
+# Load the PCR data set which includes information on mosquito pools tested for viruses, 
+# results of those tests, and the date of collection.
+pcr <- read_csv(here("data", "processed-data", "pcr_data_expanded_filtered.csv"))
+
+# Load the weather data set which includes daily maximum temperatures (TMAX) and other weather variables.
+wx_selected <- read_csv(here("data", "processed-data", "wx_selected.csv"))
+
+# Aggregate the weather data by week to calculate the average maximum temperature for each week.
+# This simplifies the daily temperature data into a more manageable weekly summary,
+# making it easier to correlate with weekly mosquito test results.
+wx_selected <- wx_selected %>%
+  group_by(week_num) %>%
+  summarise(
+    Avg_TMAX = mean(TMAX, na.rm = TRUE),
+    Total_PRCP = sum(PRCP, na.rm = TRUE)
+  ) %>%
+  ungroup()
+
+# View the first few rows to confirm it worked
+head(wx_selected)
+
+
+# Create a lagged version of the average weekly maximum temperature to explore the potential delayed effect of temperature on mosquito test results.
+# The lag function shifts the temperature data by one week, assuming that the impact of temperature on virus transmission might not be immediate.
+weather_weekly <- wx_selected %>%
+  arrange(week_num) %>%
+  mutate(Lagged_Avg_TMAX = lag(Avg_TMAX, 1))
+
+weather_weekly <- wx_selected %>%
+  arrange(week_num) %>%
+  mutate(
+    Lagged_Avg_TMAX = lag(Avg_TMAX, 1),
+    Lagged_Total_PRCP = lag(Total_PRCP, 1)
+  )
+
+weather_weekly <- wx_selected %>%
+  arrange(week_num) %>%
+  mutate(
+    Lagged_Avg_TMAX = lag(Avg_TMAX, 1),
+    Lagged_Total_PRCP = lag(Total_PRCP, 1),
+    Binary_PRCP = if_else(Lagged_Total_PRCP > 0, 1, 0)
+  )
+# Aggregate the PCR data by week to determine if there was at least one positive result in each week.
+# This transformation reduces the detailed test results into a weekly summary,
+# indicating the presence or absence of positive tests each week.
+pcr_weekly <- pcr %>%
+  group_by(week_num) %>%
+  summarise(Positive_Result = max(as.integer(Is_Positive), na.rm = TRUE))
+
+# Merge the aggregated PCR data with the lagged weather data by matching their week numbers.
+# This combined data set enables the analysis of the relationship between weekly weather conditions and mosquito test results.
+combined_wx_pcr <- merge(pcr_weekly, weather_weekly, by = "week_num")
+
+# Fit a logistic regression model to examine the influence of lagged average weekly maximum temperature on the likelihood of observing at least one positive mosquito test result in a week.
+# The binomial family specifies that the dependent variable (Positive_Result) is binary,
+# making logistic regression an appropriate modeling choice for this binary outcome.
+logistic_model_temp <- glm(Positive_Result ~ Lagged_Avg_TMAX + Binary_PRCP, family = binomial, data = combined_wx_pcr)
+
+# Output the summary of the logistic regression model to review the estimated coefficients, their statistical significance, and the overall model fit.
+# This summary provides insights into the relationship between temperature and the probability of positive mosquito test results.
+summary(logistic_model_temp)
+
+# Output a LaTeX-formatted table to the console
+stargazer(logistic_model_temp, type = "text")
+
+par(mfrow = c(2, 2))
+plot(logistic_model_temp)
+
+```
+
+```{r}
+pcr <- read_csv(here("data", "processed-data", "pcr_data_expanded_filtered.csv"))
+wx_selected <- read_csv(here("data", "processed-data", "wx_selected.csv"))
+
+# Step 2: Calculate the average TMAX for April, May, and June separately
+avg_temp_by_month <- wx_selected %>%
+  filter(month(DATE) %in% c(4, 5, 6)) %>%
+  group_by(Year = year(DATE), Month = month(DATE)) %>%
+  summarise(Avg_TMAX = mean(TMAX, na.rm = TRUE), .groups = 'drop')
+
+# Pivot the average temperatures into separate columns for each month
+avg_temp_by_month_wide <- avg_temp_by_month %>%
+  pivot_wider(names_from = Month, values_from = Avg_TMAX, names_prefix = "Avg_TMAX_M") %>%
+  # Ensure all years are present even if some data might be missing
+  complete(Year, fill = list(Avg_TMAX_M4 = NA, Avg_TMAX_M5 = NA, Avg_TMAX_M6 = NA))
+
+# Step 4: Identify the first positive test date each year in mosquito_data
+first_positive_dates <- pcr %>%
+  filter(Result == "Positive") %>%
+  group_by(Year = year(`Collection Date`)) %>%
+  summarise(First_Positive_Date = min(`Collection Date`), .groups = 'drop')
+
+# Step 5: Merge the datasets on Year
+combined_data_firstpos <- left_join(first_positive_dates, avg_temp_by_month_wide, by = "Year")
+
+# Step 6: Convert First_Positive_Date to a numerical value (e.g., day of the year)
+combined_data_firstpos <- combined_data_firstpos %>%
+  mutate(First_Positive_DOY = yday(First_Positive_Date))
+
+# Explore the relationship via linear regression with Avg_TMAX_M4, Avg_TMAX_M5, Avg_TMAX_M6 as predictors
+model2 <- lm(First_Positive_DOY ~ Avg_TMAX_M4 + Avg_TMAX_M5 + Avg_TMAX_M6, data = combined_data_firstpos)
+summary(model2)
+
+par(mfrow = c(2, 2))
+plot(model2)
+
+```
+
+# Does the total precipitation in April, May, and June influence the date of the first positive test?
+
+```{r}
+wx_selected <- read_csv(here("data", "processed-data", "wx_selected.csv"))
+
+# Calculate average TMAX and total PRCP for April, May, and June separately
+avg_temp_and_prcp <- wx_selected %>%
+  filter(month(DATE) %in% c(4, 5, 6)) %>%
+  group_by(Year = year(DATE), Month = month(DATE)) %>%
+  summarise(
+    Avg_TMAX = mean(TMAX, na.rm = TRUE),
+    Total_PRCP = sum(PRCP, na.rm = TRUE),
+    .groups = 'drop'
+  )
+
+# Continue from the summarise step
+wide_data <- avg_temp_and_prcp %>%
+  # Convert to a long format to distinguish between Avg_TMAX and Total_PRCP
+  pivot_longer(cols = c(Avg_TMAX, Total_PRCP), names_to = "Measure", values_to = "Value") %>%
+  # Create a combined name for later pivot_wider
+  unite("NewName", Measure, Month, sep = "_M") %>%
+  # Pivot wider with a single names_prefix
+  pivot_wider(names_from = NewName, values_from = Value) %>%
+  complete(Year, fill = list(Avg_TMAX_M4 = NA, Avg_TMAX_M5 = NA, Avg_TMAX_M6 = NA, Total_PRCP_M4 = NA, Total_PRCP_M5 = NA, Total_PRCP_M6 = NA))
+
+# Load and prepare mosquito data
+first_positive_dates <- pcr_data_expanded_filtered %>%
+  filter(Result == "Positive") %>%
+  group_by(Year = year(`Collection Date`)) %>%
+  summarise(First_Positive_Date = min(`Collection Date`), .groups = 'drop')
+
+# Merge the datasets on Year
+combined_data <- left_join(first_positive_dates, wide_data, by = "Year")
+
+# Convert First_Positive_Date to a numerical value (e.g., day of the year)
+combined_data <- combined_data %>%
+  mutate(First_Positive_DOY = yday(First_Positive_Date))
+
+# Explore the relationship via linear regression
+model <- lm(First_Positive_DOY ~ Total_PRCP_M4 + Total_PRCP_M5 + Total_PRCP_M6, data = combined_data)
+summary(model)
+
+```
+
+## Two-stage modeling approach using Generalized Additive Models (GAMs) to understand the factors influencing Mosquito Infection Rate (MIR).
+
+### First stage: zero inflation model
+
+#### This model predicts whether MIR is greater than zero using smoothed functions of several predictors, such as the Drought Severity Composite Index for the area (DSCI_ma), average mosquito larvae counts (Average_MEL), and the average current hourly wind speed (Avg_HourlyWindSpeed_current).
+
+##### *The package required for this is mgcv*
+
+```{r}
+# load the dataset with a unique dataframe name
+mir_2part <- read_csv(here("data", "processed-data", "joined_data_mir_co2.csv"))
+
+#define the model
+zero_gam_model <- gam(I(MIR > 0) ~ s(DSCI_ma) + s(Average_MEL) + s(Avg_HourlyWindSpeed_current),
+                      family = binomial(link = "logit"), 
+                      data = mir_2part)
+
+summary(zero_gam_model)
+plot(zero_gam_model)
+
+# Define the null model with only an intercept
+null_gam_model <- gam(I(MIR > 0) ~ 1,
+                      family = binomial(link = "logit"), 
+                      data = mir_2part)
+
+summary(null_gam_model)
+
+# Calculate the AIC for the null model
+aic_null_gam_model <- AIC(null_gam_model)
+aic_null_gam_model
+
+
+
+aic_zero_gam_model <- AIC(zero_gam_model)
+aic_zero_gam_model
+
+# # load the dataset with a unique dataframe name
+# mir_2part_all <- read_csv(here("data", "processed-data", "all_mir_clean_joined.csv"))
+
+#define the model
+zero_gam_model <- gam(I(MIR > 0) ~ s(DSCI_ma) + s(Average_MEL) + s(Avg_HourlyWindSpeed_current),
+                      family = binomial(link = "logit"), 
+                      data = mir_2part)
+
+summary(zero_gam_model)
+plot(zero_gam_model)
+
+# Define the null model with only an intercept
+null_gam_model <- gam(I(MIR > 0) ~ 1,
+                      family = binomial(link = "logit"), 
+                      data = mir_2part)
+
+summary(null_gam_model)
+
+# Calculate the AIC for the null model
+aic_null_gam_model <- AIC(null_gam_model)
+aic_null_gam_model
+
+
+
+aic_zero_gam_model <- AIC(zero_gam_model)
+aic_zero_gam_model
+```
+
+```{r}
+
+# Response variable
+response_var <- "MIR"
+
+# Specified predictors for modeling
+specified_predictors <- c("Avg_TMAX", "Total_PRCP", "Hrs_Above_80_lag", "Hrs_Above_75_lag",
+                          "Hrs_Below_50_lag", "Hrs_Between_50_86_lag", "Avg_HourlyDryBulbTemp_lag",
+                          "Avg_HourlyWetBulbTemp_lag", "Hrs_Below_50_current", "DSCI_fema",
+                          "Avg_HourlyRelativeHumidity_current", "Avg_HourlyWetBulbTemperature_current", 
+                          "Avg_HourlyWindSpeed_current", "None.x", "DSCI_fema", "average_daylight_hours", "Average_MEL", "MEL_Prop")
+
+# Initiate lists to store models and summaries
+gam_models_zero <- list()
+gam_models_positive <- list()
+summary_models_zero <- list()
+summary_models_positive <- list()
+
+# Loop through each specified predictor
+for (predictor in specified_predictors) {
+  # Check if predictor exists in the dataset
+  if (!predictor %in% names(mir_2part)) {
+    cat("Skipping", predictor, "because it is not in the dataset.\n")
+    next
+  }
+
+  # Zero-inflation part
+  formula_zero <- as.formula(paste0("I(", response_var, " > 0) ~ s(", predictor, ")"))
+  zero_model <- gam(formula_zero, data = mir_2part, family = binomial(link = "logit"))
+  gam_models_zero[[predictor]] <- zero_model
+  summary_models_zero[[predictor]] <- summary(zero_model)
+
+  cat("Zero-inflation model for", predictor, "\n")
+
+  # Positive counts part
+  if (any(mir_2part[[response_var]] > 0)) {
+    positive_data <- mir_2part[mir_2part[[response_var]] > 0, ]
+    formula_positive <- as.formula(paste0(response_var, " ~ s(", predictor, ")"))
+    positive_model <- gam(formula_positive, data = positive_data, family = gaussian())
+    gam_models_positive[[predictor]] <- positive_model
+    summary_models_positive[[predictor]] <- summary(positive_model)
+
+    cat("Positive model for", predictor, "\n")
+  }
+  
+  # print or plot the summaries here...
+  print(summary(zero_model))
+  print(summary(positive_model))
+  plot(zero_model)
+  plot(positive_model)
+}
+
+
+### ALL MIR###
+# Response variable
+response_var <- "MIR"
+
+# Specified predictors for modeling
+specified_predictors <- c("Avg_TMAX", "Total_PRCP", "Hrs_Above_80_lag", "Hrs_Above_75_lag",
+                          "Hrs_Below_50_lag", "Hrs_Between_50_86_lag", "Avg_HourlyDryBulbTemp_lag",
+                          "Avg_HourlyWetBulbTemp_lag", "Hrs_Below_50_current", "DSCI_fema",
+                          "Avg_HourlyRelativeHumidity_current", "Avg_HourlyWetBulbTemperature_current", 
+                          "Avg_HourlyWindSpeed_current", "None.x", "DSCI_fema", "average_daylight_hours", "Average_MEL", "MEL_Prop")
+
+# Initiate lists to store models and summaries
+gam_models_zero <- list()
+gam_models_positive <- list()
+summary_models_zero <- list()
+summary_models_positive <- list()
+
+# Loop through each specified predictor
+for (predictor in specified_predictors) {
+  # Check if predictor exists in the dataset
+  if (!predictor %in% names(mir_2part_all)) {
+    cat("Skipping", predictor, "because it is not in the dataset.\n")
+    next
+  }
+
+  # Zero-inflation part
+  formula_zero <- as.formula(paste0("I(", response_var, " > 0) ~ s(", predictor, ")"))
+  zero_model <- gam(formula_zero, data = mir_2part_all, family = binomial(link = "logit"))
+  gam_models_zero[[predictor]] <- zero_model
+  summary_models_zero[[predictor]] <- summary(zero_model)
+
+  cat("Zero-inflation model for", predictor, "\n")
+
+  # Positive counts part
+  if (any(mir_2part_all[[response_var]] > 0)) {
+    positive_data <- mir_2part_all[mir_2part_all[[response_var]] > 0, ]
+    formula_positive <- as.formula(paste0(response_var, " ~ s(", predictor, ")"))
+    positive_model <- gam(formula_positive, data = positive_data, family = gaussian())
+    gam_models_positive[[predictor]] <- positive_model
+    summary_models_positive[[predictor]] <- summary(positive_model)
+
+    cat("Positive model for", predictor, "\n")
+  }
+  
+  # print or plot the summaries here...
+  print(summary(zero_model))
+  print(summary(positive_model))
+  plot(zero_model)
+  plot(positive_model)
+}
+```
+
+#### Based on the results above, the following have been identified as potential predictors of MIR:
+
+##### This shows the model and the p-value
+###### MIR ~ s(Hrs_Above_80_lag) 0.0398
+###### MIR ~ s(Hrs_Above_75_lag) 0.0213
+###### MIR ~ s(Hrs_Below_50_lag) 0.00489
+###### MIR ~ s(Avg_HourlyDryBulbTemp_lag) 0.0301
+###### MIR ~ s(Avg_HourlyWetBulbTemp_lag) 0.00928
+###### MIR ~ s(Hrs_Below_50_current) 0.000593
+###### MIR ~ s(Avg_HourlyWetBulbTemperature_current) 0.028
+###### MIR ~ s(Avg_HourlyWindSpeed_current) 0.0369
+###### MIR ~ s(MEL_Prop) 0.00867
+
+
+###### I(MIR > 0) ~ s(Avg_HourlyWindSpeed_current) 0.00483
+###### I(MIR > 0) ~ s(None.x) 0.000935
+###### I(MIR > 0) ~ s(average_daylight_hours) 1.15e-06
+######I(MIR > 0) ~ s(Average_MEL) 4.75e-05
+######I(MIR > 0) ~ s(MEL_Prop) 5.11e-05
+###### I(MIR > 0) ~ s(DSCI_ma) 0.0174
+
+### There is some concern that dividing the data into two parts (observations >0 for part 2) may reduce the power of the analysis.
+
+### Now use a GAM with all records, where MIR >= 0
+```{r}
+# Response variable
+response_var <- "MIR"
+
+# Specified predictors for modeling
+specified_predictors <- c("Avg_TMAX", "Total_PRCP", "Hrs_Above_80_lag", "Hrs_Above_75_lag",
+                          "Hrs_Below_50_lag", "Hrs_Between_50_86_lag", "Avg_HourlyDryBulbTemp_lag",
+                          "Avg_HourlyWetBulbTemp_lag", "Hrs_Below_50_current", "DSCI_fema",
+                          "Avg_HourlyRelativeHumidity_current", "Avg_HourlyWetBulbTemperature_current", 
+                          "Avg_HourlyWindSpeed_current", "None.x", "None.y",  "DSCI_ma", "average_daylight_hours", 
+                          "Average_MEL", "MEL_Prop")
+
+# Initiate lists to store models and summaries
+gam_models <- list()
+summary_models <- list()
+
+# Loop through each specified predictor
+for (predictor in specified_predictors) {
+  # Check if predictor exists in the dataset
+  if (!predictor %in% names(mir_2part_all)) {
+    cat("Skipping", predictor, "because it is not in the dataset.\n")
+    next
+  }
+
+  # Model with all records
+  formula <- as.formula(paste0(response_var, " ~ s(", predictor, ")"))
+  model <- gam(formula, data = mir_2part_all, family = gaussian())
+  gam_models[[predictor]] <- model
+  summary_models[[predictor]] <- summary(model)
+
+  cat("Model for", predictor, "\n")
+  
+  # Print or plot the summaries here...
+  print(summary(model))
+  plot(model)
+}
+```
+
+### The all records model shows the following predictors as significant:
+#### MIR ~ s(Hrs_Below_50_lag) 0.0105
+#### MIR ~ s(Hrs_Below_50_current) 0.00333
+#### MIR ~ s(DSCI_fema) 0.0214
+#### MIR ~ s(Avg_HourlyRelativeHumidity_current) 0.00936
+#### MIR ~ s(Avg_HourlyWindSpeed_current) 0.00366
+#### MIR ~ s(average_daylight_hours) <2e-16
+#### MIR ~ s(Average_MEL) 0.0258
+#### MIR ~ s(MEL_Prop) <2e-16
+## Give the concern with splitting the data further, we will continue with the all records model.
+
+### Now that we have a better idea of the relationships and potential significance.
+#### We will have another look at the correlation matrix for the predictors.
+
+```{r}
+library(reshape2) # or library(data.table)
+library(plotly)
+
+# Assuming continuous_vars is a dataframe with just the continuous variables you want to correlate
+# Create a correlation matrix
+cor_matrix <- cor(mir_2part %>% 
+                    select(Hrs_Above_80_lag, Hrs_Above_75_lag, Hrs_Below_50_lag, 
+                           Avg_HourlyDryBulbTemp_lag, Avg_HourlyWetBulbTemp_lag, 
+                           Hrs_Below_50_current, Avg_HourlyWetBulbTemperature_current, 
+                           Avg_HourlyWindSpeed_current, None.x, average_daylight_hours, 
+                           Average_MEL, MEL_Prop, DSCI_ma),
+                  use = "complete.obs")  # 'use' parameter handles missing values
+
+# Melt the correlation matrix into a long format
+cor_data <- melt(cor_matrix, na.rm = TRUE)
+
+# Ensure cor_data has the expected column names after melting
+if (!all(c("Var1", "Var2") %in% names(cor_data))) {
+  stop("Var1 and Var2 not found in melted data. Check the melting process.")
+}
+
+# Create the interactive heatmap using plotly
+heatmap_plot <- plot_ly(
+  data = cor_data,
+  x = ~Var1,
+  y = ~Var2,
+  z = ~value,
+  type = 'heatmap',
+  colorscale = 'Portland'
+) %>%
+  layout(
+    title = 'Correlation Matrix',
+    xaxis = list(title = 'Variable 1', tickangle = 45),
+    yaxis = list(title = 'Variable 2', autorange = "reversed")
+  )
+
+# If you're running this in an interactive R session, this will display the plot
+heatmap_plot
+```
+#### While correlation between predictors is a concern for the GAM model, it is not as much of a concern for the random forest. 
+#### I will create a new variable that represents the difference between the average dry bulb temperature and the average wet bulb temperature.
+```{r}
+# Create a new dataframe by copying mir_2part
+mir_2part_updated <- mir_2part
+
+# Add the new variable to the new dataframe
+mir_2part_updated$Dry_Wet_Diff <- mir_2part_updated$Avg_HourlyDryBulbTemp_lag - mir_2part_updated$Avg_HourlyWetBulbTemp_lag
+
+# Now, mir_2part remains unchanged, and mir_2part_updated includes the new variable.
+```
+
+
+## 1 part GAM
+```{r}
+# Load necessary libraries
+library(tidymodels)
+library(dplyr)
+library(mgcv) # For GAM
+library(readr) # For read_csv
+
+# Read the dataset
+mir_1part_all <- read_csv(here("data", "processed-data", "all_mir_clean_joined.csv"))
+
+# Define predictors for the continuous outcome
+predictors_part2 <- c("Hrs_Below_50_lag", 
+                      "Hrs_Below_50_current", "Avg_HourlyWetBulbTemperature_current", 
+                      "Avg_HourlyWindSpeed_current", "MEL_Prop", "average_daylight_hours", "Average_MEL")
+
+# Prepare the dataset for continuous outcome
+mir_1part_all_continuous <- mir_1part_all %>%
+  select(MIR, all_of(predictors_part2)) %>%
+  na.omit()
+
+# Split the data
+set.seed(123)
+data_split <- initial_split(mir_1part_all_continuous, prop = 0.75)
+train_data_continuous <- training(data_split)
+test_data_gam1 <- testing(data_split)
+
+# Calculate the mean of the response variable for the entire dataset
+mean_response <- mean(mir_1part_all_continuous$MIR)
+
+# Create predictions using the mean response for the entire dataset
+null_predictions <- rep(mean_response, nrow(mir_1part_all_continuous))
+
+# Calculate RMSE for the null model
+null_rmse <- sqrt(mean((null_predictions - mir_1part_all_continuous$MIR)^2))
+cat("Null Model RMSE (Entire Dataset):", null_rmse, "\n")
+
+# Training for Continuous Outcome
+formula_gam1 <- as.formula(paste("MIR ~", paste("s(", predictors_part2, ")", collapse = " + ")))
+model_gam1 <- gam(formula_gam1, data = train_data_continuous, family = gaussian())
+
+# Evaluate on Training Set (Continuous)
+predictions_train_gam1 <- predict(model_gam1, newdata = train_data_continuous)
+rmse_train_gam1 <- sqrt(mean((predictions_train_gam1 - train_data_continuous$MIR)^2))
+cat("Training Set RMSE (Continuous Outcome):", rmse_train_gam1, "\n")
+
+# Evaluate on Test Set (Continuous Outcome)
+predictions_test_gam1 <- predict(model_gam1, newdata = test_data_gam1)
+rmse_test_gam1 <- sqrt(mean((predictions_test_gam1 - test_data_gam1$MIR)^2))
+cat("Test Set RMSE (Continuous Outcome):", rmse_test_gam1, "\n")
+
+# Visualize model effects for insights
+plot(model_gam1)
+
+### Boot strapping
+# Define the bootstrapping statistic function
+boot_statistic <- function(data, indices) {
+  # Extract the bootstrap sample
+  boot_sample <- data[indices, ]
+  
+  # Fit the GAM model on the bootstrap sample
+  gam_boot <- gam(formula_gam1, data = boot_sample, family = gaussian())
+  
+  # Predict on the out-of-bag (OOB) data
+  oob_data <- data[-indices, ]
+  predictions_oob <- predict(gam_boot, newdata = oob_data)
+  
+  # Calculate RMSE on the OOB predictions
+  sqrt(mean((predictions_oob - oob_data$MIR)^2))
+}
+
+# Perform bootstrapping
+set.seed(123)  # Ensure reproducibility
+bootstrap_results <- boot(
+  data = train_data_continuous,
+  statistic = boot_statistic,
+  R = 1000  # For example, perform 1000 bootstrap replicates
+)
+
+# Extract the bootstrapped RMSE and calculate the mean and standard deviation
+bootstrapped_rmse <- bootstrap_results$t
+mean_bootstrapped_rmse <- mean(bootstrapped_rmse)
+sd_bootstrapped_rmse <- sd(bootstrapped_rmse)
+
+# Display bootstrapped RMSE results
+cat("Bootstrapped RMSE: Mean=", mean_bootstrapped_rmse, ", SD=", sd_bootstrapped_rmse, "\n")
+
+# # Calculate confidence intervals for the bootstrapped RMSE
+# boot_ci <- boot.ci(bootstrap_results, type = "basic")
+# cat("95% CI for RMSE: Lower =", boot_ci$basic[4], ", Upper =", boot_ci$basic[5], "\n")
+
+# Calculate percentile confidence intervals for the bootstrapped RMSE
+boot_ci_percentile <- boot.ci(bootstrap_results, type = "perc")
+
+# Display the percentile confidence intervals for the bootstrapped RMSE
+cat("95% CI for RMSE (Percentile): Lower =", boot_ci_percentile$percent[4], ", Upper =", boot_ci_percentile$percent[5], "\n")
+```
+
+
+### Residual plots for continuous outcome:
+```{r}
+# Step 1: Calculate residuals
+train_residuals <- residuals(model_gam1, type = "response")
+
+# Step 2: Create residual plot
+plot(predictions_train_gam1, train_residuals,
+     xlab = "Predicted Values",
+     ylab = "Residuals",
+     main = "Residual Plot (Training Set)")
+
+# Step 3: Create predicted vs. actual plot for training set
+plot(predictions_train_gam1, train_data_continuous$MIR,
+     xlab = "Predicted Values",
+     ylab = "Actual Values",
+     main = "Predicted vs. Actual Plot (Training Set)")
+
+plot(predictions_test_gam1, test_data_gam1$MIR,
+     xlab = "Predicted Values",
+     ylab = "Actual Values",
+     main = "Predicted vs. Actual Plot (Test Set)")
+
+```
+
+
+## 1 Part Random Forest
+```{r}
+# Load the dataset
+mir_1part_all <- read_csv(here("data", "processed-data", "all_mir_clean_joined.csv"))
+
+# Define predictors for the continuous outcome
+predictors <- c("Hrs_Below_50_lag", "Hrs_Below_50_current", 
+                "Avg_HourlyWetBulbTemperature_current", "Avg_HourlyWindSpeed_current", 
+                "MEL_Prop", "average_daylight_hours", "Average_MEL")
+
+# Prepare the dataset for continuous outcome
+train_data_continuous <- mir_1part_all %>%
+  select(MIR, all_of(predictors)) %>%
+  na.omit()
+
+# Split the data
+set.seed(123)
+data_split <- initial_split(train_data_continuous, prop = 0.75)
+train_data_continuous <- training(data_split)
+test_data_continuous <- testing(data_split)
+
+# Define the tuning grid
+tuning_grid <- grid_regular(
+  mtry(range = c(1, length(predictors))),
+  min_n(range = c(5, 25)), # Adjusted based on preliminary insights
+  levels = 10 # Increased resolution
+)
+
+# tuning_grid <- grid_regular(
+#   mtry(range = c(1, length(predictors))),
+#   min_n(range = c(1, 21)),
+#   levels = 7
+# )
+
+
+# Define cross-validation folds
+cv_folds_continuous <- vfold_cv(train_data_continuous, v = 5)
+
+# Define the Random Forest model specification
+rf_model_spec_continuous <- rand_forest(trees = 500, mtry = tune(), min_n = tune()) %>%
+  set_engine("ranger", importance = "impurity", seed = 123) %>%
+  set_mode("regression")
+
+# Create the recipe
+rf_recipe_continuous <- recipe(MIR ~ ., data = train_data_continuous)
+
+# Workflow setup
+rf_workflow_continuous <- workflow() %>%
+  add_recipe(rf_recipe_continuous) %>%
+  add_model(rf_model_spec_continuous)
+
+# Tune the model
+tuning_results_continuous <- tune_grid(
+  rf_workflow_continuous,
+  resamples = cv_folds_continuous,
+  grid = tuning_grid,
+  metrics = metric_set(yardstick::rmse)
+)
+
+# Extract the best hyperparameters
+best_hps_continuous <- select_best(tuning_results_continuous, metric = "rmse")
+
+# Fit the final model with the best hyperparameters on the full training dataset
+final_fit_continuous <- fit(
+  rf_workflow_continuous %>% finalize_workflow(best_hps_continuous),
+  data = train_data_continuous
+)
+
+### Calculate RMSE for the training and testing sets
+
+# Predict on the training and testing set
+train_preds <- predict(final_fit_continuous, new_data = train_data_continuous)$.pred
+test_preds <- predict(final_fit_continuous, new_data = test_data_continuous)$.pred
+
+# You need to create tibbles that combine the actual values with the predictions
+train_results <- tibble(
+  truth = train_data_continuous$MIR,
+  estimate = train_preds
+)
+
+test_results <- tibble(
+  truth = test_data_continuous$MIR,
+  estimate = test_preds
+)
+
+# Now, you can correctly calculate RMSE for both the training and testing sets
+train_rmse_result_rf <- rmse(train_results, truth = truth, estimate = estimate)
+test_rmse_result_rf <- rmse(test_results, truth = truth, estimate = estimate)
+
+# Display the RMSE results
+cat("Training Set RMSE:", train_rmse_result_rf$.estimate, "\n")
+cat("Testing Set RMSE:", test_rmse_result_rf$.estimate, "\n")
+
+# Continue with bootstrapping to evaluate model's robustness
+set.seed(123) # for reproducibility
+bootstrap_results <- boot(
+  data = train_data_continuous,
+  statistic = boot_fit_and_evaluate,
+  R = 100 # number of bootstrap resamples
+)
+
+# Calculate the bootstrapped RMSE
+mean_rmse_boot_rf <- mean(bootstrap_results$t)
+sd_rmse_boot_rf <- sd(bootstrap_results$t)
+ci_rmse_boot_rf <- boot.ci(bootstrap_results, type = "perc")  # Percentile interval
+
+# Extracting the correct CI values for percentile CI
+lower_bound <- ci_rmse_boot_rf$percent[4]
+upper_bound <- ci_rmse_boot_rf$percent[5]
+
+
+# Output the bootstrapping results
+cat("Bootstrapped RMSE: Mean=", mean_rmse_boot_rf, ", SD=", sd_rmse_boot_rf, "\n")
+cat("95% CI for RMSE (Percentile): ", lower_bound, "-", upper_bound, "\n")
+
+autoplot(tuning_results_continuous)
+```
+### The random forest model has evidence of overfitting as the RMSE on the test set is higher than the training set. 
+
+## LASSO is not appropriate for non-linear relationships.
+
+### The LASSO model suggests overfitting as well. The RMSE on the test set is higher than the training set.
+### We will try modifying the tuning. 
+```{r}
+library(tidymodels)
+library(readr) # For read_csv
+library(yardstick) # For metrics
+
+# Load the dataset
+mir_1part_all <- read_csv(here("data", "processed-data", "all_mir_clean_joined.csv"))
+
+# Define predictors for the continuous outcome
+predictors <- c("Hrs_Below_50_lag", "Hrs_Below_50_current", 
+                "Avg_HourlyWetBulbTemperature_current", "Avg_HourlyWindSpeed_current", 
+                "MEL_Prop", "average_daylight_hours", "Average_MEL")
+
+# Prepare the dataset for continuous outcome
+train_data_continuous <- mir_1part_all %>%
+  select(MIR, all_of(predictors)) %>%
+  na.omit()
+
+# Split the data
+set.seed(123)
+data_split <- initial_split(train_data_continuous, prop = 0.75)
+train_data_continuous <- training(data_split)
+test_data_continuous <- testing(data_split)
+
+# Define a more refined tuning grid for LASSO with a wider range of penalty values
+tuning_grid_lasso <- expand.grid(
+  penalty = 10^seq(-10, 1, length.out = 50)  # Increase the range and resolution of the penalty parameter
+)
+
+# Increase the number of cross-validation folds for a more robust evaluation
+cv_folds_continuous <- vfold_cv(train_data_continuous, v = 10)
+
+# Define the LASSO model specification
+lasso_model_spec <- linear_reg(penalty = tune(), mixture = 1) %>%
+  set_engine("glmnet") %>%
+  set_mode("regression")
+
+# Create the recipe
+#lasso_recipe <- recipe(MIR ~ ., data = train_data_continuous)
+lasso_recipe <- recipe(MIR ~ ., data = train_data_continuous) %>%
+  update_role(all_of(predictors), new_role = "predictor") %>%
+  step_poly(all_of(predictors), degree = 2)
+
+# Workflow setup
+lasso_workflow <- workflow() %>%
+  add_recipe(lasso_recipe) %>%
+  add_model(lasso_model_spec)
+
+# Tune the model using the refined tuning grid and increased folds
+tuning_results_lasso <- tune_grid(
+  lasso_workflow,
+  resamples = cv_folds_continuous,
+  grid = tuning_grid_lasso,
+  metrics = metric_set(yardstick::rmse)
+)
+
+# Extract the best hyperparameters
+best_hps_lasso <- select_best(tuning_results_lasso, metric = "rmse")
+
+# Fit the final model with the best hyperparameters on the full training dataset
+final_fit_lasso <- fit(
+  lasso_workflow %>% finalize_workflow(best_hps_lasso),
+  data = train_data_continuous
+)
+
+# Predict on the training and testing set using the final LASSO model
+train_preds_lasso <- predict(final_fit_lasso, new_data = train_data_continuous)$.pred
+test_preds_lasso <- predict(final_fit_lasso, new_data = test_data_continuous)$.pred
+
+# Calculate RMSE for the training and testing sets using the predictions
+train_rmse_result_lasso <- yardstick::rmse(data.frame(truth = train_data_continuous$MIR, estimate = train_preds_lasso), truth = truth, estimate = estimate)
+test_rmse_result_lasso <- yardstick::rmse(data.frame(truth = test_data_continuous$MIR, estimate = test_preds_lasso), truth = truth, estimate = estimate)
+
+# Display the RMSE results
+cat("Training Set RMSE (LASSO):", train_rmse_result_lasso$.estimate, "\n")
+cat("Testing Set RMSE (LASSO):", test_rmse_result_lasso$.estimate, "\n")
+
+# Visualize the tuning results
+autoplot(tuning_results_lasso)
+
+
+```
+### There still seems to be overfitting. The RMSE on the test set is higher than the training set.
+### We will try a different model
+
+# Generalized Additive Models (GAMs) with sparsity
+### GAMs are flexible models that can capture non-linear relationships between predictors and the outcome.
+### Acts similar to LASSO adding a penalty similar to LASSO to enforce sparsity and variable selection
+```{r}
+library(tidymodels)
+library(mgcv)
+library(readr) # For read_csv
+
+# Load the dataset
+mir_1part_all <- read_csv(here("data", "processed-data", "all_mir_clean_joined.csv"))
+
+# Prepare the dataset for continuous outcome
+train_data_continuous <- mir_1part_all %>%
+  select(MIR, Hrs_Below_50_lag, Hrs_Below_50_current, Avg_HourlyWetBulbTemperature_current, 
+         Avg_HourlyWindSpeed_current, MEL_Prop, average_daylight_hours, Average_MEL) %>%
+  na.omit()
+
+# Split the data
+set.seed(123)
+data_split <- initial_split(train_data_continuous, prop = 0.75)
+train_data_continuous <- training(data_split)
+test_data_continuous <- testing(data_split)
+
+# Define cross-validation folds
+cv_folds_continuous <- vfold_cv(train_data_continuous, v = 5)
+
+# Placeholder for storing CV results
+cv_results <- vector("list", length(cv_folds_continuous$splits))
+
+# Loop through CV folds
+for (i in seq_along(cv_folds_continuous$splits)) {
+  split <- cv_folds_continuous$splits[[i]]
+  
+  # Extract training and validation data for this fold
+  train_split <- training(split)
+  valid_split <- testing(split)
+  
+  # Fit a GAM with sparsity
+  gam_model <- gam(MIR ~ s(Hrs_Below_50_lag) + s(Hrs_Below_50_current) + 
+                     s(Avg_HourlyWetBulbTemperature_current) + s(Avg_HourlyWindSpeed_current) + 
+                     s(MEL_Prop) + s(average_daylight_hours) + s(Average_MEL),
+                   data = train_split, method = "REML", select = TRUE)
+  
+  # Make predictions on the validation set
+  preds <- predict(gam_model, newdata = valid_split, type = "response")
+  
+  # Create a tibble that includes both the actual values and predictions
+  results_tibble <- tibble(
+    truth = valid_split$MIR,
+    estimate = preds
+  )
+  
+  # Calculate RMSE for this fold using the results tibble
+  cv_results[[i]] <- rmse(results_tibble, truth = truth, estimate = estimate)
+}
+
+# First, verify the structure of the first element to ensure we understand it correctly
+print(cv_results[[1]])
+
+# If cv_results[[1]] is indeed a tibble with an .estimate column, proceed with the following:
+avg_rmse_GAMS <- mean(sapply(cv_results, function(x) x$.estimate))
+
+# Display the average RMSE
+cat("Average CV RMSE:", avg_rmse_GAMS, "\n")
+
+# Fit the final GAM model on the full training data
+final_gam_model <- gam(MIR ~ s(Hrs_Below_50_lag) + s(Hrs_Below_50_current) + 
+                         s(Avg_HourlyWetBulbTemperature_current) + s(Avg_HourlyWindSpeed_current) + 
+                         s(MEL_Prop) + s(average_daylight_hours) + s(Average_MEL),
+                       data = train_data_continuous, method = "REML", select = TRUE)
+
+# Create predictions for the training set using the final GAM model
+train_preds <- predict(final_gam_model, newdata = train_data_continuous, type = "response")
+
+# Create a tibble that includes both the actual values and predictions for the training set
+train_results <- tibble(
+  truth = train_data_continuous$MIR,  # Actual values
+  estimate = train_preds  # Predicted values
+)
+
+# Calculate RMSE for the training set
+train_rmse_result_GAMS <- rmse(train_results, truth = truth, estimate = estimate)
+  
+# Make predictions for the test set using the final GAM model
+test_preds <- predict(final_gam_model, newdata = test_data_continuous, type = "response")
+
+# Create a tibble that includes both the actual values and predictions for the test set
+test_results <- tibble(
+  truth = test_data_continuous$MIR,  # Actual values
+  estimate = test_preds  # Predicted values
+)
+
+# Calculate RMSE for the test set
+test_rmse_result_GAMS <- rmse(test_results, truth = truth, estimate = estimate)
+
+# Display the RMSE for the training set
+cat("Training Set RMSE:", train_rmse_result_GAMS$.estimate, "\n")
+# Display the RMSE for the test set
+cat("Test Set RMSE:", test_rmse_result_GAMS$.estimate, "\n")
+
+# Calculate AIC for the final GAM model
+aic_value <- AIC(final_gam_model)
+
+# Display the AIC value
+cat("AIC for the final GAM model:", aic_value, "\n")
+
+```
+# Gradient Boosting Machine (GBM)
+```{r}
+
+library(tidymodels)
+library(dplyr)
+library(yardstick)
+library(ranger) # For Random Forest
+library(boot) # For bootstrapping
+
+# Load the dataset
+mir_1part_all <- read_csv(here("data", "processed-data", "all_mir_clean_joined.csv"))
+
+# Define predictors for the continuous outcome
+predictors <- c("Hrs_Below_50_lag", "Hrs_Below_50_current", 
+                "Avg_HourlyWetBulbTemperature_current", "Avg_HourlyWindSpeed_current", 
+                "MEL_Prop", "average_daylight_hours", "Average_MEL")
+
+# Prepare the dataset for continuous outcome
+train_data_continuous <- mir_1part_all %>%
+  select(MIR, all_of(predictors)) %>%
+  na.omit()
+
+# Split the data
+set.seed(123)
+data_split <- initial_split(train_data_continuous, prop = 0.75)
+train_data_continuous <- training(data_split)
+test_data_continuous <- testing(data_split)
+
+# Define the tuning grid
+tuning_grid <- grid_regular(
+  trees(range = c(50, 500)), # Adjusted for GBM
+  tree_depth(range = c(1, 5)), # Shallow trees
+  learn_rate(range = c(0.01, 0.1)), # Learning rate for gradient descent
+  min_n(range = c(5, 25)), # Adjusted based on preliminary insights
+  levels = 10 # Increased resolution
+)
+
+# Define cross-validation folds
+cv_folds_continuous <- vfold_cv(train_data_continuous, v = 5)
+
+# Define the GBM model specification
+gbm_model_spec_continuous <- boost_tree(trees = tune(), tree_depth = tune(), learn_rate = tune(), min_n = tune()) %>%
+  set_engine("xgboost", objective = "reg:squarederror", nthread = parallel::detectCores()) %>%
+  set_mode("regression")
+
+# Create the recipe
+gbm_recipe_continuous <- recipe(MIR ~ ., data = train_data_continuous)
+
+# Workflow setup
+gbm_workflow_continuous <- workflow() %>%
+  add_recipe(gbm_recipe_continuous) %>%
+  add_model(gbm_model_spec_continuous)
+
+# Tune the model
+tuning_results_continuous <- tune_grid(
+  gbm_workflow_continuous,
+  resamples = cv_folds_continuous,
+  grid = tuning_grid,
+  metrics = metric_set(yardstick::rmse)
+)
+
+# Extract the best hyperparameters
+best_hps_continuous <- select_best(tuning_results_continuous, metric = "rmse")
+
+# Fit the final model with the best hyperparameters on the full training dataset
+final_fit_continuous <- fit(
+  gbm_workflow_continuous %>% finalize_workflow(best_hps_continuous),
+  data = train_data_continuous
+)
+
+### Calculate RMSE for the training and testing sets
+
+# Predict on the training and testing set
+train_preds <- predict(final_fit_continuous, new_data = train_data_continuous)$.pred
+test_preds <- predict(final_fit_continuous, new_data = test_data_continuous)$.pred
+
+# You need to create tibbles that combine the actual values with the predictions
+train_results <- tibble(
+  truth = train_data_continuous$MIR,
+  estimate = train_preds
+)
+
+test_results <- tibble(
+  truth = test_data_continuous$MIR,
+  estimate = test_preds
+)
+
+# Now, you can correctly calculate RMSE for both the training and testing sets
+train_rmse_result_gbm <- rmse(train_results, truth = truth, estimate = estimate)
+test_rmse_result_gbm <- rmse(test_results, truth = truth, estimate = estimate)
+
+# Display the RMSE results
+cat("Training Set RMSE:", train_rmse_result_gbm$.estimate, "\n")
+cat("Testing Set RMSE:", test_rmse_result_gbm$.estimate, "\n")
+
+# Define a function to fit the model and calculate RMSE
+boot_fit_and_evaluate <- function(data, indices) {
+  # Extract the bootstrap sample
+  bootstrap_data <- data[indices, ]
+  
+  # Fit the model on the bootstrap sample
+  model <- gbm(MIR ~ ., data = bootstrap_data, distribution = "gaussian",
+               n.trees = 1000, interaction.depth = 4, shrinkage = 0.01)
+  
+  # Predict on the original dataset
+  preds <- predict(model, newdata = data, n.trees = 1000)
+  
+  # Compute RMSE
+  rmse <- sqrt(mean((preds - data$MIR)^2))
+  
+  # Return RMSE
+  return(rmse)
+}
+
+
+# Continue with bootstrapping to evaluate model's robustness
+set.seed(123) # for reproducibility
+bootstrap_results <- boot(
+  data = train_data_continuous,
+  statistic = boot_fit_and_evaluate,
+  R = 100 # number of bootstrap resamples
+)
+
+# Calculate the bootstrapped RMSE
+mean_rmse <- mean(bootstrap_results$t)
+sd_rmse <- sd(bootstrap_results$t)
+ci_rmse <- boot.ci(bootstrap_results, type = "perc")  # Percentile interval
+
+# Extracting the correct CI values for percentile CI
+lower_bound <- ci_rmse$percent[4]
+upper_bound <- ci_rmse$percent[5]
+
+# Output the bootstrapping results
+cat("Bootstrapped RMSE: Mean=", mean_rmse, ", SD=", sd_rmse, "\n")
+cat("95% CI for RMSE (Percentile): ", lower_bound, "-", upper_bound, "\n")
+
+autoplot(tuning_results_continuous)
+
+```
+
+# SUmmarize the RSME values
+```{r}
+rmse_table <- data.frame(
+  Model = c("Null Model", "Generalized Additive Model", "Random Forest", "LASSO",
+            "Generalized Additive Model with Sparsity", "Gradient Boosting Machine"),
+  Train_RMSE = c(null_rmse, rmse_train_gam1, train_rmse_result_rf$.estimate, 
+                 train_rmse_result_lasso$.estimate, train_rmse_result_GAMS$.estimate, 
+                 train_rmse_result_gbm$.estimate),
+  Test_RMSE = c(null_rmse, rmse_test_gam1, test_rmse_result_rf$.estimate, 
+                test_rmse_result_lasso$.estimate, test_rmse_result_GAMS$.estimate, 
+                test_rmse_result_gbm$.estimate)
+)
+# Sort the table by Test_RMSE column in descending order
+rmse_table <- rmse_table[order(-rmse_table$Test_RMSE), ]
+
+# Print the sorted table
+print(rmse_table)
+
+#save as an RDS file
+saveRDS(rmse_table, here("results", "tables", "rmse_table.rds"))
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+

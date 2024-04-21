@@ -236,10 +236,10 @@ the mosquitoes were submitted for virus testing.
 ### Minimun infection rate (MIR)
 
 One indicator of the level of virus activity present in the mosquito
-population can be calculated from the information contained in dataset.
-The minimum infection rate (MIR) can be calculated at various temporal
-and spatial scales from trap site over one day to all sites over an
-entire season. MIR is calculated as: $$
+population can be calculated from the information contained in the
+mosquito dataset. The minimum infection rate (MIR) can be calculated at
+various temporal and spatial scales from trap site over one day to all
+sites over an entire season. MIR is calculated as: $$
 MIR = \left( \frac{\text{Number of positive mosquito pools}}{\text{Total number of mosquitoes tested}} \right) \times 1000
 $$ MIR provides an estimate of the prevalence of a specific pathogen
 within a mosquito population. While it does not directly measure the
@@ -263,12 +263,11 @@ using spatial or temporal attributes.
 
 ### Weather data
 
-*weather data is currently being reprocessed because I have decided to
-switch from daily summaries to hourly summaries. new analysis will be
-added in version 5* Weather data played a significant role in this phase
-of the analysis. Hourly weather summaries were downloaded from NOAA's
-Climate Data Portal. The dataset covers the years 2007-2023 at the
-Taunton Airport in Bristol County.
+Weather plays a significant role in the lifecyle of the mosquito and
+influences the rate at which a pathogen can develop in a mosquito.
+Hourly and weather summaries were downloaded from NOAA's Climate Data
+Portal. The datasets cover the years 2007-2023 at the Taunton Airport in
+Bristol County.
 
 The hourly summaries were used to calculate weather variables, such as
 the daily maximum temperature and precipitation. While daily summaries
@@ -282,16 +281,23 @@ Degree-days are used to estimate the rate of development of insects and
 other organisms that are sensitive to temperature. For mosquitoes,
 degree-days can be used to estimate the rate of larval development and
 the time between when a mosquito ingests a virus and when it can
-transmit it [@guStatisticalEstimationDegree2006].
+transmit it [@guStatisticalEstimationDegree2006]. To simplify this
+variable, the number of hours the temperature was ≥50°F and ≤86°F. These
+thresholds were chosen based on the known temperature range for mosquito
+development and virus transmission.
 
 In addition to the weather summaries, drought data will be included in
-the models. Drought data was obtained from the US Drought Monitor and
-the Federal Emergency Management Agency (FEMA). The data includes weekly
-drought severity ratings for the entire United States. The data is
-available at the county level and will be used to calculate the number
-of weeks in drought conditions and the severity of the drought. For this
-project, drought data for Bristol County, MA, will be used and
-incorporated with regional drought indicators.
+the models. West Nile Virus (WNV) research suggests that drought has
+been a driver in WNV outbreaks. While the lack of water can lead to
+smaller mosquito populations, drought can lead to higher prevelance of
+mosquito infection [@paullDroughtImmunityDetermine2017]. Drought data
+was obtained from the US Drought Monitor and the Federal Emergency
+Management Agency (FEMA). The data includes weekly drought severity
+ratings for the entire United States. The data is available at county
+and regional levels and will be used to calculate the number of weeks in
+drought conditions and the severity of the drought. For this project,
+drought data for Bristol County, MA, will be used and incorporated with
+FEMA East Coast regions (I-IV) drought indicators.
 
 ### Human and animal case data
 
@@ -382,9 +388,6 @@ every trap event.
 
 # Methods
 
-*This section is under development and will be completed after analysis
-is complete. The following is a general outline of the methods.*
-
 Symptomatic EEE, and to a lesser extent WNV, human cases are rare. On
 average, the United States records only about 9 cases of EEE annually.
 Notably, Massachusetts reports more cases than any other state except
@@ -393,15 +396,77 @@ However, the incidence rate for neuroinvasive EEE cases in Bristol
 County, Massachusetts, is estimated to be only around 0.06 per 100,000
 people
 [@centersfordiseasecontrolandpreventionPreventionEasternEquine2022]. The
-low incidence of human cases poses significant challenges for
+low incidence of human cases poses significant challenges for using
 traditional statistical models, making it difficult to accurately
 estimate human transmission risk. This difficulty is largely due to the
 sparse nature of the data and the variability in transmission patterns,
 which complicates efforts to predict outbreaks and necessitates
 alternative modeling approaches.
 
-As stated earlier, MIR will be the main outcome of interest for this
-project.
+MIR will be the main outcome of interest for this project. MIR values
+will be calculated for each week during the surveillance season over the
+entire county. To reduce bias, only mosquitoes captured using carbon
+dioxide-baited CDC light traps will be used to to calculate MIR. These
+traps are the standard EEE surveillance and are used to monitor the
+actively feeding mosquito population. Additionally, these trap types
+have been used in this area for over 40 years, many at the same sites
+currently in use.
+
+After MIR was calculated and joined with weather and climate data, the
+distribution of the MIR was examined more closely. About 72% of the
+records were zero values, which is not uncommon for this type of data.
+The non-zero values were skewed to the left and there was strong
+evidence of over-dispersion.
+
+![](images/mir_density_plot.png){fig-align="center"}
+
+The average MIR was 1.26, with an observed variance of 7.56, resulting
+in a Variance-to-Mean Ratio (VMR) of 6.00. This pronounced
+overdispersion suggests that mosquito infection rates were not uniformly
+distributed over time or space. Instead, they may have been influenced
+by a range of factors, such as environmental conditions or variations in
+amplifying host abundance.
+
+The data was visualized to identify trends and relationships between the
+variables. There were no clear patterns in the data between MIR and the
+potential predictors. However, several varibles showed a non-linear
+relationship with MIR. For example, the relationship between MIR and
+average temperature was not linear. Instead, MIR increased with
+temperature up to a certain point, then decreased. This suggests that
+the relationship between temperature and MIR may be more complex than a
+simple linear model can capture.
+
+In response to the observed non-linear relationships in the data, a
+two-stage Generalized Additive Model (GAM) analysis was used. GAMs
+provide a versatile framework for capturing complex, non-linear
+relationships between response variables and multiple predictors, which
+are often encountered in ecological data sets.
+
+In the first stage of the analysis, the GAM was utilized to address the
+high incidence of zeros in the dataset—an indicator of overdispersion.
+This zero-inflated model allowed us to separately model the presence
+versus absence of the outcome variable, thereby appropriately accounting
+for the excessive zeros.
+
+Subsequently, the second stage of the GAM focused on modeling the
+continuous part of the MIR data, relating it to the suite of potential
+predictors. This step incorporated smooth functions of the predictors,
+permitting the data to inform the shape of the relationship without
+imposing a predetermined form, as would be the case in a traditional
+linear model.
+
+While the two-stage GAM appeared to be a good fit, there were too few
+observations to provide a robust estimate of the relationship between
+the predictors and MIR. The original dataset contained over 40,000
+observations, but after reformatting the data to fit a rectangular shape
+needed for analysis, there were less than 400 observations in the final
+set. After the zeros were removed for part 2 of the GAM, the sample
+number of observations left was less than 100. Because of this, it was
+decided to use a single GAM with a dataset that included zero and
+non-zero observations. Additionally, all trap types were included in the
+analysis, not just the carbon dioxide-baited CDC light traps. While some
+precision was lost when the one part model was adopted, the gain in
+observations was deemed more valuable.
 
 ### Schematic of workflow
 
@@ -450,7 +515,8 @@ that 2019 was an exceptional year for EEE.
 
 *Culiseta melanura* (MEL) plays an important role in EEE virus
 amplification in the enzootic cycle. Understanding the population
-dynamics might provide more insight into what is driving the 2019 spike.
+dynamics might provide more insight into what is driving the spikes,
+like in 2019.
 
 The graph below shows the proportion of MEL among all mosquito vector
 species trapped in Bristol County, MA.
@@ -486,82 +552,86 @@ The initial tests have been basic regression models.
 The first models explored the relationship between virus isolation in
 mosquitoes and weather conditions (average temperature by week number
 and total precipitation by week). The outcome was whether there was at
-least 1 positive pool in a week. The predictor in the first model was
-the average maximum daily temperature the week before the pool week. The
-logistic model suggest that there was a relationship between the two.
-(The R code for the model can be found in the EDA-Code file:
-logistic\_.pos_temp_precip.R) The average temperature in the week before
-is positively associated with the likelihood of a positive result, with
-an odds ratio of approximately 1.069 for each unit increase in
-temperature (Estimate = 0.06695, SE = 0.02033, p \< 0.001), indicating
-that higher temperatures significantly increase the probability of a
-positive outcome. The model's improvement is highlighted by a decrease
-in residual deviance to 405.79 from the null deviance of 417.24, upon
-incorporating Lagged_Avg_TMAX as a predictor, demonstrating a better fit
-to the observed data. However, with a residual deviance of 405.79 on 299
-degrees of freedom, it is evident that not all variability in the
-outcome is explained, suggesting the presence of other influential
-factors. The model's AIC of 409.79 indicates a balance between model
-complexity and predictive power, supporting its relative utility in
-understanding the data. However, this relationship should be examined
-more closely as temperature is likely auto correlated with progressing
-weeks during summer months. While precipitation has been demonstrated to
-influence the population dynamics it did not show to have any effect on
-a positive result.
-
-Another model assessed whether the temperature precipitation in April,
-May, and June of each year effected the date of the first positive pool
-test. The date of the first positive pool was identified and assigned a
-day number from January 1st of that year. The predictors in this linear
-model were the average maximum temperature for April, May, and June and
-the sum of precipitation for the same time period. None of these
-predictors were significant.
+least 1 positive test for pool in a given week. The predictor in the
+first model was the average maximum daily temperature the week before
+the mosquito collection week. The logistic model suggests that there was
+a relationship between the two. (The R code for the model can be found
+in the analysis-code file: analysis.qmd) The average temperature in the
+week before is positively associated with the likelihood of a positive
+result, with an odds ratio of approximately 1.069 for each unit increase
+in temperature (Estimate = 0.06695, SE = 0.02033, p \< 0.001),
+indicating that higher temperatures significantly increase the
+probability of a positive outcome. The model's improvement is
+highlighted by a decrease in residual deviance to 405.79 from the null
+deviance of 417.24, upon incorporating Lagged_Avg_TMAX as a predictor,
+demonstrating a better fit to the observed data. However, with a
+residual deviance of 405.79 on 299 degrees of freedom, it is evident
+that not all variability in the outcome is explained, suggesting the
+presence of other influential factors. The model's AIC of 411.59
+indicates a balance between model complexity and predictive power,
+supporting its relative utility in understanding the data. However, this
+relationship should be examined more closely as temperature is likely
+auto correlated with progressing weeks during summer months. While
+precipitation has been demonstrated to influence the population dynamics
+it did not show to have any effect on a positive result. This was
+initailly surprising, but upon after considering the specific habitat of
+the main EEE enzootic vector, *Culiseta melanura*, it makes sense. MEL
+larvae develop in well insulated crypts that are less sensitive
+evaporative processes than surface water. The effect of precipitation on
+MEL larval habitat abundance may be less pronounced than other vector
+species that develop in open, standing water, like ditches and
+containers. Another model assessed whether the temperature precipitation
+in April, May, and June of each year effected the date of the first
+positive pool test (R file: PT3_edacode). The date of the first positive
+pool was identified and assigned a day number from January 1st of that
+year. The predictors in this linear model were the average maximum
+temperature for April, May, and June and the sum of precipitation for
+the same time period. None of these predictors were significant.
 
 There was one other significant result. When MIR is set as the
 dependent, continuous variable in a linear regression and the average
-maximum temperature for the previous week is used as the predictor, the model suggests there
-is a significant inverse relationship. As average temperature increases,
-the MIR decreases (model_mir_temp.R). This relationship is
-counterintutive, especially given the result of the logistic regression
-and requires more examination.
-
-More models assessing the effects of weather and other factors on
-positive pools by mosquito species and MIR values will be developed in
-Part 4 of the assignment. Future models will examine the the effects of
-weather conditions on mosquito population dynamics.
+maximum temperature for the previous week is used as the predictor, the
+model suggests there is a significant inverse relationship. As average
+temperature increases, the MIR decreases (model_mir_temp.R). This
+relationship is counterintutive, especially given the result of the
+logistic regression and requires more examination.
 
 ## Statistical analysis
+Before any models were assessed, the RSME for the null model was calculated (2.40). This was used as the basis for assessing model improvement.
 
-*UPDATE for Pt 4* *a better source for weather data was found and it
-being processed.* *the analysis will be updated in the next version of
-the document*
+Analysis began with a Generalized Additive Model (GAM) with predictors that were selected based on the exploratory single variable GAM. The variables were chosen if their p=values were <0.05. Eight variables met that condition including: the number of hours below 50°F the week before the mosquito collection week (Hrs_Below_50_lag), the number of hours below 50°F the week of collection (Hrs_Below_50_current), the drought severity index for East Coast FEMA regions (DSCI_fema), the average hourly relative humidity the week of collection (Avg_HourlyRelativeHumidity_current), the average hourly windspeed the week of collection (Avg_HourlyWindSpeed_current), the average number of daylight hours per day (average_daylight_hours), the average number of MEL captured by trap (Average_MEL), and the proportion of MEL captured out of the total number of mosquitoes trapped (MEL_Prop).
 
-![](images/correlation_plot.png){fig-align="center"}
+All models included training (.75) and a testing (.25) dataset that were generated using the random seed 123. All analysis can be found in the analysis.qmd file.  The first model was a GAM with all eight predictors, followed by a Random Forest, LASSO, Generalized Additive Model with Sparsity (GAMS), and a Gradient Boosting Machine (GBM) model. 
 
-# Results
+As expected, the RSME is lower for the training dataset than the testing dataset for all models. The RMSE values are displayed in the table below. 
 
-*updated in later phases of the project*
 
-## Full analysis
+```{r}
+# Define the file path using here()
+file_path_rds <- here("results", "tables", "rmse_table.rds")
 
-*These will be generated in Pt 5* 
-# Discussion 
-*this section will be
-completed when analysis is done*
+# Read the RDS file
+rmse_table <- readRDS(file_path_rds)
+rmse_table
+```
+# Discussion
+The null model RMSE was 2.40. All models showed improvement over the null model on both the training and testing datasets. The GAM shows significant improvement over the null model for the training set, but only slightly improves over the null for the testing set. This suggests that beyond capturing the mean response, this GAM is not well generalized. The substantial improvement in the training set RSME for GBM and Random Forest coupled with less improvement over the null for the testing set, suggest a tendency for overfitting. These models may be capturing the training data's patterns that do not gerneralize well to unseen data. The the gap between the training and testing RMSE for the LASSO and GAMS models suggest there is less overfitting and are slightly better at generalizing than the others. However, given the non-linear relationships, the LASSO model is likely not appropriate for this analysis.  
 
 ## Strengths and Limitations
 
-*this section will be updated after analysis is complete* The accuracy
+The accuracy
 and reliability of the mosquito collection data is excellent. The same
 procedures and sentinel sites have were in place for the entire
 analytical horizon. Further, there were only two people responsible for
-sorting, identifying and counting species over the entire period.
+sorting, identifying and counting species over the entire period. However, the data is not without limitations. Mosquito surveillance is inherently biased. Traps are set in locations that are most likely to capture infected mosquitoes. While this is a positive for early warning of virus activity, it is not necessarily representative of the surrounding area. Probably the biggest limitation is the small number of observations. The mosquito season is short in Massachusetts and funding for trapping and testing mosquitoes is limited. Mosquito control efforts, like pesticide applications, are missing from this analysis. These efforts are designed to lower the levels of virus transmitting mosquitoes and would likely provide more insight into the relationship between the predictors and virus activity. 
 
 MIR is not a perfect measure of virus activity in mosquitoes. It tends
 to underestimate the level of virus circulating in the environment.
 However, other measures require equal pool numbers for testing. There is
 a correction factor for variable pool numbers and I will explore this
-option in later phases of this project.
+option in later phases of this project. Ideally, the outcome would be human or animal cases. However, these cases are rare and modeling them given the limited amount of surveillance data may not be possible. 
+
+Initially, the lack of significance for most temperature and precipitation variable was surprising. However, upon closer examination, it makes sense. The main enzootic vector of EEE and the one targeted for surveillance, *Culiseta melanura*, develops in well insulated crypts that are less sensitive to ambient air temperature changes. The effect of temperature changes on MEL development speed may be less pronounced than other vector species that develop in open, standing water, like ditches and containers. Precipitation increases the amount of standing water and increases the chances of larval survival during the mosquito season and also during the winter months for those species that overwinter in the larval stage. For EEE, the main enzootic vector, MEL, overwinters as larvae.
 
 The spatial scale is an issue with the human and veterinary cases data.
 Human case data is released only on a county scale to ensure patient
@@ -573,6 +643,8 @@ crowd-sourced reports. There is one standardized survey (Breeding Bird
 Survey) that seems to be more accurate and reliable. However, this data
 is not available for every year.
 
-## Conclusions *this section will be completed when analysis is done*
+Likely the biggest limitation 
+## Conclusions 
+While all models demonstrated improvement over null model, none of them were robust enough to be used for reliable prediction. In the next phases of this project, the data will be expanded to include more years and cover a larger portion of Massachusetts. In additon to increasing the the number of observations, other sources of data will be incorporated. Including virus activity from surrounding regions and areas from which birds migrate to Massachusetts.
 
 # References

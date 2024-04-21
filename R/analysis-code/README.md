@@ -1,3 +1,3 @@
-As of 2024.04.05
-The statistical-analysis.R file is still under development. 
-Please check back after Pt 5 is complete to see the full analysis. 
+2024-04-21
+
+The code for analysis is contained in the analysis.qmd. This file should be run after running the processing and eda code.
