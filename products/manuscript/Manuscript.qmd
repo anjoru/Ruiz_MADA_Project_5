@@ -57,8 +57,6 @@ Which environmental,ecological, and temporal factors influence the
 transmission cycles for EEE in southeastern Massachusetts and which
 models best describe the relationship between these factors?
 
-**This project will lay the foundation for dissertation research that
-will begin in June, 2024.**
 
 # Introduction
 
@@ -132,19 +130,18 @@ county and often coordinates activities with Plymouth County Mosquito
 Control Project.
 
 ## Questions/Hypotheses to be addressed
-
-*This project will lay the foundation for my dissertation research.*
-**The goal for this phase of the project is to answer which
-environmental, ecological, and temporal factors influence the
-transmission cycles for EEE in southeastern Massachusetts.** From prior
-research we know that the mosquito life cyle is influenced by a number
+**Which environmental,ecological, and temporal factors influence the
+transmission cycles for EEE in southeastern Massachusetts and which
+models best describe the relationship between these factors?** 
+From prior
+research we know that the mosquito lifecyle is influenced by a number
 of factors. Temperature plays a major role in the mosquito life cyle
 virus transmission dynamics. As temperature increases, the rate of
 larval development also increases and the time between when a mosquito
 ingests virus in a bloodmeal and when it can transmit it decreases. The
 result is that the mosquito population can grow at faster rate and they
 will have more time to transmit the virus. However, MEL larvae develop
-in well insulated crypts that are less sensitive to ambient air
+in well-insulated crypts that are less sensitive to ambient air
 temperature changes, so the effect of temperature changes on MEL
 development speed may be less pronounced than other vector species that
 develop in open, standing water, like ditches and containers.
@@ -155,14 +152,10 @@ For EEE, the main enzootic vector, MEL, overwinters as larvae.
 
 While these relationships are well known, they are not well described
 for EEE, especially in terms of quantifying the role these two factors
-play in EEE transmission. Specifically, there's a gap in our
-understanding of how these factors influence the number of mosquitoes
-caught in traps and the rate of virus infection among those mosquitoes.
-This gap is more pronounced when distinguishing the impacts on enzootic
-(mosquitoes that primarily feed on birds) versus bridge vector
-(mosquitoes that can transmit the virus from birds to humans) mosquito
-species. Even less well described is the effect the factors have on
-enzootic vs. bridge vector mosquito species.
+play in EEE transmission. Specifically, there's a gap in the
+understanding of how these factors influence the number of EEE vectors mosquitoes
+collected in traps and the rate of virus infection among those mosquitoes.
+
 
 Moreover, the influence of other variables remains even less explored.
 Birds, especially passerine species, serve as amplifying hosts for EEEV
@@ -176,23 +169,6 @@ months preceding mosquito season in Massachusetts, could serve as an
 early indicator of virus activity in the state. Understanding these
 dynamics is crucial for predicting outbreaks and implementing effective
 control measures.
-
-While the following questions will not be addressed in this project, it
-will hopefully inform research that will answer the following questions
-in dissertation research beginning this summer:
-
-1\. Can an AI-driven model that leverages historic mosquito
-surveillance, ecological, and environmental data accurately quantify the
-risk of human EEEv infection in southeastern Massachusetts?
-
-2\. What is the potential of machine learning algorithms to identify
-early warning signals for EEE outbreaks, enabling timely public health
-interventions in Massachusetts to prevent human infections?
-
-3\. How can machine learning models use real-time data on mosquito
-activity, environmental factors, and weather to accurately predict when
-the risk of EEE transmission to humans is low enough to lift evening
-outdoor activity restrictions? \*
 
 ## Data collection and processing
 
