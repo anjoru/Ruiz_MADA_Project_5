@@ -39,7 +39,7 @@ library(gbm)
 ```{r}
 # Load the PCR data set which includes information on mosquito pools tested for viruses, 
 # results of those tests, and the date of collection.
-pcr <- read_csv(here("data", "processed-data", "pcr_data_expanded_filtered.csv"))
+pcr <- read_csv(here("data", "processed-data", "filtered_pcr_data.csv"))
 
 # Load the weather data set which includes daily maximum temperatures (TMAX) and other weather variables.
 wx_selected <- read_csv(here("data", "processed-data", "wx_selected.csv"))
@@ -84,7 +84,7 @@ weather_weekly <- wx_selected %>%
 # indicating the presence or absence of positive tests each week.
 pcr_weekly <- pcr %>%
   group_by(week_num) %>%
-  summarise(Positive_Result = max(as.integer(Is_Positive), na.rm = TRUE))
+  summarise(Positive_Result = ifelse(all(is.na(Is_Positive)), 0, max(as.integer(Is_Positive), na.rm = TRUE)))
 
 # Merge the aggregated PCR data with the lagged weather data by matching their week numbers.
 # This combined data set enables the analysis of the relationship between weekly weather conditions and mosquito test results.
@@ -108,7 +108,7 @@ plot(logistic_model_temp)
 ```
 
 ```{r}
-pcr <- read_csv(here("data", "processed-data", "pcr_data_expanded_filtered.csv"))
+pcr <- read_csv(here("data", "processed-data", "pcr_data.csv"))
 wx_selected <- read_csv(here("data", "processed-data", "wx_selected.csv"))
 
 # Step 2: Calculate the average TMAX for April, May, and June separately
@@ -171,7 +171,7 @@ wide_data <- avg_temp_and_prcp %>%
   complete(Year, fill = list(Avg_TMAX_M4 = NA, Avg_TMAX_M5 = NA, Avg_TMAX_M6 = NA, Total_PRCP_M4 = NA, Total_PRCP_M5 = NA, Total_PRCP_M6 = NA))
 
 # Load and prepare mosquito data
-first_positive_dates <- pcr_data_expanded_filtered %>%
+first_positive_dates <- pcr %>%
   filter(Result == "Positive") %>%
   group_by(Year = year(`Collection Date`)) %>%
   summarise(First_Positive_Date = min(`Collection Date`), .groups = 'drop')
@@ -225,8 +225,8 @@ aic_null_gam_model
 aic_zero_gam_model <- AIC(zero_gam_model)
 aic_zero_gam_model
 
-# # load the dataset with a unique dataframe name
-# mir_2part_all <- read_csv(here("data", "processed-data", "all_mir_clean_joined.csv"))
+# load the dataset with a unique dataframe name
+mir_2part_all <- read_csv(here("data", "processed-data", "all_mir_clean_joined.csv"))
 
 #define the model
 zero_gam_model <- gam(I(MIR > 0) ~ s(DSCI_ma) + s(Average_MEL) + s(Avg_HourlyWindSpeed_current),

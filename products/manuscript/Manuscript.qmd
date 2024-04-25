@@ -33,22 +33,7 @@ here::set_here()
 ::: {#summary .unnumbered}
 # Summary/Abstract
 
-*This project will inform the development of my dissertation prospectus
-by identifying significant relationships between variables and guide the
-methods development.* Eastern equine encephalitis (EEE) is caused by an
-Alphavirus transmitted to humans by the bite of an infected mosquito.
-Human infections are rare, but serious. About 30-50% of symptomatic
-cases lead to death and those who survive are left with life-long
-disability. The transmission cycle for EEE includes two distinct cycles:
-an amplifying enzootic cycle in which the virus is transmitted between
-the *Culiseta melanura* mosquito and birds and an epizootic cycle in
-which bridge vector mosquitoes transmit the EEE virus (EEEv) from birds
-to humans and other mammals [@goZoonoticEncephalitidesCaused2014].
-Because C. melanura feeds almost exclusively on birds, it is not
-considered a direct human threat. However, EEEv isolations in *C.
-melanura* are an early warning sign that EEEv is circulating in the
-ecosystem. Isolations in bridge vector mosquito species indicate
-heightened transmission risk to humans.
+Eastern equine encephalitis (EEE) is a rare but serious disease caused by an Alphavirus transmitted to humans by infected mosquitoes. With a fatality rate of 30-50% and potential lifelong disability for survivors, understanding its transmission cycle is crucial. EEE transmission involves two cycles: an enzootic cycle between Culiseta melanura mosquitoes and birds, and an epizootic cycle where bridge vector mosquitoes transmit the virus to humans and other mammals. While C. melanura poses minimal direct threat to humans, isolations of EEE virus in these mosquitoes serve as early indicators of virus circulation. Conversely, isolations in bridge vector species signal heightened transmission risk. This research aims to identify significant relationships between variables to inform dissertation prospectus development and guide methodological approaches.
 :::
 
 # Problem statement
@@ -156,20 +141,6 @@ play in EEE transmission. Specifically, there's a gap in the
 understanding of how these factors influence the number of EEE vectors mosquitoes
 collected in traps and the rate of virus infection among those mosquitoes.
 
-
-Moreover, the influence of other variables remains even less explored.
-Birds, especially passerine species, serve as amplifying hosts for EEEV
-and WNV, potentially affecting the level of virus present in an area.
-Despite their importance in the virus transmission cycle, the effect of
-fluctuations in bird populations on the prevalence of these viruses
-throughout a season has received minimal attention. Finally, given the
-migratory nature of many passerine species, it's worth exploring whether
-EEEV activity in the warmer regions of the United States, during the
-months preceding mosquito season in Massachusetts, could serve as an
-early indicator of virus activity in the state. Understanding these
-dynamics is crucial for predicting outbreaks and implementing effective
-control measures.
-
 ## Data collection and processing
 
 ### Mosquito surveillance data
@@ -274,67 +245,6 @@ and regional levels and will be used to calculate the number of weeks in
 drought conditions and the severity of the drought. For this project,
 drought data for Bristol County, MA, will be used and incorporated with
 FEMA East Coast regions (I-IV) drought indicators.
-
-### Human and animal case data
-
-While the goal of this project is to set a foundation for models that
-predict human cases of EEE later this year. Human case data will not be
-an outcome in the models for this project. However, the case data will
-incorporated into the models. Some have hypothesized that EEE activity
-in the southern United States could serve as an early warning signal for
-EEE activity in Massachusetts. The rationale is that birds that migrate
-from the south to Massachusetts could bring the virus with them. In
-active EEE years, more infected birds may arrive in Massachusetts and
-spread the virus to local mosquitoes at a higher rate. Florida is a
-known hotspot for EEE activity and is the only state that reports more
-human cases than Massachusetts. The Florida Department of Health reports
-EEE activity in animals and humans annually. In addition to the wild and
-domestic animal case reports, many mosquito control programs in Florida
-maintain flocks of sentinel chickens that are tested for EEE and WNV.
-The sentinel chicken data is used to monitor virus activity in the
-mosquito population.
-
-### Bird observation data
-
-The North American Breeding Bird Survey (BBS) is conducted annually in
-late spring or early summer. The United State Geological Survey (USGS)
-maintains the BBS database. The BBS is a long-term, volunteer-driven
-bird monitoring program that collects data on bird populations across
-North America. The data is used to track the status and trends of bird
-populations over time. The BBS data includes information on the number
-of birds observed, the location of the observation, and the date of the
-observation. The data is collected by trained volunteers who conduct
-roadside surveys along predetermined routes. The data is used to
-estimate the population size and distribution of bird species across the
-continent. The BBS data will be used to estimate the population size and
-distribution of bird species in Massachusetts.
-
-Since birds are the amplifying hosts for EEE, their population size and
-distribution can have a significant impact on the prevalence of the
-virus in the environment. Additionally, the migratory patterns of birds
-can influence the spread of the virus across regions. By incorporating
-bird observation data into the models, we can better understand the
-relationship between bird populations and EEE activity in Massachusetts.
-
-### Temporal scale
-
-For most models in this project, the outcome, MIR, will be calculated by
-week. While the main temporal scale for this project is the week, the
-data will be aggregated to other temporal scales. The week is the most
-common temporal scale for mosquito surveillance data. The week number
-will be calculated according to ISO 8601 standards, and stored in a
-YYYY-WW format. For example, week 8 in 2019 will be displayed as
-2019-08. The week number will provide a common field by which all
-datasets with a temporal attribute can be joined. It will also allow for
-grouping records and making calculations by week number. This format
-helps to standardize temporal scales and make comparisons between years
-easier.
-
-While mosquito surveillance and weather data can be aggregated to the
-week, other datasets, such as the Annual BBS cannot appropriately be
-aggregated by week. Additionally, mosquito surveillance in Massachusetts
-is conducted from June to October and EEE activity in Florida occurs
-year-round. For these predictors, the temporal scale will be the year.
 
 ## Data aquisition
 
@@ -470,24 +380,12 @@ flowchart TB
 ```
 
 ## Exploratory/Descriptive analysis
-
-It is important to know where the mosquitoes infected with EEE are
-captured. Below is a table showing the virus isolations for EEE in
-trapped mosquitoes by county between 2014 and 2020.
-
-![](images/eee_isolation_county-04.png){fig-align="center" width="192"}
-
 One factor to consider is if early virus isolations are associated with
 cases in humans and other mammals. The table below shows the date of the
 first EEE virus isolation in mosquitoes and the number of human of other
 animal cases by year.
 
 ![](images/eee_isolation_cases-04.png){fig-align="center" width="251"}
-
-Unfortunately, the time horizon is limited by data availability.
-Additionally, EEE human infections are rare, so traditional statistical
-methods may be inadequate to suggest any relationships. What is clear is
-that 2019 was an exceptional year for EEE.
 
 *Culiseta melanura* (MEL) plays an important role in EEE virus
 amplification in the enzootic cycle. Understanding the population
@@ -522,32 +420,9 @@ precipitation.
 ![](images/combined_trends_mel_precip.png){fig-align="center"}
 
 ## Basic statistical analysis
+Basic linear models assessed environmental factors' impact on the EEE virus transmission cycle. Initial models investigated the link between virus isolation in mosquitoes and weather conditions (average temperature by week and total precipitation). The outcome was whether at least one positive test occurred for a pool in a given week. The predictor in the first model was the average maximum daily temperature from the previous week. The logistic model revealed a significant relationship. Higher temperatures were positively associated with the likelihood of a positive result (odds ratio ≈ 1.069 for each unit increase in temperature; Estimate = 0.06695, SE = 0.02033, p < 0.001). Incorporating Lagged_Avg_TMAX as a predictor improved the model, reducing residual deviance to 405.79 from the null deviance of 417.24, indicating a better fit. However, residual deviance on 299 degrees of freedom suggests unexplained variability, indicating other influential factors. The model's AIC of 411.59 suggests a balance between complexity and predictive power, supporting its utility. Yet, this relationship warrants closer examination due to likely autocorrelation of temperature with progressing weeks during summer months 
 
-The initial tests have been basic regression models.
-
-The first models explored the relationship between virus isolation in
-mosquitoes and weather conditions (average temperature by week number
-and total precipitation by week). The outcome was whether there was at
-least 1 positive test for pool in a given week. The predictor in the
-first model was the average maximum daily temperature the week before
-the mosquito collection week. The logistic model suggests that there was
-a relationship between the two. (The R code for the model can be found
-in the analysis-code file: analysis.qmd) The average temperature in the
-week before is positively associated with the likelihood of a positive
-result, with an odds ratio of approximately 1.069 for each unit increase
-in temperature (Estimate = 0.06695, SE = 0.02033, p \< 0.001),
-indicating that higher temperatures significantly increase the
-probability of a positive outcome. The model's improvement is
-highlighted by a decrease in residual deviance to 405.79 from the null
-deviance of 417.24, upon incorporating Lagged_Avg_TMAX as a predictor,
-demonstrating a better fit to the observed data. However, with a
-residual deviance of 405.79 on 299 degrees of freedom, it is evident
-that not all variability in the outcome is explained, suggesting the
-presence of other influential factors. The model's AIC of 411.59
-indicates a balance between model complexity and predictive power,
-supporting its relative utility in understanding the data. However, this
-relationship should be examined more closely as temperature is likely
-auto correlated with progressing weeks during summer months. While
+While
 precipitation has been demonstrated to influence the population dynamics
 it did not show to have any effect on a positive result. This was
 initailly surprising, but upon after considering the specific habitat of
