@@ -1,0 +1,267 @@
+---
+title: Project Review Factors Influencing Abundance & Virus Isolation in Mosquitoes
+author: Clarke Miller
+date: 26 April 2024
+format: 
+  html:
+    toc: true
+    toc-depth: 3
+    number-sections: true
+---
+
+# Overview
+
+Title of project: **Factors Influencing Abundance & Virus Isolation in Mosquitoes**
+Subtitle:  ***Which environmental, ecological, and temporal factors impact mosquito populations***
+
+Name of project author(s):  Andrew Ruiz
+
+Name of project reviewer:  Clarke Miller
+
+
+## Background, Context and Motivation
+
+*How well is the context of the project described?* 
+
+Very well.  This looks great.
+
+*Is a comprehensive background, including summary of previous/related work given?* 
+
+Yes.  Very much so.
+
+*Is the project well placed into the context of existing work (including proper referencing of existing work).* 
+Yes, very much so.
+
+*Is it clear why the project was undertaken and what new information it hopes to provide?*
+
+Yes.  Very much so.
+
+***Personal Message***  
+Andrew, this looks great.  From our conversations over Discord, you were very critical of your own work.  This project looks awesome.  You have a couple of things to polish off, but, wow.  You obviosuly have the topic covered, you have the coding skills, you got this.  
+
+
+### Feedback and Comments
+
+No real feedback on this part.  You did a great job in this category.
+
+### Summary assessment (PICK ONE, DELETE THE OTHERS)
+
+* strong contextualization and motivation
+
+
+## Question description
+
+*How well and clear are the question(s)/hypotheses the project aims to address described?*
+
+Very clear.  The questions are very well outlined and discussed.
+
+*Is it clear how the questions relate to the data?*
+
+Yes.
+
+
+### Feedback and Comments
+
+No real feedback on this part.  You did a great job in this category.
+
+### Summary assessment
+
+* question/hypotheses fully clear
+
+
+## Data description
+
+*How well is the data overall described?*
+
+Very well.  I would like to see a table summary of the data.  
+
+*Is the source provided?* 
+
+Yes.
+
+*Is a codebook or other meta-information available that makes it clear what the data is?* 
+
+I did not see one.  
+
+
+
+### Feedback and Comments
+
+No real feedback on this part.  You did a great job in this category.  Just maybe add a summary table and if there is a codebook add it to the raw data and label it.
+
+### Summary assessment
+
+* source and overall structure of data well explained
+
+
+## Data wrangling and exploratory analysis
+
+*How well is the data cleaned/processed and explored?* 
+
+Yes.  You did a great job with this.
+
+*Are all steps reasonable and well explained?*
+
+Yes.  The steps are reasonable and explained.
+
+*Are alternatives discussed and considered? Are meaningful exploratory results shown (e.g. in the supplementary materials)?*
+
+At this point in time, no.  There are placeholders for this material in the document.
+
+
+### Feedback and Comments
+
+No real feedback on this part.  You did a great job in this category.  Despite being a work in progress, this section is well done.
+
+### Summary assessment
+
+* essentially no weaknesses in wrangling and exploratory component
+
+
+
+## Appropriateness of Analysis
+
+*Were the analysis methods appropriate for the data? Was the analysis done properly? Were different components of the analysis (e.g. performance measure, variable selection, data pre-processing, model evaluation) done in the best way possible and explained well?*
+
+At this point, this section of the document is incomplete.  
+
+
+### Feedback and Comments
+
+At this point, this section of the document is incomplete.  That being said, the description of the intended analysis is appropriate.
+
+### Summary assessment
+
+* strong and reasonable analysis/description.
+
+## Presentation
+
+*How well are results presented? Are tables and figures easy to read and understand? Are the main figures/tables publication level quality?*
+
+There are no results at this time.
+
+### Feedback and Comments
+
+At this point, this section of the document is incomplete.
+
+### Summary assessment
+
+* results are poorly presented, hard to understand, poor quality
+
+At this point, this section of the document is incomplete.
+
+## Discussion/Conclusions
+
+*Are the study findings properly discussed? Are strengths and limitations acknowledged? Are findings interpreted properly?*
+
+At this point, this section of the document is incomplete.
+
+### Feedback and Comments
+
+At this point, this section of the document is incomplete.
+
+### Summary assessment
+* major parts of discussion missing or wrong 
+
+At this point, this section of the document is incomplete.
+
+## Further comments
+
+A large portion of this work is missing.  It is my understanding that the author is working through these sections again as new data (rainfall/weather data) was made avaiable.
+
+The basic bones of the project look good.
+
+# Overall project content evaluation
+Evaluate overall features of the project  by filling in the sections below.
+
+
+## Structure
+
+*Is the project well structured? Are files in well labeled folders?* 
+
+Yes.
+
+*Do files have reasonable names?*
+
+Yes.
+
+*Are all "junk" files not needed for analysis/reproduction removed?* 
+
+Not at this time.
+
+*By just looking at files and folders, can you get an idea of how things fit together?*
+ 
+ Yes.
+
+
+### Feedback and Comments
+
+At this point, there are a lot of "sandbox" files still around.
+
+### Summary assessment
+
+* mostly clear, but some confusing parts (e.g. useless files, things in the wrong folders)
+
+
+
+## Documentation 
+
+*How well is the project documented?* 
+
+Fairly well.  The readme file is being used... it could use a better description.
+
+*Are you able to understand each step of the whole analysis, each decision that was made, and each line of code? Is enough information provided as comments in code or as part of Rmd files?*
+
+Yes, as far as the work has been done.  
+
+### Feedback and Comments
+
+At this point, this section of the document is incomplete.
+
+### Summary assessment
+
+* decently documented with some gaps
+
+
+
+
+## Reproducibility
+
+*Are all results fully reproducible? Is documentation provided which clearly explains how to reproduce things, and does it work without the need for any manual intervention? Are you able to re-run the whole analysis without having to do manual interventions/edits?*
+
+Yes.  As far as it goes.  At this point, this section of the document is incomplete.
+
+### Feedback and Comments
+
+At this point, this section of the document is incomplete.
+
+
+### Summary assessment
+ 
+* fully reproducible without issues
+
+
+## Thoroughness
+
+*How thorough was the overall study? Were alternatives (e.g. different ways of processing the data or different models) considered? Were alternatives discussed? Were the questions/hypotheses fully and thoroughly addressed?*
+
+Once complete, the described work will be very complete.  At this point this section is incomplete.
+
+### Feedback and Comments
+
+At this point, this section of the document is incomplete.
+
+### Summary assessment
+
+* decent level of thoroughness
+
+
+
+## Further comments
+
+_Add any other comments regarding the overall project here. Write anything you think can help your classmate improve their project._
+
+
+Just finish this project off the way you've described and it will be great.  Hang in there!
+
+
