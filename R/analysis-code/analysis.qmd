@@ -30,6 +30,8 @@ library(mlr3)
 library(data.table)
 library(Matrix)
 library(gbm)
+library(knitr)
+library(gt)
 ```
 
 ## First logistic model
@@ -1087,6 +1089,23 @@ print(rmse_table)
 #save as an RDS file
 saveRDS(rmse_table, here("results", "tables", "rmse_table.rds"))
 
+# Use gt to create a styled table
+gt_table <- gt(rmse_table) %>%
+  tab_header(
+    title = "RMSE Comparison of Models",
+    subtitle = "Sorted by Test RMSE in descending order"
+  ) %>%
+  cols_label(
+    Model = "Model",
+    Train_RMSE = "Training RMSE",
+    Test_RMSE = "Testing RMSE"
+  )
+
+# Define the file path using 'here'
+png_path <- here("results", "tables", "rmse_table.png")
+
+# Save the gt table as a PNG
+gtsave(gt_table, filename = png_path)
 ```
 
 

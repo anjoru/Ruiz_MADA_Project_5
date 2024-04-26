@@ -33,7 +33,19 @@ here::set_here()
 ::: {#summary .unnumbered}
 # Summary/Abstract
 
-Eastern equine encephalitis (EEE) is a rare but serious disease caused by an Alphavirus transmitted to humans by infected mosquitoes. With a fatality rate of 30-50% and potential lifelong disability for survivors, understanding its transmission cycle is crucial. EEE transmission involves two cycles: an enzootic cycle between Culiseta melanura mosquitoes and birds, and an epizootic cycle where bridge vector mosquitoes transmit the virus to humans and other mammals. While C. melanura poses minimal direct threat to humans, isolations of EEE virus in these mosquitoes serve as early indicators of virus circulation. Conversely, isolations in bridge vector species signal heightened transmission risk. This research aims to identify significant relationships between variables to inform dissertation prospectus development and guide methodological approaches.
+Eastern equine encephalitis (EEE) is a rare but serious disease caused
+by an Alphavirus transmitted to humans by infected mosquitoes. With a
+fatality rate of 30-50% and potential lifelong disability for survivors,
+understanding its transmission cycle is crucial. EEE transmission
+involves two cycles: an enzootic cycle between Culiseta melanura
+mosquitoes and birds, and an epizootic cycle where bridge vector
+mosquitoes transmit the virus to humans and other mammals. While C.
+melanura poses minimal direct threat to humans, isolations of EEE virus
+in these mosquitoes serve as early indicators of virus circulation.
+Conversely, isolations in bridge vector species signal heightened
+transmission risk. This research aims to identify significant
+relationships between variables to inform dissertation prospectus
+development and guide methodological approaches.
 :::
 
 # Problem statement
@@ -41,7 +53,6 @@ Eastern equine encephalitis (EEE) is a rare but serious disease caused by an Alp
 Which environmental,ecological, and temporal factors influence the
 transmission cycles for EEE in southeastern Massachusetts and which
 models best describe the relationship between these factors?
-
 
 # Introduction
 
@@ -115,13 +126,13 @@ county and often coordinates activities with Plymouth County Mosquito
 Control Project.
 
 ## Questions/Hypotheses to be addressed
+
 **Which environmental,ecological, and temporal factors influence the
 transmission cycles for EEE in southeastern Massachusetts and which
-models best describe the relationship between these factors?** 
-From prior
-research we know that the mosquito lifecyle is influenced by a number
-of factors. Temperature plays a major role in the mosquito life cyle
-virus transmission dynamics. As temperature increases, the rate of
+models best describe the relationship between these factors?** From
+prior research we know that the mosquito lifecyle is influenced by a
+number of factors. Temperature plays a major role in the mosquito life
+cyle virus transmission dynamics. As temperature increases, the rate of
 larval development also increases and the time between when a mosquito
 ingests virus in a bloodmeal and when it can transmit it decreases. The
 result is that the mosquito population can grow at faster rate and they
@@ -138,8 +149,9 @@ For EEE, the main enzootic vector, MEL, overwinters as larvae.
 While these relationships are well known, they are not well described
 for EEE, especially in terms of quantifying the role these two factors
 play in EEE transmission. Specifically, there's a gap in the
-understanding of how these factors influence the number of EEE vectors mosquitoes
-collected in traps and the rate of virus infection among those mosquitoes.
+understanding of how these factors influence the number of EEE vectors
+mosquitoes collected in traps and the rate of virus infection among
+those mosquitoes.
 
 ## Data collection and processing
 
@@ -380,6 +392,7 @@ flowchart TB
 ```
 
 ## Exploratory/Descriptive analysis
+
 One factor to consider is if early virus isolations are associated with
 cases in humans and other mammals. The table below shows the date of the
 first EEE virus isolation in mosquitoes and the number of human of other
@@ -420,24 +433,42 @@ precipitation.
 ![](images/combined_trends_mel_precip.png){fig-align="center"}
 
 ## Basic statistical analysis
-Basic linear models assessed environmental factors' impact on the EEE virus transmission cycle. Initial models investigated the link between virus isolation in mosquitoes and weather conditions (average temperature by week and total precipitation). The outcome was whether at least one positive test occurred for a pool in a given week. The predictor in the first model was the average maximum daily temperature from the previous week. The logistic model revealed a significant relationship. Higher temperatures were positively associated with the likelihood of a positive result (odds ratio ≈ 1.069 for each unit increase in temperature; Estimate = 0.06695, SE = 0.02033, p < 0.001). Incorporating Lagged_Avg_TMAX as a predictor improved the model, reducing residual deviance to 405.79 from the null deviance of 417.24, indicating a better fit. However, residual deviance on 299 degrees of freedom suggests unexplained variability, indicating other influential factors. The model's AIC of 411.59 suggests a balance between complexity and predictive power, supporting its utility. Yet, this relationship warrants closer examination due to likely autocorrelation of temperature with progressing weeks during summer months 
 
-While
-precipitation has been demonstrated to influence the population dynamics
-it did not show to have any effect on a positive result. This was
-initailly surprising, but upon after considering the specific habitat of
-the main EEE enzootic vector, *Culiseta melanura*, it makes sense. MEL
-larvae develop in well insulated crypts that are less sensitive
-evaporative processes than surface water. The effect of precipitation on
-MEL larval habitat abundance may be less pronounced than other vector
-species that develop in open, standing water, like ditches and
-containers. Another model assessed whether the temperature precipitation
-in April, May, and June of each year effected the date of the first
-positive pool test (R file: PT3_edacode). The date of the first positive
-pool was identified and assigned a day number from January 1st of that
-year. The predictors in this linear model were the average maximum
-temperature for April, May, and June and the sum of precipitation for
-the same time period. None of these predictors were significant.
+Basic linear models assessed environmental factors' impact on the EEE
+virus transmission cycle. Initial models investigated the link between
+virus isolation in mosquitoes and weather conditions (average
+temperature by week and total precipitation). The outcome was whether at
+least one positive test occurred for a pool in a given week. The
+predictor in the first model was the average maximum daily temperature
+from the previous week. The logistic model revealed a significant
+relationship. Higher temperatures were positively associated with the
+likelihood of a positive result (odds ratio ≈ 1.069 for each unit
+increase in temperature; Estimate = 0.06695, SE = 0.02033, p \< 0.001).
+Incorporating Lagged_Avg_TMAX as a predictor improved the model,
+reducing residual deviance to 405.79 from the null deviance of 417.24,
+indicating a better fit. However, residual deviance on 299 degrees of
+freedom suggests unexplained variability, indicating other influential
+factors. The model's AIC of 411.59 suggests a balance between complexity
+and predictive power, supporting its utility. Yet, this relationship
+warrants closer examination due to likely autocorrelation of temperature
+with progressing weeks during summer months
+
+While precipitation has been demonstrated to influence the population
+dynamics it did not show to have any effect on a positive result. This
+was initailly surprising, but upon after considering the specific
+habitat of the main EEE enzootic vector, *Culiseta melanura*, it makes
+sense. MEL larvae develop in well insulated crypts that are less
+sensitive evaporative processes than surface water. The effect of
+precipitation on MEL larval habitat abundance may be less pronounced
+than other vector species that develop in open, standing water, like
+ditches and containers. Another model assessed whether the temperature
+precipitation in April, May, and June of each year effected the date of
+the first positive pool test (R file: PT3_edacode). The date of the
+first positive pool was identified and assigned a day number from
+January 1st of that year. The predictors in this linear model were the
+average maximum temperature for April, May, and June and the sum of
+precipitation for the same time period. None of these predictors were
+significant.
 
 There was one other significant result. When MIR is set as the
 dependent, continuous variable in a linear regression and the average
@@ -448,41 +479,92 @@ relationship is counterintutive, especially given the result of the
 logistic regression and requires more examination.
 
 ## Statistical analysis
-Before any models were assessed, the RSME for the null model was calculated (2.40). This was used as the basis for assessing model improvement.
 
-Analysis began with a Generalized Additive Model (GAM) with predictors that were selected based on the exploratory single variable GAM. The variables were chosen if their p=values were <0.05. Eight variables met that condition including: the number of hours below 50°F the week before the mosquito collection week (Hrs_Below_50_lag), the number of hours below 50°F the week of collection (Hrs_Below_50_current), the drought severity index for East Coast FEMA regions (DSCI_fema), the average hourly relative humidity the week of collection (Avg_HourlyRelativeHumidity_current), the average hourly windspeed the week of collection (Avg_HourlyWindSpeed_current), the average number of daylight hours per day (average_daylight_hours), the average number of MEL captured by trap (Average_MEL), and the proportion of MEL captured out of the total number of mosquitoes trapped (MEL_Prop).
+Before any models were assessed, the RSME for the null model was
+calculated (2.40). This was used as the basis for assessing model
+improvement.
 
-All models included training (.75) and a testing (.25) dataset that were generated using the random seed 123. All analysis can be found in the analysis.qmd file.  The first model was a GAM with all eight predictors, followed by a Random Forest, LASSO, Generalized Additive Model with Sparsity (GAMS), and a Gradient Boosting Machine (GBM) model. 
+Analysis began with a Generalized Additive Model (GAM) with predictors
+that were selected based on the exploratory single variable GAM. The
+variables were chosen if their p=values were \<0.05. Eight variables met
+that condition including: the number of hours below 50°F the week before
+the mosquito collection week (Hrs_Below_50_lag), the number of hours
+below 50°F the week of collection (Hrs_Below_50_current), the drought
+severity index for East Coast FEMA regions (DSCI_fema), the average
+hourly relative humidity the week of collection
+(Avg_HourlyRelativeHumidity_current), the average hourly windspeed the
+week of collection (Avg_HourlyWindSpeed_current), the average number of
+daylight hours per day (average_daylight_hours), the average number of
+MEL captured by trap (Average_MEL), and the proportion of MEL captured
+out of the total number of mosquitoes trapped (MEL_Prop).
 
-As expected, the RSME is lower for the training dataset than the testing dataset for all models. The RMSE values are displayed in the table below. 
+All models included training (.75) and a testing (.25) dataset that were
+generated using the random seed 123. All analysis can be found in the
+analysis.qmd file. The first model was a GAM with all eight predictors,
+followed by a Random Forest, LASSO, Generalized Additive Model with
+Sparsity (GAMS), and a Gradient Boosting Machine (GBM) model.
 
+As expected, the RSME is lower for the training dataset than the testing
+dataset for all models. The RMSE values are displayed in the table
+below.
 
-```{r}
-# Define the file path using here()
-file_path_rds <- here("results", "tables", "rmse_table.rds")
+![](images/rmse_table-01.png)
 
-# Read the RDS file
-rmse_table <- readRDS(file_path_rds)
-rmse_table
-```
 # Discussion
-The null model RMSE was 2.40. All models showed improvement over the null model on both the training and testing datasets. The GAM shows significant improvement over the null model for the training set, but only slightly improves over the null for the testing set. This suggests that beyond capturing the mean response, this GAM is not well generalized. The substantial improvement in the training set RSME for GBM and Random Forest coupled with less improvement over the null for the testing set, suggest a tendency for overfitting. These models may be capturing the training data's patterns that do not gerneralize well to unseen data. The the gap between the training and testing RMSE for the LASSO and GAMS models suggest there is less overfitting and are slightly better at generalizing than the others. However, given the non-linear relationships, the LASSO model is likely not appropriate for this analysis.  
+
+The null model RMSE was 2.40. All models showed improvement over the
+null model on both the training and testing datasets. The GAM shows
+significant improvement over the null model for the training set, but
+only slightly improves over the null for the testing set. This suggests
+that beyond capturing the mean response, this GAM is not well
+generalized. The substantial improvement in the training set RSME for
+GBM and Random Forest coupled with less improvement over the null for
+the testing set, suggest a tendency for overfitting. These models may be
+capturing the training data's patterns that do not gerneralize well to
+unseen data. The the gap between the training and testing RMSE for the
+LASSO and GAMS models suggest there is less overfitting and are slightly
+better at generalizing than the others. However, given the non-linear
+relationships, the LASSO model is likely not appropriate for this
+analysis.
 
 ## Strengths and Limitations
 
-The accuracy
-and reliability of the mosquito collection data is excellent. The same
-procedures and sentinel sites have were in place for the entire
-analytical horizon. Further, there were only two people responsible for
-sorting, identifying and counting species over the entire period. However, the data is not without limitations. Mosquito surveillance is inherently biased. Traps are set in locations that are most likely to capture infected mosquitoes. While this is a positive for early warning of virus activity, it is not necessarily representative of the surrounding area. Probably the biggest limitation is the small number of observations. The mosquito season is short in Massachusetts and funding for trapping and testing mosquitoes is limited. Mosquito control efforts, like pesticide applications, are missing from this analysis. These efforts are designed to lower the levels of virus transmitting mosquitoes and would likely provide more insight into the relationship between the predictors and virus activity. 
+The accuracy and reliability of the mosquito collection data is
+excellent. The same procedures and sentinel sites have were in place for
+the entire analytical horizon. Further, there were only two people
+responsible for sorting, identifying and counting species over the
+entire period. However, the data is not without limitations. Mosquito
+surveillance is inherently biased. Traps are set in locations that are
+most likely to capture infected mosquitoes. While this is a positive for
+early warning of virus activity, it is not necessarily representative of
+the surrounding area. Probably the biggest limitation is the small
+number of observations. The mosquito season is short in Massachusetts
+and funding for trapping and testing mosquitoes is limited. Mosquito
+control efforts, like pesticide applications, are missing from this
+analysis. These efforts are designed to lower the levels of virus
+transmitting mosquitoes and would likely provide more insight into the
+relationship between the predictors and virus activity.
 
 MIR is not a perfect measure of virus activity in mosquitoes. It tends
 to underestimate the level of virus circulating in the environment.
 However, other measures require equal pool numbers for testing. There is
 a correction factor for variable pool numbers and I will explore this
-option in later phases of this project. Ideally, the outcome would be human or animal cases. However, these cases are rare and modeling them given the limited amount of surveillance data may not be possible. 
+option in later phases of this project. Ideally, the outcome would be
+human or animal cases. However, these cases are rare and modeling them
+given the limited amount of surveillance data may not be possible.
 
-Initially, the lack of significance for most temperature and precipitation variable was surprising. However, upon closer examination, it makes sense. The main enzootic vector of EEE and the one targeted for surveillance, *Culiseta melanura*, develops in well insulated crypts that are less sensitive to ambient air temperature changes. The effect of temperature changes on MEL development speed may be less pronounced than other vector species that develop in open, standing water, like ditches and containers. Precipitation increases the amount of standing water and increases the chances of larval survival during the mosquito season and also during the winter months for those species that overwinter in the larval stage. For EEE, the main enzootic vector, MEL, overwinters as larvae.
+Initially, the lack of significance for most temperature and
+precipitation variable was surprising. However, upon closer examination,
+it makes sense. The main enzootic vector of EEE and the one targeted for
+surveillance, *Culiseta melanura*, develops in well insulated crypts
+that are less sensitive to ambient air temperature changes. The effect
+of temperature changes on MEL development speed may be less pronounced
+than other vector species that develop in open, standing water, like
+ditches and containers. Precipitation increases the amount of standing
+water and increases the chances of larval survival during the mosquito
+season and also during the winter months for those species that
+overwinter in the larval stage. For EEE, the main enzootic vector, MEL,
+overwinters as larvae.
 
 The spatial scale is an issue with the human and veterinary cases data.
 Human case data is released only on a county scale to ensure patient
@@ -494,8 +576,13 @@ crowd-sourced reports. There is one standardized survey (Breeding Bird
 Survey) that seems to be more accurate and reliable. However, this data
 is not available for every year.
 
-Likely the biggest limitation 
-## Conclusions 
-While all models demonstrated improvement over null model, none of them were robust enough to be used for reliable prediction. In the next phases of this project, the data will be expanded to include more years and cover a larger portion of Massachusetts. In additon to increasing the the number of observations, other sources of data will be incorporated. Including virus activity from surrounding regions and areas from which birds migrate to Massachusetts.
+Likely the biggest limitation \## Conclusions While all models
+demonstrated improvement over null model, none of them were robust
+enough to be used for reliable prediction. In the next phases of this
+project, the data will be expanded to include more years and cover a
+larger portion of Massachusetts. In additon to increasing the the number
+of observations, other sources of data will be incorporated. Including
+virus activity from surrounding regions and areas from which birds
+migrate to Massachusetts.
 
 # References
