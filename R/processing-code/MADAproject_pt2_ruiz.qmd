@@ -322,7 +322,7 @@ saveRDS(cases_human, output_path_rds_human)
 head(cases_human)
 
 # Construct the path to the veterinary case data file
-file_path_vet <- here("data", "processed-data", "animal_cases.xlsx")
+file_path_vet <- here("data", "raw-data", "animal_cases.xlsx")
 
 # import the data to R and store it in a dataframe named "cases_human"
 cases_vet <- read_excel(file_path_vet)
@@ -678,7 +678,7 @@ print(proportion_mel_by_week)
 write_csv(proportion_mel_by_week, here("data", "processed-data", "mel_proportion_by_week.csv"))
 
 # Calculate the average number of MEL by year
-average_mel_by_year <- trap_proportion %>%
+average_mel_by_year <- trap_wide_data %>%
   group_by(Year) %>%
   summarise(Average_MEL = mean(MEL, na.rm = TRUE))
 
