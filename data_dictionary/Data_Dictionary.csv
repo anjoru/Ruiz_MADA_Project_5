@@ -1,0 +1,297 @@
+FileName,ColumnName,DataType,SampleValue,Description
+all_mir_clean_joined.csv,week_num,character,2007-22,week number using ISO 8601 standard using the format YYYY-WW
+all_mir_clean_joined.csv,week_num.y.y,character,2007-21,week number using ISO 8601 standard using the format YYYY-WW
+all_mir_clean_joined.csv,trap type,character,NA,the type of mosquito trap used to collect the mosquito
+all_mir_clean_joined.csv,Total_Tested,numeric,301,Total # of mosquitoes tested by pool
+all_mir_clean_joined.csv,Total_PRCP,numeric,0,sum of daily precipitation by week
+all_mir_clean_joined.csv,Total_MEL,numeric,281,total # of Culiseta melanura mosquitoes by week
+all_mir_clean_joined.csv,Total_All,numeric,349,sum of all mosquitoes collected in a week
+all_mir_clean_joined.csv,Positive_Pools,numeric,0,# of pools that tested positive
+all_mir_clean_joined.csv,Pools_Tested,numeric,10,# of pools submited for virus testing
+all_mir_clean_joined.csv,None.y,numeric,100,indicates no drought in a given week at a given site
+all_mir_clean_joined.csv,None.x,numeric,100,indicates no drought in a given week at a given site
+all_mir_clean_joined.csv,MIR,numeric,0,minimum infection rate
+all_mir_clean_joined.csv,MEL_Prop,numeric,0.805157593,Proportion of Culiseta melanura mosquito captured in a week
+all_mir_clean_joined.csv,Hrs_Between_50_86_lag,numeric,155,number of hours where temperature is >=50 and <=86 F and week_num - 1 week
+all_mir_clean_joined.csv,Hrs_Below_50_lag,numeric,61,# of hours when temperature is below 50 degrees F and week_num - 1 week
+all_mir_clean_joined.csv,Hrs_Below_50_current,numeric,14,# of hours when temperature is below 50 degrees F in a week
+all_mir_clean_joined.csv,Hrs_Above_80_lag,numeric,30,# hours when temp >= 80 F and week_num - 1 week
+all_mir_clean_joined.csv,Hrs_Above_75_lag,numeric,42,# hours when temp >= 75 F and week_num - 1 week
+all_mir_clean_joined.csv,DSCI_ma,numeric,0,"Drought Severity and Coverage Index for MA (0-500) 0=no drought, 500= worst possible drought."
+all_mir_clean_joined.csv,DSCI_fema,numeric,0,"Drought Severity and Coverage Index for by FEMA ergion(0-500) 0=no drought, 500= worst possible drought."
+all_mir_clean_joined.csv,D4.y,numeric,0,Categorry of drought D0-D4 (D0 least severe)
+all_mir_clean_joined.csv,D4.x,numeric,0,Categorry of drought D0-D4 (D0 least severe)
+all_mir_clean_joined.csv,D3.y,numeric,0,Categorry of drought D0-D4 (D0 least severe)
+all_mir_clean_joined.csv,D3.x,numeric,0,Categorry of drought D0-D4 (D0 least severe)
+all_mir_clean_joined.csv,D2.y,numeric,0,Categorry of drought D0-D4 (D0 least severe)
+all_mir_clean_joined.csv,D2.x,numeric,0,Categorry of drought D0-D4 (D0 least severe)
+all_mir_clean_joined.csv,D1.y,numeric,0,Categorry of drought D0-D4 (D0 least severe)
+all_mir_clean_joined.csv,D1.x,numeric,0,Categorry of drought D0-D4 (D0 least severe)
+all_mir_clean_joined.csv,D0.y,numeric,0,Categorry of drought D0-D4 (D0 least severe)
+all_mir_clean_joined.csv,D0.x,numeric,0,Categorry of drought D0-D4 (D0 least severe)
+all_mir_clean_joined.csv,Avg_TMAX,numeric,80.57142857,Average daily max temp by week
+all_mir_clean_joined.csv,Avg_HourlyWindSpeed_current,numeric,4.136986301,Average weekly windspeed
+all_mir_clean_joined.csv,Avg_HourlyWetBulbTemperature_current,numeric,59.2,Average weekly wetbulb temp
+all_mir_clean_joined.csv,Avg_HourlyWetBulbTemp_lag,numeric,53.11453744,Average weekly wetbulb temp week_num - 1 week
+all_mir_clean_joined.csv,Avg_HourlyRelativeHumidity_current,numeric,72.54509804,Average weekly RH
+all_mir_clean_joined.csv,Avg_HourlyDryBulbTemp_lag,numeric,60.85903084,Average weekly dry bulb temp week_num - 1 week
+all_mir_clean_joined.csv,Average_MEL,numeric,NA,Average daily  number of Culiseta melanura caught 
+all_mir_clean_joined.csv,average_daylight_hours,numeric,-9.010555556,average # of daylight hours in a day by week
+average_daylight_by_week.csv,week_num,character,2007-01,week number using ISO 8601 standard using the format YYYY-WW
+average_daylight_by_week.csv,average_daylight_hours,numeric,9.228715278,average # of daylight hours in a day by week
+average_mel_week_all.csv,week_num,character,2007-19,week number using ISO 8601 standard using the format YYYY-WW
+average_mel_week_all.csv,trap type,character,Gravid Trap,the type of mosquito trap used to collect the mosquito
+average_mel_week_all.csv,Average_MEL,numeric,0,Average weekly  number of Culiseta melanura caught 
+average_mel_week_co2.csv,week_num,character,2007-21,week number using ISO 8601 standard using the format YYYY-WW
+average_mel_week_co2.csv,trap type,character,Dry Ice CO2 - CDC Miniature Light Trap with CO2,the type of mosquito trap used to collect the mosquito
+average_mel_week_co2.csv,Average_MEL,numeric,61,Average weekly  number of Culiseta melanura caught 
+combined_virus_data.csv,Virus,character,EEE,"Pathogen the pool tested positive for: eastern equine encephalitis (EEE), West Nile virus (WNV)"
+combined_virus_data.csv,Town,character,Freetown,Town/city in which the mosquito was collected
+combined_virus_data.csv,Species,character,Culiseta melanura,mosqutio species collected
+combined_virus_data.csv,County,character,Bristol,US County
+combined_virus_data.csv,Collection Date,POSIXct,7/31/14,date mosquito was collected from trap
+drought_fema1_4.csv,week_num,character,2023-44,week number using ISO 8601 standard using the format YYYY-WW
+drought_fema1_4.csv,ValidStart,Date,10/31/23,Date refering to the start of report period (last day of week)
+drought_fema1_4.csv,ValidEnd,Date,11/6/23,Date refering to the start of report period (last day of week)
+drought_fema1_4.csv,StatisticFormatID,numeric,1,US Drought Monitor designation of traditional or categorical statistics
+drought_fema1_4.csv,RegionName,character,I,Name of Fema region
+drought_fema1_4.csv,None,numeric,100,indicates no drought in a given week at a given site
+drought_fema1_4.csv,MapDate,Date,10/31/23,Date the drought map was generated
+drought_fema1_4.csv,DSCI_fema,numeric,0,"Drought Severity and Coverage Index for by FEMA ergion(0-500) 0=no drought, 500= worst possible drought."
+drought_fema1_4.csv,D4,numeric,0,Categorry of drought D0-D4 (D0 least severe)
+drought_fema1_4.csv,D3,numeric,0,Categorry of drought D0-D4 (D0 least severe)
+drought_fema1_4.csv,D2,numeric,0,Categorry of drought D0-D4 (D0 least severe)
+drought_fema1_4.csv,D1,numeric,0,Categorry of drought D0-D4 (D0 least severe)
+drought_fema1_4.csv,D0,numeric,0,Categorry of drought D0-D4 (D0 least severe)
+drought_ma_counties.csv,week_num,character,2024-15,week number using ISO 8601 standard using the format YYYY-WW
+drought_ma_counties.csv,ValidStart,character,4/9/24,Date refering to the start of report period (last day of week)
+drought_ma_counties.csv,ValidEnd,character,4/15/24,Date refering to the start of report period (last day of week)
+drought_ma_counties.csv,StatisticFormatID,numeric,1,US Drought Monitor designation of traditional or categorical statistics
+drought_ma_counties.csv,State,character,MA,US State
+drought_ma_counties.csv,None,numeric,100,indicates no drought in a given week at a given site
+drought_ma_counties.csv,MapDate,Date,4/9/24,Date the drought map was generated
+drought_ma_counties.csv,FIPS,numeric,25001,State/county; FIPS codes are numeric codes that uniquely identify counties and other geographic areas in US
+drought_ma_counties.csv,DSCI_ma,numeric,0,"Drought Severity and Coverage Index for MA (0-500) 0=no drought, 500= worst possible drought."
+drought_ma_counties.csv,D4,numeric,0,Categorry of drought D0-D4 (D0 least severe)
+drought_ma_counties.csv,D3,numeric,0,Categorry of drought D0-D4 (D0 least severe)
+drought_ma_counties.csv,D2,numeric,0,Categorry of drought D0-D4 (D0 least severe)
+drought_ma_counties.csv,D1,numeric,0,Categorry of drought D0-D4 (D0 least severe)
+drought_ma_counties.csv,D0,numeric,0,Categorry of drought D0-D4 (D0 least severe)
+drought_ma_counties.csv,County,character,Barnstable County,US County
+filtered_pcr_data.csv,week_num,character,2007-19,week number using ISO 8601 standard using the format YYYY-WW
+filtered_pcr_data.csv,Trap Type,character,Gravid Trap,the type of mosquito trap used to collect the mosquito
+filtered_pcr_data.csv,Trap Site,character,"Fresh Meadow Lane, BR",Common description of where the trap was located. 
+filtered_pcr_data.csv,Trap Set Date,POSIXct,5/9/07,Date the traps was set
+filtered_pcr_data.csv,Town,character,Dighton,Town/city in which the mosquito was collected
+filtered_pcr_data.csv,Test Type,character,NA,the type of virus test the mosquito pool was positive for
+filtered_pcr_data.csv,Submitted_for_Testing,numeric,0,indiccarto of whether the mosquito pool was submitted for pcr testing
+filtered_pcr_data.csv,Submitted for Testing,character,N,indiccarto of whether the mosquito pool was submitted for pcr testing
+filtered_pcr_data.csv,Specimen Type,character,Mosquito,Type of specimen tested
+filtered_pcr_data.csv,Species code,character,NCR,3 letter code for mosquito Genus species 
+filtered_pcr_data.csv,Species,character,No Collections Recorded,mosqutio species collected
+filtered_pcr_data.csv,Result,character,NA,results of pcr tests 
+filtered_pcr_data.csv,Pool_Size_Numeric,numeric,0,# of mosquitoes in a pool (should not exceed 50)
+filtered_pcr_data.csv,Pool Size,numeric,0,
+filtered_pcr_data.csv,Pool ID,character,BR07NS-0132,Unique ID for collected mosquitoes
+filtered_pcr_data.csv,Number of Traps,numeric,1,# of traps at a surveillance site
+filtered_pcr_data.csv,MCD,character,Bristol,Name of mosquito control district that collected the mosquitoes
+filtered_pcr_data.csv,Is_Positive,numeric,NA,indicator of whether the tested pool was positive (1 = pos)
+filtered_pcr_data.csv,Genus,character,No Collections,genus of mosquito collected
+filtered_pcr_data.csv,Collection Date,POSIXct,5/10/07,date mosquito was collected from trap
+hourly_wx_clean.csv,week_num,character,2006-52,week number using ISO 8601 standard using the format YYYY-WW
+hourly_wx_clean.csv,STATION,numeric,72506854777,Weather station that collected the weather data
+hourly_wx_clean.csv,HourlyWindSpeed,numeric,5,average wind speed in 1 hour
+hourly_wx_clean.csv,HourlyWetBulbTemperature,numeric,33,average wet bulb temperature in an hour
+hourly_wx_clean.csv,HourlyRelativeHumidity,numeric,93,average RH in an hour
+hourly_wx_clean.csv,HourlyDryBulbTemperature,numeric,34,average temperatute in an hour
+hourly_wx_clean.csv,DATE,POSIXct,1/1/06 0:08,format for representing date and time in R programming
+joined_data_mir_co2.csv,week_num.y.y,character,2007-22,week number using ISO 8601 standard using the format YYYY-WW
+joined_data_mir_co2.csv,week_num,character,2007-23,week number using ISO 8601 standard using the format YYYY-WW
+joined_data_mir_co2.csv,trap type,character,500cc CO2 - CDC Miniature Light Trap,the type of mosquito trap used to collect the mosquito
+joined_data_mir_co2.csv,Total_Tested,numeric,2327,Total # of mosquitoes tested by pool
+joined_data_mir_co2.csv,Total_PRCP,numeric,0.83,sum of daily precipitation by week
+joined_data_mir_co2.csv,Total_MEL,numeric,1652,total # of Culiseta melanura mosquitoes by week
+joined_data_mir_co2.csv,Total_All,numeric,3331,sum of all mosquitoes collected in a week
+joined_data_mir_co2.csv,Positive_Pools,numeric,0,# of pools that tested positive
+joined_data_mir_co2.csv,Pools_Tested,numeric,53,# of pools submited for virus testing
+joined_data_mir_co2.csv,None.y,numeric,100,indicates no drought in a given week at a given site
+joined_data_mir_co2.csv,None.x,numeric,100,indicates no drought in a given week at a given site
+joined_data_mir_co2.csv,MIR,numeric,0,minimum infection rate
+joined_data_mir_co2.csv,MEL_Prop,numeric,0.495947163,Proportion of Culiseta melanura mosquito captured in a week
+joined_data_mir_co2.csv,Hrs_Between_50_86_lag,numeric,237,number of hours where temperature is >=50 and <=86 F and week_num - 1 week
+joined_data_mir_co2.csv,Hrs_Below_50_lag,numeric,14,# of hours when temperature is below 50 degrees F and week_num - 1 week
+joined_data_mir_co2.csv,Hrs_Below_50_current,numeric,6,# of hours when temperature is below 50 degrees F in a week
+joined_data_mir_co2.csv,Hrs_Above_80_lag,numeric,24,# hours when temp >= 80 F and week_num - 1 week
+joined_data_mir_co2.csv,Hrs_Above_75_lag,numeric,47,# hours when temp >= 75 F and week_num - 1 week
+joined_data_mir_co2.csv,DSCI_ma,numeric,0,"Drought Severity and Coverage Index for MA (0-500) 0=no drought, 500= worst possible drought."
+joined_data_mir_co2.csv,DSCI_fema,numeric,0,"Drought Severity and Coverage Index for by FEMA ergion(0-500) 0=no drought, 500= worst possible drought."
+joined_data_mir_co2.csv,D4.y,numeric,0,Categorry of drought D0-D4 (D0 least severe)
+joined_data_mir_co2.csv,D4.x,numeric,0,Categorry of drought D0-D4 (D0 least severe)
+joined_data_mir_co2.csv,D3.y,numeric,0,Categorry of drought D0-D4 (D0 least severe)
+joined_data_mir_co2.csv,D3.x,numeric,0,Categorry of drought D0-D4 (D0 least severe)
+joined_data_mir_co2.csv,D2.y,numeric,0,Categorry of drought D0-D4 (D0 least severe)
+joined_data_mir_co2.csv,D2.x,numeric,0,Categorry of drought D0-D4 (D0 least severe)
+joined_data_mir_co2.csv,D1.y,numeric,0,Categorry of drought D0-D4 (D0 least severe)
+joined_data_mir_co2.csv,D1.x,numeric,0,Categorry of drought D0-D4 (D0 least severe)
+joined_data_mir_co2.csv,D0.y,numeric,0,Categorry of drought D0-D4 (D0 least severe)
+joined_data_mir_co2.csv,D0.x,numeric,0,Categorry of drought D0-D4 (D0 least severe)
+joined_data_mir_co2.csv,Avg_TMAX,numeric,80.71428571,Average daily max temp by week
+joined_data_mir_co2.csv,Avg_HourlyWindSpeed_current,numeric,5.344202899,Average weekly windspeed
+joined_data_mir_co2.csv,Avg_HourlyWetBulbTemperature_current,numeric,59.56375839,Average weekly wetbulb temp
+joined_data_mir_co2.csv,Avg_HourlyWetBulbTemp_lag,numeric,59.2,Average weekly wetbulb temp week_num - 1 week
+joined_data_mir_co2.csv,Avg_HourlyRelativeHumidity_current,numeric,78.43959732,Average weekly RH
+joined_data_mir_co2.csv,Avg_HourlyDryBulbTemp_lag,numeric,65.24705882,Average weekly dry bulb temp week_num - 1 week
+joined_data_mir_co2.csv,Average_MEL,numeric,203,Average weekly  number of Culiseta melanura caught 
+joined_data_mir_co2.csv,average_daylight_hours,numeric,-8.882579365,average # of daylight hours in a day by week
+mel_proportion_by_week.csv,week_num,character,2007-19,week number using ISO 8601 standard using the format YYYY-WW
+mel_proportion_by_week.csv,Total_MEL,numeric,0,total # of Culiseta melanura mosquitoes by week
+mel_proportion_by_week.csv,Total_All,numeric,0,sum of all mosquitoes collected in a week
+mel_proportion_by_week.csv,MEL_Prop,numeric,NA,Proportion of Culiseta melanura mosquito captured in a week
+MIR_by_week_co2.csv,Year,numeric,2007,Year extraced from a date field
+MIR_by_week_co2.csv,week_num,character,2007-23,week number using ISO 8601 standard using the format YYYY-WW
+MIR_by_week_co2.csv,Week,numeric,23,week number using ISO 8601 standard
+MIR_by_week_co2.csv,Total_Tested,numeric,2327,Total # of mosquitoes tested by pool
+MIR_by_week_co2.csv,Positive_Pools,numeric,0,# of pools that tested positive
+MIR_by_week_co2.csv,Pools_Tested,numeric,53,# of pools submited for virus testing
+MIR_by_week_co2.csv,MIR,numeric,0,minimum infection rate
+MIR_by_week.csv,Year,numeric,2007,Year extraced from a date field
+MIR_by_week.csv,week_num,character,2007-22,week number using ISO 8601 standard using the format YYYY-WW
+MIR_by_week.csv,Week,numeric,22,week number using ISO 8601 standard
+MIR_by_week.csv,Total_Tested,numeric,301,Total # of mosquitoes tested by pool
+MIR_by_week.csv,Positive_Pools,numeric,0,# of pools that tested positive
+MIR_by_week.csv,Pools_Tested,numeric,10,# of pools submited for virus testing
+MIR_by_week.csv,MIR,numeric,0,minimum infection rate
+mir_mel_week_co2.csv,Year,numeric,2007,Year extraced from a date field
+mir_mel_week_co2.csv,week_num,character,2007-23,week number using ISO 8601 standard using the format YYYY-WW
+mir_mel_week_co2.csv,Week,numeric,23,week number using ISO 8601 standard
+mir_mel_week_co2.csv,Total_Tested,numeric,1749,Total # of mosquitoes tested by pool
+mir_mel_week_co2.csv,Positive_Pools,numeric,0,# of pools that tested positive
+mir_mel_week_co2.csv,Pools_Tested,numeric,40,# of pools submited for virus testing
+mir_mel_week_co2.csv,MIR,numeric,0,minimum infection rate
+mir_nomel_week_co2.csv,Year,numeric,2007,Year extraced from a date field
+mir_nomel_week_co2.csv,week_num,character,2007-23,week number using ISO 8601 standard using the format YYYY-WW
+mir_nomel_week_co2.csv,Week,numeric,23,week number using ISO 8601 standard
+mir_nomel_week_co2.csv,Total_Tested,numeric,578,Total # of mosquitoes tested by pool
+mir_nomel_week_co2.csv,Positive_Pools,numeric,0,# of pools that tested positive
+mir_nomel_week_co2.csv,Pools_Tested,numeric,13,# of pools submited for virus testing
+mir_nomel_week_co2.csv,MIR,numeric,0,minimum infection rate
+mosquito_clean_all.csv,week_num,character,2021-30,week number using ISO 8601 standard using the format YYYY-WW
+mosquito_clean_all.csv,trap type,character,500cc CO2 - CDC Miniature Light Trap,the type of mosquito trap used to collect the mosquito
+mosquito_clean_all.csv,trap set date,POSIXct,7/26/21,Date the traps was set
+mosquito_clean_all.csv,town,character,Berkley,Town/city in which the mosquito was collected
+mosquito_clean_all.csv,submitted for testing,character,N,indiccarto of whether the mosquito pool was submitted for pcr testing
+mosquito_clean_all.csv,species code,character,PRO,4 letter code for mosquito Genus species 
+mosquito_clean_all.csv,species,character,provocans,mosqutio species collected
+mosquito_clean_all.csv,pool size,numeric,3,
+mosquito_clean_all.csv,pool id,character,BR21NS-0575,Unique ID for collected mosquitoes
+mosquito_clean_all.csv,number of traps,numeric,1,# of traps at a surveillance site
+mosquito_clean_all.csv,mcd,character,Bristol,Name of mosquito control district that collected the mosquitoes
+mosquito_clean_all.csv,genus,character,Aedes,genus of mosquito collected
+mosquito_clean_all.csv,collection date,Date,7/27/21,date mosquito was collected from trap
+mosquito_wide_all.csv,week_num,character,2007-19,week number using ISO 8601 standard using the format YYYY-WW
+mosquito_wide_all.csv,WAL,numeric,0,Anopheles walkerei
+mosquito_wide_all.csv,VEX,numeric,0,Aedes vexans
+mosquito_wide_all.csv,UNK,numeric,0,Unknown species
+mosquito_wide_all.csv,TVT,numeric,0,Aedes  trivittatus
+mosquito_wide_all.csv,TRI,numeric,0,Aedes triseriatus
+mosquito_wide_all.csv,trap type,character,Gravid Trap,the type of mosquito trap used to collect the mosquito
+mosquito_wide_all.csv,town,character,Dighton,Town/city in which the mosquito was collected
+mosquito_wide_all.csv,THI,numeric,0,Aedes thibaulti
+mosquito_wide_all.csv,TER,numeric,0,Culex territans
+mosquito_wide_all.csv,TAE,numeric,0,Aeded taeniorhynchus
+mosquito_wide_all.csv,STM,numeric,0,Aedes stimulans
+mosquito_wide_all.csv,STI,numeric,0,Aedes stricticus
+mosquito_wide_all.csv,SOL,numeric,0,Aedes solicitans
+mosquito_wide_all.csv,SMI,numeric,0,Wyeomia smithii
+mosquito_wide_all.csv,SIG,numeric,0,Orthopodomyia signifera
+mosquito_wide_all.csv,SAP,numeric,0,Uranotaenia sapphirina
+mosquito_wide_all.csv,SAL,numeric,0,Culex salinarius
+mosquito_wide_all.csv,RUT,numeric,0,Toxorhynchites rutilus
+mosquito_wide_all.csv,RES,numeric,0,Culex restuans
+mosquito_wide_all.csv,QUA,numeric,0,Anopheles quadrimaculatus sl
+mosquito_wide_all.csv,PUN,numeric,0,Anopheles punctipennis
+mosquito_wide_all.csv,PRO,numeric,0,Aedes provocans
+mosquito_wide_all.csv,PRE,numeric,0,Culex complex
+mosquito_wide_all.csv,PIP,numeric,0,Culex pipiens
+mosquito_wide_all.csv,PER,numeric,0,Coquillettidia perturbans
+mosquito_wide_all.csv,PCT,numeric,0,Aeded punctor
+mosquito_wide_all.csv,OCH,numeric,0,Ochlerotatus spp
+mosquito_wide_all.csv,NCR,numeric,0,no collections recorded
+mosquito_wide_all.csv,MOR,numeric,0,Culiseta morsitans
+mosquito_wide_all.csv,MIN,numeric,0,Culiseta minnesotae
+mosquito_wide_all.csv,MEL,numeric,0,Culiseta melanura
+mosquito_wide_all.csv,mcd,character,Bristol,Name of mosquito control district that collected the mosquitoes
+mosquito_wide_all.csv,JAP,numeric,0,Aeded japonicus
+mosquito_wide_all.csv,INT,numeric,0,Aedes intrudens
+mosquito_wide_all.csv,INO,numeric,0,Culiseta inorata
+mosquito_wide_all.csv,IMP,numeric,0,Culiseta impatiens
+mosquito_wide_all.csv,HEN,numeric,0,Aedes hendersoni
+mosquito_wide_all.csv,GRO,numeric,0,Aedes grossbecki
+mosquito_wide_all.csv,FIT,numeric,0,Aedes fitchii
+mosquito_wide_all.csv,FER,numeric,0,Psorophora ferox
+mosquito_wide_all.csv,EXC,numeric,0,Aedes excrucians
+mosquito_wide_all.csv,ERR,numeric,0,Culex erraticus
+mosquito_wide_all.csv,DIA,numeric,0,Aeded dianteus
+mosquito_wide_all.csv,CUL,numeric,0,Culex species
+mosquito_wide_all.csv,CTT,numeric,0,Aedes cantator
+mosquito_wide_all.csv,CRU,numeric,0,Anopheles cruicians
+mosquito_wide_all.csv,COM,numeric,0,Aedes communis
+mosquito_wide_all.csv,collection date,Date,5/10/07,date mosquito was collected from trap
+mosquito_wide_all.csv,COL,numeric,0,Psorophora columbiae
+mosquito_wide_all.csv,CIN,numeric,0,aedes cinereus
+mosquito_wide_all.csv,CAN,numeric,0,Aedes canadensis
+mosquito_wide_all.csv,BAR,numeric,0,Anopheles barberei
+mosquito_wide_all.csv,AUR,numeric,0,Aedes aurifer
+mosquito_wide_all.csv,ATR,numeric,0,Aedes atropalpus
+mosquito_wide_all.csv,ATL,numeric,0,Aedes atlanticus
+mosquito_wide_all.csv,ALB,numeric,0,Aedes albopictus
+mosquito_wide_all.csv,ABS,numeric,0,Aedes abserratus
+pcr_data.csv,week_num,character,2007-19,week number using ISO 8601 standard using the format YYYY-WW
+pcr_data.csv,Trap Type,character,Gravid Trap,the type of mosquito trap used to collect the mosquito
+pcr_data.csv,Trap Site,character,"Fresh Meadow Lane, BR",Common description of where the trap was located. 
+pcr_data.csv,Trap Set Date,POSIXct,5/9/07,Date the traps was set
+pcr_data.csv,Town,character,Dighton,Town/city in which the mosquito was collected
+pcr_data.csv,Test Type,character,NA,the type of virus test the mosquito pool was positive for
+pcr_data.csv,Submitted for Testing,character,N,indiccarto of whether the mosquito pool was submitted for pcr testing
+pcr_data.csv,Specimen Type,character,Mosquito,Type of specimen tested
+pcr_data.csv,Species code,character,NCR,5 letter code for mosquito Genus species 
+pcr_data.csv,Species,character,No Collections Recorded,mosqutio species collected
+pcr_data.csv,Result,character,NA,results of pcr tests 
+pcr_data.csv,Pool Size,numeric,0,
+pcr_data.csv,Pool ID,character,BR07NS-0132,Unique ID for collected mosquitoes
+pcr_data.csv,Number of Traps,numeric,1,# of traps at a surveillance site
+pcr_data.csv,MCD,character,Bristol,Name of mosquito control district that collected the mosquitoes
+pcr_data.csv,Genus,character,No Collections,genus of mosquito collected
+pcr_data.csv,Collection Date,POSIXct,5/10/07,date mosquito was collected from trap
+trap_sites_selected.csv,Trap Site Address,character,"Crown Street, BR",Common descrption of location
+trap_sites_selected.csv,MCD,character,Bristol,name of mosquito control district that oversees the trap
+trap_sites_selected.csv,Location,character,Attleboro: Attleboro 02703(Bristol),Town/City where trap site is located with zip code
+trap_sites_selected.csv,DecLat,numeric,41.896164,lattitude of location in decimal degrees
+trap_sites_selected.csv,DecLong,numeric,-71.38026,longitude of location in decimal degrees
+wx_hourly_current.csv,week_num,character,2006-01,week number using ISO 8601 standard using the format YYYY-WW
+wx_hourly_current.csv,Hrs_Below_50_current,numeric,283,# of hours when temperature is below 50 degrees F in a week
+wx_hourly_current.csv,Avg_HourlyWindSpeed_current,numeric,3.961130742,Average weekly windspeed
+wx_hourly_current.csv,Avg_HourlyWetBulbTemperature_current,numeric,30.8869258,Average weekly wetbulb temp
+wx_hourly_current.csv,Avg_HourlyRelativeHumidity_current,numeric,87.50530035,Average weekly RH
+wx_hourly_lead.csv,Year,numeric,2006,Year extraced from a date field
+wx_hourly_lead.csv,week_num,character,2006-01,week number using ISO 8601 standard using the format YYYY-WW
+wx_hourly_lead.csv,Week,numeric,1,week number using ISO 8601 standard
+wx_hourly_lead.csv,Lead_week_num,character,2006-02,"week_num + 1 week., used to create a lag"
+wx_hourly_lead.csv,Hrs_Between_50_86_lag,numeric,0,number of hours where temperature is >=50 and <=86 F and week_num - 1 week
+wx_hourly_lead.csv,Hrs_Below_50_lag,numeric,283,# of hours when temperature is below 50 degrees F in a week
+wx_hourly_lead.csv,Hrs_Above_80_lag,numeric,0,# hours when temp >= 80 F and week_num - 1 week
+wx_hourly_lead.csv,Hrs_Above_75_lag,numeric,0,# hours when temp >= 75 F and week_num - 1 week
+wx_hourly_lead.csv,Avg_HourlyWetBulbTemp_lag,numeric,30.8869258,Average weekly wetbulb temp week_num - 1 week
+wx_hourly_lead.csv,Avg_HourlyDryBulbTemp_lag,numeric,32.14134276,Average weekly dry bulb temp week_num - 1 week
+wx_selected.csv,week_num,character,2007-01,week number using ISO 8601 standard using the format YYYY-WW
+wx_selected.csv,TMAX,numeric,57,The maximum temperature recorded in a calendar day at the Taunton Airport
+wx_selected.csv,STATION,character,USW00054777,Weather station that collected the weather data
+wx_selected.csv,PRCP,numeric,1.17,total precipitation recorded in a calendar day
+wx_selected.csv,NAME,character,"TAUNTON MUNICIPAL AIRPORT, MA US",Name of weather station
+wx_selected.csv,DATE,Date,1/1/07,date of  weather readings
+yearly_mel_average.csv,Year,numeric,2007,Year extraced from a date field
+yearly_mel_average.csv,Average_MEL,numeric,16.05013193,Average weekly  number of Culiseta melanura caught 
+yearly_mel_proportion.csv,Year,numeric,2007,Year extraced from a date field
+yearly_mel_proportion.csv,Total_MEL,numeric,12166,total # of Culiseta melanura mosquitoes by year
+yearly_mel_proportion.csv,Total_All,numeric,37247,sum of all mosquitoes collected in a year
+yearly_mel_proportion.csv,MEL_Prop,numeric,0.326630333,Proportion of Culiseta melanura mosquito captured in a week

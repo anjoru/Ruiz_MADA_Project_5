@@ -7,23 +7,21 @@ output: html_document
 
 # load needed packages. make sure they are installed.
 ```{r}
-library(here) #for data loading/saving
-library(dplyr)
-library(skimr)
-library(ggplot2)
-library(tidyverse)
-library(lubridate)
-library(readr)
-library(forecast)
-library(tsibble) # For time series data wrangling
-library(feasts) # For decomposing and visualizing time series
-library(RColorBrewer)
-library(ggcorrplot)
-library(readxl)
-library(corrplot)
-library(plotly)
+library(here)        # for data loading/saving
+library(dplyr)       # for data manipulation
+library(skimr)       # for data summarization
+library(ggplot2)     # for data visualization
+library(lubridate)   # for date and time manipulation
+library(forecast)    # for time series forecasting
+library(tsibble)     # for time series data wrangling
+library(feasts)      # for decomposing and visualizing time series
+library(RColorBrewer) # for color palettes
+library(ggcorrplot)  # for correlation plot
+library(readxl)      # for reading Excel files
+library(corrplot)    # for correlation plot
+library(plotly)      # for interactive plots
+library(tidyr)       # for data reshaping
 library(reshape2)
-library(rlang)
 ```
 
 # This file will contain the EDA code for the class project.
@@ -206,7 +204,7 @@ mosquito_wide <- read_csv(here("data", "processed-data", "mosquito_wide_all.csv"
 drought_fema1_4 <- read_csv(here("data", "processed-data", "drought_fema1_4.csv"))
 drought_ma_counties <- read_csv(here("data", "processed-data", "drought_ma_counties.csv"))
 average_daylight_by_week <- read_csv(here("data", "processed-data", "average_daylight_by_week.csv"))
-average_mel_weekco2 <- read_csv(here("data", "processed-data", "average_mel_weekco2.csv"))
+average_mel_weekco2 <- read_csv(here("data", "processed-data", "average_mel_week_co2.csv"))
 wx_hourly_clean <- read_csv(here("data", "processed-data", "hourly_wx_clean.csv"))
 mel_prop_weekly <- read_csv(here("data", "processed-data", "mel_proportion_by_week.csv"))
 

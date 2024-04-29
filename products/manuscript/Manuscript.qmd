@@ -508,7 +508,7 @@ As expected, the RSME is lower for the training dataset than the testing
 dataset for all models. The RMSE values are displayed in the table
 below.
 
-![](images/rmse_table-01.png)
+![](images/rmse_table-03.png){fig-align="center"}
 
 # Discussion
 

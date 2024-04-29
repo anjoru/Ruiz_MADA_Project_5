@@ -1,0 +1,68 @@
+---
+title: "Data Dictionary Search Tool"
+output: html_document
+runtime: shiny
+editor: visual
+---
+
+# Data dictionary search tool
+
+## Use this tool to search the data dictionary by file name, column name, or both.
+
+### First code block was used to compile the data dictionary from multiple CSV files. The data dictionary is then saved as a CSV file named "Data_Dictionary.csv".
+
+```{r echo=FALSE}
+library(shiny)
+library(here)
+library(dplyr)
+library(readr)
+```
+
+## Run this code this code to open the search tool.
+
+### you can also view the entire data dictionary here: (.../data_dictionary/Data_Dictionary.csv)
+
+```{r echo=FALSE}
+# Load your data dictionary
+data_dictionary <- read_csv(here("data_dictionary", "Data_Dictionary.csv"))
+
+# Define UI
+ui <- fluidPage(
+    titlePanel("Data Dictionary Search Tool"),
+    sidebarLayout(
+        sidebarPanel(
+            helpText("Use the fields below to search the data dictionary by file name, column name, or both."),
+            textInput("file_name", "Enter File Name:", ""),
+            textInput("column_name", "Enter Column Name:", ""),
+            helpText("Press search to update the results."),
+            actionButton("search", "Search"),
+            helpText("Tip: The search is case-insensitive and partial matches will also show up in the results.")
+        ),
+        mainPanel(
+            dataTableOutput("results")
+        )
+    )
+)
+
+# Define server logic
+server <- function(input, output) {
+    # Reactive value for filtered data
+    filtered_data <- reactive({
+        req(input$search)  # Make sure the search button has been pressed
+        data_dictionary %>%
+            filter(
+                (input$file_name == "" | grepl(input$file_name, FileName, ignore.case = TRUE)) &
+                (input$column_name == "" | grepl(input$column_name, ColumnName, ignore.case = TRUE))
+            )
+    })
+    
+    # Output the results
+    output$results <- renderDataTable({
+        filtered_data()
+    })
+}
+
+# Run the application
+shinyApp(ui = ui, server = server)
+
+```

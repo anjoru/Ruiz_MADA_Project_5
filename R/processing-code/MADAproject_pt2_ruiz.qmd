@@ -70,6 +70,7 @@ library(purrr)
 ## Mosquito trap data
 ### This dataset contains trap counts by species for all mosquito traps set in the Bristol County from 2007-2023 this dataset will undergo extensive processing below.
 #### The dataset was obtained though and open records request with the Commonwealth of MA.
+##### we will read the data now and process it later in this script
 ```{r trap-data-import}
 # Construct the path to the Excel file
 file_path_mos <- here("data", "raw-data", "MOSQ_MADA.xlsx")
@@ -141,6 +142,11 @@ trap_location_selected_path_rds <- here("data", "processed-data", "rds", "trap_s
 
 # Save the trap_location_selected dataframe as an RDS file
 saveRDS(trap_location_selected, trap_location_selected_path_rds)
+
+#save as csv
+trap_location_selected_path_csv <- here("data", "processed-data", "trap_sites_selected.csv")
+write_csv(trap_location_selected, trap_location_selected_path_csv)
+
 ```
 
 ## Mosquito virus data
@@ -151,7 +157,7 @@ saveRDS(trap_location_selected, trap_location_selected_path_rds)
 ### This code will load all the files, combine them, and then save the combined file in the "raw data" folder
 ```{r}
 #Define the path to the folder with Excel files
-folder_path <- here("data", "processed-data", "virus_data")
+folder_path <- here("data", "raw-data", "virus_data")
 
 #List all Excel files (.xls and .xlsx)
 file_paths <- list.files(path = folder_path, pattern = "\\.xls[x]*$", full.names = TRUE)
@@ -187,18 +193,27 @@ head(combined_virus_data)
 ### This dataset contains daily weather summaries from the Taunton, MA Airport from 2007-2023
 #### The data was obtained from the NOAA National Centers for Environmental Information
 ```{r}
+
 # Construct the path to the file
-file_path_wx = here("data", "processed-data", "weather_airport.csv")
+file_path_wx <- here("data", "raw-data", "weather_airport.csv")
 
-# import the data to R and store it in a dataframe named "wx"
-wx = read.csv(file_path_wx)
+# Import the data to R and store it in a dataframe named "wx"
+wx <- read.csv(file_path_wx)
 
+# Check the structure of the DATE column to determine if there are any unexpected values
+str(wx$DATE)
+
+# Check for any missing values in the DATE column
+sum(is.na(wx$DATE))
+
+# If there are no missing values, proceed with the mutation
 wx <- wx %>%
   mutate(
-    DATE = mdy(DATE),  # Parse the DATE column from "month/day/year"
+    DATE = ymd(DATE),  # Parse the DATE column from "year-month-day"
     week_num = paste0(year(DATE), "-", sprintf("%02d", isoweek(DATE)))  # Create week_num
   )
-#load the first few rows of data to verify the data loaded as expected
+
+# Load the first few rows of data to verify the data loaded as expected
 head(wx)
 
 #the columns below are the only ones needed for this project. 
@@ -355,9 +370,9 @@ head(mosquito_raw)
 sapply(mosquito_raw, function(x) sum(is.na(x)))
 ```
 
-#### The majority of the missing data is in the "Submitted for Testing" variable. This is not a crucial variable, so we can keep those records. Missing data in that variable generally means 0 mosquitoes were captured in a trap. The other variable are important and so we will remove those records with the other missing data.
+#### The majority of the missing data is in the "Submitted for Testing" variable. This is not a crucial variable, so we can keep those records. Missing data in that variable generally means 0 mosquitoes were captured in a trap. We will remove the rows with missing data in the other columns in th code chunks below.
 
-### The Massachussetts Department of Public Health adpoted a taxonomy change before it was fully vetted. The change divided the genus *Aedes* into a new genus: *Ochlerotatus*. To align with accepted standards, I will change them back to *Aedes*.
+### The Massachussetts Department of Public Health adpoted a taxonomy change before it was fully vetted. The change divided the genus *Aedes* into a new genus: *Ochlerotatus*. To align with current accepted standards, I will change them back to *Aedes*.
 
 ```{r}
 # Get unique values using dplyr
@@ -375,7 +390,7 @@ mosquito_raw$genus[mosquito_raw$genus == "Ochlerotatus"] <- "Aedes"
 unique(mosquito_raw$genus)
 ```
 
-### Execute proposed changes.
+### Execute proposed from above
 
 ```{r}
 # Create a copy of the dataframe to avoid modifying the original
@@ -430,10 +445,6 @@ saveRDS(mosquito_modified, here("data", "processed-data", "rds", "mosquito_clean
 
 
 ```{r}
-library(dplyr)
-library(tidyr)
-library(purrr)
-library(lubridate)
 
 # Step 1: Summarize the data
 mosquito_summarized <- mosquito_modified %>%
@@ -759,19 +770,23 @@ write_csv(average_mel_week_co2, here("data", "processed-data", "average_mel_week
 ## Mosquito abundance is affected by weather. Mosquitoes depend on standing water to complete their larval development. Let's take a look at the annual precipitation using the wx data frame.
 
 ```{r annual precip}
-# Convert DATE from character to Date type using as.Date and specifying the format
-wx$DATE <- as.Date(wx$DATE, format="%m/%d/%y")
+# Construct the path to the file
+file_path_wx <- here("data", "processed-data", "wx_selected.csv")
 
-# The as.Date function treats years in the format "yy" as follows:
-# Years 00-68 are treated as 2000-2068, and years 69-99 are treated as 1969-1999.
-# Adjust this according to your data's actual year range if needed.
+# Import the data to R and store it in a dataframe named "wx"
+wx <- read.csv(file_path_wx)
 
-# Extract the year from each DATE
-wx$Year <- format(wx$DATE, "%Y") %>% as.numeric()
+# Extract the year from each DATE and store it in a new column named "Year"
+wx$Year <- as.integer(format(as.Date(wx$DATE), "%Y"))
 
 # Now that we have the years as numeric values, let's filter for 2007 to 2020
 filtered_wx <- wx %>%
   filter(Year >= 2007 & Year <= 2020)
+
+# View the filtered dataframe
+head(filtered_wx)
+
+
 
 # Save the filtered weather data as an RDS file
 filtered_wx_path_rds <- here("data", "processed-data", "rds", "filtered_wx_2007_2020.rds")

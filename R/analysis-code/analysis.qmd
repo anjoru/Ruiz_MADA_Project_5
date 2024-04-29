@@ -6,32 +6,32 @@ editor: source
 ---
 
 # Load the necessary libraries for the analysis
-
 ```{r}
 library(here)
-library(dplyr)
-library(lubridate)
-library(readr)
-library(stargazer)
-library(mgcv)
-library(tidyr)
-library(caret)
-library(randomForest)
-library(tidymodels)
-library(ranger)
-library(dials)
-library(vip)
-library(ggplot2)
-library(boot)
-library(yardstick)
-library(glmnet) # For LASSO
-library(dials)
-library(mlr3)
-library(data.table)
-library(Matrix)
-library(gbm)
-library(knitr)
-library(gt)
+library(dplyr)         # for data manipulation tasks like filtering, mutating, summarizing, and arranging
+library(lubridate)     # for working with dates and times, offering functions to parse, manipulate, and format date-time objects
+library(readr)         # for reading and writing rectangular data in text format, providing faster and more consistent reading of delimited files
+library(stargazer)     # for creating LaTeX and ASCII tables for descriptive statistics and regression models
+library(mgcv)          # for generalized additive models (GAMs) and other generalized ridge regression models
+library(tidyr)         # for tidying and reshaping data for analysis and visualization
+library(caret)         # for machine learning tasks like model training, tuning, and evaluation
+library(randomForest)  # for building random forest models, a popular machine learning algorithm
+library(tidymodels)    # for modeling and machine learning tasks using tidy principles
+library(ranger)        # for fast, robust, and scalable random forest algorithms
+library(dials)         # for tuning hyperparameters in models
+library(vip)           # for variable importance assessment in predictive models
+library(ggplot2)       # for creating elegant and customizable visualizations with the grammar of graphics
+library(boot)          # for bootstrap resampling and estimating standard errors and confidence intervals
+library(yardstick)     # for evaluating predictive models using performance metrics
+library(glmnet)        # for fitting generalized linear models with LASSO or ridge regularization
+library(mlr3)          # for building, evaluating, and comparing machine learning models
+library(data.table)    # for efficient data manipulation and aggregation operations
+library(Matrix)        # for sparse and dense matrix operations
+library(gbm)           # for gradient boosting machines, a powerful machine learning algorithm
+library(knitr)         # for dynamic report generation, integrating R code and output into documents
+library(gt)            # for creating beautiful and customizable tables in R Markdown and other formats
+library(xgboost)       # for extreme gradient boosting, a scalable and accurate machine learning algorithm)
+
 ```
 
 ## First logistic model
@@ -109,7 +109,9 @@ plot(logistic_model_temp)
 
 ```
 
+#### This script starts by loading essential R libraries necessary for data manipulation, reading, and date handling, ensuring a smooth setup for data analysis. It then loads PCR test results and weather data, providing foundational information on mosquito test results and environmental conditions to study patterns of disease spread and mosquito activity. Finally, it calculates average maximum temperatures for key months before the mosquito breeding season, linking climatic conditions to mosquito behavior and potential disease transmission risks.
 ```{r}
+# Step 1: load the data
 pcr <- read_csv(here("data", "processed-data", "pcr_data.csv"))
 wx_selected <- read_csv(here("data", "processed-data", "wx_selected.csv"))
 
@@ -641,13 +643,6 @@ tuning_grid <- grid_regular(
   levels = 10 # Increased resolution
 )
 
-# tuning_grid <- grid_regular(
-#   mtry(range = c(1, length(predictors))),
-#   min_n(range = c(1, 21)),
-#   levels = 7
-# )
-
-
 # Define cross-validation folds
 cv_folds_continuous <- vfold_cv(train_data_continuous, v = 5)
 
@@ -706,6 +701,30 @@ test_rmse_result_rf <- rmse(test_results, truth = truth, estimate = estimate)
 cat("Training Set RMSE:", train_rmse_result_rf$.estimate, "\n")
 cat("Testing Set RMSE:", test_rmse_result_rf$.estimate, "\n")
 
+boot_fit_and_evaluate <- function(data, indices) {
+  # Subset the bootstrap sample
+  boot_sample <- data[indices, ]
+  
+  # Predict on the bootstrap sample using the final fitted model
+  predictions <- predict(final_fit_continuous, new_data = boot_sample)
+
+  # Ensure predictions are in the correct format, typically need a vector
+  # If predictions are not a vector, adjust accordingly
+  if (is.data.frame(predictions)) {
+    predictions <- predictions$.pred  # Adjust this based on your predict function output structure
+  }
+
+  # Calculate the RMSE of predictions
+  # Ensure both truth and predictions are either integers or doubles
+  results <- tibble(
+    truth = as.numeric(boot_sample$MIR),  # Convert to numeric to ensure matching types
+    estimate = as.numeric(predictions)  # Convert to numeric to match type
+  )
+  
+  # Compute RMSE and return
+  result <- rmse(results, truth = truth, estimate = estimate)
+  return(result$.estimate)
+}
 # Continue with bootstrapping to evaluate model's robustness
 set.seed(123) # for reproducibility
 bootstrap_results <- boot(
@@ -713,7 +732,6 @@ bootstrap_results <- boot(
   statistic = boot_fit_and_evaluate,
   R = 100 # number of bootstrap resamples
 )
-
 # Calculate the bootstrapped RMSE
 mean_rmse_boot_rf <- mean(bootstrap_results$t)
 sd_rmse_boot_rf <- sd(bootstrap_results$t)
@@ -728,7 +746,11 @@ upper_bound <- ci_rmse_boot_rf$percent[5]
 cat("Bootstrapped RMSE: Mean=", mean_rmse_boot_rf, ", SD=", sd_rmse_boot_rf, "\n")
 cat("95% CI for RMSE (Percentile): ", lower_bound, "-", upper_bound, "\n")
 
-autoplot(tuning_results_continuous)
+
+plot <- autoplot(tuning_results_continuous)
+
+# Save the plot to the specified directory
+ggsave(filename = here("results", "figures", "RF_autoplot.png"), plot = plot, width = 10, height = 8)
 ```
 ### The random forest model has evidence of overfitting as the RMSE on the test set is higher than the training set. 
 
@@ -1064,7 +1086,10 @@ upper_bound <- ci_rmse$percent[5]
 cat("Bootstrapped RMSE: Mean=", mean_rmse, ", SD=", sd_rmse, "\n")
 cat("95% CI for RMSE (Percentile): ", lower_bound, "-", upper_bound, "\n")
 
-autoplot(tuning_results_continuous)
+plotGBM <- autoplot(tuning_results_continuous)
+
+#save plot as a png
+ggsave(filename = here("results", "figures", "GBM_autoplot.png"), plot = plotGBM, width = 10, height = 8)
 
 ```
 
