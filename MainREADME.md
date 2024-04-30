@@ -13,7 +13,9 @@ Last updated: 2024-04-29
    - The searchable tool is only for those files in the **_processed-data_** files in the project. 
    - It does not contain descriptions of the variables in the raw files since many of those are removed before anaylsis.
    - The data dictionary provides information about the variables in the data files, such as their names, descriptions, and units of measurement.
-4. **products:** Contains the manuscript and any other products generated from the project.It will also contain any supplemental materials. Currently, there are not supplemental materials
+4. **products:** Contains the manuscript and any other products generated from the project.It will also contain any supplemental materials.
+   - The workflow schematic is located in the supplmental materials qmd. 
+      - It must be rendered to view
 5. **R:** Contains the R scripts used in the project. The scripts are organized by the phase of the project in which they were used. The order of the script should be as follows: processing-code  →  eda-code  → analysis-code.
    - analysis-code: Contains the scripts used to analyze the data and generate the results.
    - eda-code: Contains the scripts used to explore the data and generate the tables and figures used in the exploratory data analysis.

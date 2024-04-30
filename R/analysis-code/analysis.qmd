@@ -676,6 +676,36 @@ final_fit_continuous <- fit(
   data = train_data_continuous
 )
 
+# Extract the fit using the appropriate tidymodels function
+fitted_model <- extract_fit_engine(final_fit_continuous)
+
+# Check if the extracted model is the correct type
+if(inherits(fitted_model, "ranger")) {
+    # If it is the correct type, extract feature importance
+    importance_matrix <- fitted_model$variable.importance
+    feature_importances <- tibble(
+        Feature = names(importance_matrix),
+        Importance = importance_matrix
+    ) %>%
+    arrange(desc(Importance))
+
+    # Print the feature importances
+    print(feature_importances)
+
+    # Plot the feature importances
+    importance_plot <- ggplot(feature_importances, aes(x = reorder(Feature, Importance), y = Importance)) +
+        geom_col(fill = "steelblue") +
+        coord_flip() +
+        labs(title = "Feature Importance from Random Forest", x = "Importance", y = "Features") +
+        theme_minimal()
+
+    # Save the plot
+    ggsave("feature_importance_rf.pdf", plot = importance_plot, width = 8, height = 6)
+} else {
+    cat("The extracted object is not a 'ranger' Random Forest model. Please check the model setup and extraction.\n")
+}
+print(importance_plot)
+
 ### Calculate RMSE for the training and testing sets
 
 # Predict on the training and testing set
@@ -1019,6 +1049,7 @@ final_fit_continuous <- fit(
   gbm_workflow_continuous %>% finalize_workflow(best_hps_continuous),
   data = train_data_continuous
 )
+
 
 ### Calculate RMSE for the training and testing sets
 

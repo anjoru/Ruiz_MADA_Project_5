@@ -1,17 +1,30 @@
 ---
-title: "Supplement to Example Manuscript Template for a Data Analysis Project"
+title: "Supplement to Factors Influencing Abundance & Virus Isolation in Mosquitoes"
 
-subtitle: ""
+subtitle: "Schematic of workflow"
 author: Andrew Ruiz
-date: "`r Sys.Date()`"
+date: "2024-04-30"
 format:
   pdf:
     toc: false
     number-sections: true
     highlight-style: github
-bibliography: ../../assets/dataanalysis_template_references.bib
-csl: ../../assets/vancouver.csl
 ---
-
-This document will be populated later in the project. 
-
+#### *The image should appear upon rendering*
+```{mermaid width=700 height=500}
+flowchart TB
+    id1["Research Questions"] --> id2["Data Collection"]
+    id2 --> id3["Data Loading"]
+    id3 --> id4["Data Cleaning & Preprocessing"]
+    id4 --> id5["Data Exploration & Visualization"]
+    id5 --> id6["Variable Selection"]
+    id6 --> id7["Model Development"]
+    id7 --> id7a["Model Training (Random Seed 123)"]
+    id7a --> id7b["Model Comparison\n(GAM, RF, LASSO, GAMS, GBM)"]
+    id7b --> id8["Model Evaluation\n(RMSE Calculation)"]
+    id8 -.-> id1
+    id8 --> id9["Result Interpretation"]
+  
+    classDef mainProcess fill:#fff,stroke:#333,stroke-width:2px;
+    class id1,id2,id3,id4,id5,id6,id7,id7a,id7b,id8,id9 mainProcess
+```

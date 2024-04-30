@@ -48,10 +48,10 @@ relationships between variables to inform dissertation prospectus
 development and guide methodological approaches.
 :::
 
-# Problem statement
+# Research question
 
 Which environmental,ecological, and temporal factors influence the
-transmission cycles for EEE in southeastern Massachusetts and which
+transmission cycles for EEE in southeastern Massachusetts, and which
 models best describe the relationship between these factors?
 
 # Introduction
@@ -102,21 +102,22 @@ the affected areas.
 
 ## Study area
 
-Bristol County, Massachusetts covers an area of 691 square miles with a
-population density of 962 people per square mile. It borders Rhode
-Island to the west, Plymouth County, MA to the east, and Norfolk County,
-MA to the north. Naushon Island and Martha's Vineyard are across
-Buzzard's Bay to the Southeast.
+Bristol County, Massachusetts covers 691 square miles with a population
+density of 962 people per square mile. It borders Rhode Island to the
+west, Plymouth County, MA to the east, and Norfolk County, MA to the
+north. Naushon Island and Martha's Vineyard are across Buzzard's Bay to
+the Southeast.
 
-Atlantic White Cedar (AWC) swamps span over 4,300 acres within
-Massachusetts, primarily concentrated in Plymouth and Bristol counties.
-These swamps serve as critical breeding habitats for *Culiseta melanura*
-(MEL)
-[@commonwealthofmassachusettsdivisionoffisheries-wildlifeNaturalCommunityFact2007],
-which is recognized as the primary enzootic vector for Eastern Equine
-Encephalitis (EEE). AWC trees have large root systems that form "crypts"
-and hold water throughout the year. These crypts serve as a main habitat
-for MEL larval growth and provide shelter during winter months.
+Atlantic White Cedar (AWC) swamps cover more than 4,300 acres across
+Massachusetts, with the largest concentrations found in Plymouth and
+Bristol counties. These swamps are crucial breeding grounds for Culiseta
+melanura (MEL), which is identified as the primary enzootic vector for
+Eastern Equine Encephalitis (EEE)
+[@commonwealthofmassachusettsdivisionoffisheries-wildlifeNaturalCommunityFact2007].
+Atlantic White Cedar (AWC) trees possess extensive root systems that
+create "crypts" capable of retaining water year-round. These crypts are
+crucial habitats for the larval growth of Culiseta melanura (MEL) and
+also provide shelter during the winter months.
 
 Between 2003 and 2022 Plymouth and Bristol counties were the epicenters
 for EEE transmission in Massachusetts, accounting for 24 out of the
@@ -128,7 +129,7 @@ Control Project.
 ## Questions/Hypotheses to be addressed
 
 **Which environmental,ecological, and temporal factors influence the
-transmission cycles for EEE in southeastern Massachusetts and which
+transmission cycles for EEE in southeastern Massachusetts, and which
 models best describe the relationship between these factors?** From
 prior research we know that the mosquito lifecyle is influenced by a
 number of factors. Temperature plays a major role in the mosquito life
@@ -155,22 +156,26 @@ those mosquitoes.
 
 ## Data collection and processing
 
+With the exception of the mosquito collection data, all other datasets
+are publicly available for use without restrictions.
+
 ### Mosquito surveillance data
 
 The mosquito surveillance dataset encompasses counts by species from all
 mosquito traps deployed in Bristol County, MA, from 2007 to 2023. The
 raw dataset includes over 45,000 records and includes temporal and
-spatial variable. The BCMCP, perform mosquito surveillance from June
+spatial variables. The BCMCP, perform mosquito surveillance from June
 through October annually.
 
-During this interval, CDC light traps baited with carbon dioxide are
-placed at various sentinel sites each week. Designed to attract
-mosquitoes in search of blood meals, light traps serve as a reliable
-measure of the actively feeding mosquito population, thereby
-establishing them as the standard method for EEE surveillance. Some of
-the sentinel site have been used for over 50 years.
+During this period, CDC light traps, baited with carbon dioxide, are
+strategically placed at various sentinel sites weekly. These traps are
+designed to attract mosquitoes seeking blood meals and are recognized as
+a reliable method for monitoring the actively feeding mosquito
+population. Consequently, they are established as the standard approach
+for Eastern Equine Encephalitis (EEE) surveillance. Notably, some of
+these sentinel sites have been in continuous use for over 50 years.
 
-Additionally, the county employs gravid traps, which are specifically
+Additionally, the county deploys gravid traps, which are specifically
 aimed at attracting and capturing gravid *Culex* mosquitoes looking for
 egg-laying sites. While these traps are primarily used for West Nile
 Virus (WNV) surveillance, they hold significant value for EEE monitoring
@@ -178,15 +183,15 @@ as well. Given the role of *Culex* species as bridge vectors for EEE,
 their capture in gravid traps provides critical insight into the risk of
 virus transmission.
 
-The traps are installed in the afternoon and retrieved the following
-morning. After the traps are collected, the next are stored in a freezer
-to preserve and kill the mosquitoes. The mosquitoes are sorted by
-species using a dissecting scope. Counts for each species are recorded
-in the database and a portion of the vector species are driven to the
-Massachusetts State Laboratory in Boston. The lab tests each mosquito
-pool (or batch) for WNV and EEEv using PCR. Results are shared with
-BCMCP on the same day of testing. Virus isolation results are recorded
-in the collection records.
+The traps are set up in the afternoon and collected the following
+morning. Once retrieved, the captured mosquitoes are immediately stored
+on dry ice and then in a freezer. This process kills the mosquito and
+preserves them. The mosquitoes are sorted by species under a dissecting
+scope. Counts for each species are recorded in the database and a
+portion of the vector species are driven to the Massachusetts State
+Laboratory in Boston. The lab tests each mosquito pool (or batch) for
+WNV and EEEv using PCR. Results are shared with BCMCP on the same day of
+testing. Virus isolation results are recorded in the collection records.
 
 In addition to mosquito counts by species, the dataset includes the town
 or city in which they were collected, the collection date, and whether
@@ -194,22 +199,29 @@ the mosquitoes were submitted for virus testing.
 
 ### Minimun infection rate (MIR)
 
-One indicator of the level of virus activity present in the mosquito
-population can be calculated from the information contained in the
-mosquito dataset. The minimum infection rate (MIR) can be calculated at
-various temporal and spatial scales from trap site over one day to all
-sites over an entire season. MIR is calculated as: $$
+In our investigation into the environmental, ecological, and temporal
+factors that impact the transmission cycles of EEE in southeastern
+Massachusetts, the Mosquito Infection Rate (MIR) emerges as a pivotal
+indicator. MIR provides a quantifiable measure of virus prevalence
+within mosquito populations, making it an essential metric for modeling
+the dynamics of disease spread. By analyzing changes in MIR in response
+to varying environmental conditions and mosquito behaviors, we can
+enhance our understanding of the key drivers behind EEE transmission.
+This understanding, in turn, guides the development of predictive models
+that can accurately forecast periods of heightened transmission risk
+based on observed or anticipated changes in the identified factors. The
+minimum infection rate (MIR) can be calculated at various temporal and
+spatial scales from trap site over one day to all sites over an entire
+season. MIR is calculated as: $$
 MIR = \left( \frac{\text{Number of positive mosquito pools}}{\text{Total number of mosquitoes tested}} \right) \times 1000
-$$ MIR provides an estimate of the prevalence of a specific pathogen
-within a mosquito population. While it does not directly measure the
-risk to humans, a higher MIR in mosquitoes that commonly bite humans can
-indicate a higher risk of transmission. A study pubulihsed in 2007
-indicated that in years with human cases in Massachusetts between 1979
-and 2004, MIR was ≥1.0 by week 31 [@hachiyaHumanEasternEquine2007]. MIR
-allows for the comparison of infection rates across different
-geographical areas or time periods. This is crucial for identifying
-areas or times of higher risk and for evaluating the effectiveness of
-control measures.
+$$ While MIR does not directly measure the risk to humans, a higher MIR
+in mosquitoes that commonly bite humans can indicate a higher risk of
+transmission. A study pubulihsed in 2007 indicated that in years with
+human cases in Massachusetts between 1979 and 2004, the MIR was ≥1.0 by
+week 31 (mid-late July) [@hachiyaHumanEasternEquine2007]. MIR allows for
+the comparison of infection rates across different geographical areas or
+time periods. This is crucial for identifying areas or times of higher
+risk and for evaluating the effectiveness of control measures.
 
 ![Minimum infection rate by
 week](images/MIR_by_week_heatmap.png){fig-align="center"}
@@ -233,8 +245,8 @@ the daily maximum temperature and precipitation. While daily summaries
 provide this information will less processing, the hourly summaries
 provide more granular data that can be used to calculate additional
 variables, such as the number of hours above a certain temperature
-threshold or degree-days. Degree-days is a measure of the amount of heat
-accumulated over a period of time. It is calculated by summing the
+threshold. or degree-days. Degree-days is a measure of the amount of
+heat accumulated over a period of time. It is calculated by summing the
 difference between the average daily temperature and a base temperature.
 Degree-days are used to estimate the rate of development of insects and
 other organisms that are sensitive to temperature. For mosquitoes,
@@ -258,41 +270,36 @@ drought conditions and the severity of the drought. For this project,
 drought data for Bristol County, MA, will be used and incorporated with
 FEMA East Coast regions (I-IV) drought indicators.
 
-## Data aquisition
-
-With the exception of the mosquito collection data, all other datasets
-are publicly available for use without restrictions.
-
 ## Data import and cleaning
 
 Datasets will be loaded into R in a Quarto document to document and the
 processing methods will be documented.
 
-The Massachusetts Department of Public Health requires that all mosquito
-control districts submit their collection data in a specific format.
-This format divides each trap event into separate rows based on mosquito
+The Massachusetts Department of Public Health mandates a specific format
+for mosquito control districts to submit their collection data. In this
+format, each trap event is divided into separate rows based on mosquito
 species and whether they were submitted for virus testing. However, this
-format is not useful for certain calculations where a zero count for a
-species is not explicitly recorded. For example, even when sorted by
-species to calculate the average count per trap, the average could be
-inflated since the records will not include trap events with a zero
-count of that species. In order to correct this, the data was pivoted to
-create a column for every unique "species code" then the "pool size" for
-each species code is summed for each trap event. A trap event is when
-"town", "date of collection", "trap type" are all the same. For species
-codes not included in the orginal table for a trap event, the field will
-be assigned a zero value. The resulting table will have one row for
-every trap event.
+format poses limitations for certain calculations where a zero count for
+a species is not explicitly recorded. For instance, when sorting data by
+species to calculate the average count per trap, the absence of records
+with a zero count could inflate the calculated average.
+
+To address this issue, the data was transformed by pivoting it to create
+a column for every unique "species code." Then, the "pool size" for each
+species code was summed for every trap event, defined as instances where
+"town," "date of collection," and "trap type" are identical. For species
+codes not originally included in the table for a trap event, the
+corresponding field was assigned a zero value. As a result, the
+resulting table now contains one row for each trap event.
 
 # Methods
 
-Symptomatic EEE, and to a lesser extent WNV, human cases are rare. On
-average, the United States records only about 9 cases of EEE annually.
-Notably, Massachusetts reports more cases than any other state except
-Florida, highlighting regional disparities in disease occurrence.
-However, the incidence rate for neuroinvasive EEE cases in Bristol
-County, Massachusetts, is estimated to be only around 0.06 per 100,000
-people
+Symptomatic EEE human cases are rare. On average, the United States
+records only about 9 cases of EEE annually. Notably, Massachusetts
+reports more cases than any other state except Florida, highlighting
+regional disparities in disease occurrence. However, the incidence rate
+for neuroinvasive EEE cases in Bristol County, Massachusetts, is
+estimated to be only around 0.06 per 100,000 people
 [@centersfordiseasecontrolandpreventionPreventionEasternEquine2022]. The
 low incidence of human cases poses significant challenges for using
 traditional statistical models, making it difficult to accurately
@@ -303,12 +310,7 @@ alternative modeling approaches.
 
 MIR will be the main outcome of interest for this project. MIR values
 will be calculated for each week during the surveillance season over the
-entire county. To reduce bias, only mosquitoes captured using carbon
-dioxide-baited CDC light traps will be used to to calculate MIR. These
-traps are the standard EEE surveillance and are used to monitor the
-actively feeding mosquito population. Additionally, these trap types
-have been used in this area for over 40 years, many at the same sites
-currently in use.
+entire county.
 
 After MIR was calculated and joined with weather and climate data, the
 distribution of the MIR was examined more closely. About 72% of the
@@ -341,55 +343,28 @@ relationships between response variables and multiple predictors, which
 are often encountered in ecological data sets.
 
 In the first stage of the analysis, the GAM was utilized to address the
-high incidence of zeros in the dataset—an indicator of overdispersion.
-This zero-inflated model allowed us to separately model the presence
-versus absence of the outcome variable, thereby appropriately accounting
-for the excessive zeros.
+high incidence of zeros in the dataset. This zero-inflated model allowed
+us to separately model the presence versus absence of the outcome
+variable, thereby appropriately accounting for the excessive zeros.
 
-Subsequently, the second stage of the GAM focused on modeling the
-continuous part of the MIR data, relating it to the suite of potential
-predictors. This step incorporated smooth functions of the predictors,
-permitting the data to inform the shape of the relationship without
-imposing a predetermined form, as would be the case in a traditional
-linear model.
+The second stage of the GAM focused on modeling the continuous part of
+the MIR data, relating it to the suite of potential predictors. This
+step incorporated smooth functions of the predictors, permitting the
+data to inform the shape of the relationship without imposing a
+predetermined form, as would be the case in a traditional linear model.
 
-While the two-stage GAM appeared to be a good fit, there were too few
-observations to provide a robust estimate of the relationship between
-the predictors and MIR. The original dataset contained over 40,000
-observations, but after reformatting the data to fit a rectangular shape
-needed for analysis, there were less than 400 observations in the final
-set. After the zeros were removed for part 2 of the GAM, the sample
-number of observations left was less than 100. Because of this, it was
-decided to use a single GAM with a dataset that included zero and
-non-zero observations. Additionally, all trap types were included in the
-analysis, not just the carbon dioxide-baited CDC light traps. While some
-precision was lost when the one part model was adopted, the gain in
-observations was deemed more valuable.
-
-### Schematic of workflow
-
-*Schematic will be refined in later steps. The doc will also be
-reformatted to move the schematic to an appendix* *The image should
-appear upon rendering*
-
-```{mermaid}
-flowchart TB
-    id1["Questions"] --> id2["Data Collection"]
-    id2 --> id3["Data Loading and Cleaning"]
-    id3 --> id4["Data Cleaning"]
-    id4 --> id5["Data Transformation"]
-    id5 --> id6["Data Exploration & Visualization"]
-    id6 --> id7["Data Modeling"]
-    id7 --> id8["Evaluation"]
-
-    id8 -.-> id1
-    id8 --> id9[Interpretation]
-    id9 --> id10[Communication]
-
-    classDef mainProcess fill:#fff,stroke:#333,stroke-width:2px;
-
-    class id1,id2,id3,id4,id5,id6,id7,id8,id9,id10 mainProcess
-```
+While the two-stage Generalized Additive Model (GAM) initially seemed to
+be a suitable approach, there were insufficient observations to yield a
+robust estimate of the relationship between the predictors and Minimum
+Infection Rate (MIR). Despite starting with a dataset containing over
+40,000 observations, the transformation of the data into a rectangular
+shape required for analysis resulted in fewer than 400 observations in
+the final dataset. After removing the zeros for part 2 of the GAM, the
+number of observations decreased to less than 100. Consequently, a
+decision was made to utilize a single GAM with a dataset containing both
+zero and non-zero observations. Although adopting a single-part model
+led to some loss of precision, the increase in the number of
+observations was deemed more advantageous.
 
 ## Exploratory/Descriptive analysis
 
@@ -474,11 +449,16 @@ There was one other significant result. When MIR is set as the
 dependent, continuous variable in a linear regression and the average
 maximum temperature for the previous week is used as the predictor, the
 model suggests there is a significant inverse relationship. As average
-temperature increases, the MIR decreases (model_mir_temp.R). This
-relationship is counterintutive, especially given the result of the
-logistic regression and requires more examination.
+temperature increases the week prior to collection, the MIR decreases
+(model_mir_temp.R). This relationship is counterintutive, especially
+given the result of the logistic regression and requires more
+examination.
 
 ## Statistical analysis
+
+All detailed model analyses are available in the analysis.qmd file,
+providing a transparent account of the methodologies employed and the
+statistical rigor behind the conclusions drawn.
 
 Before any models were assessed, the RSME for the null model was
 calculated (2.40). This was used as the basis for assessing model
@@ -492,7 +472,7 @@ the mosquito collection week (Hrs_Below_50_lag), the number of hours
 below 50°F the week of collection (Hrs_Below_50_current), the drought
 severity index for East Coast FEMA regions (DSCI_fema), the average
 hourly relative humidity the week of collection
-(Avg_HourlyRelativeHumidity_current), the average hourly windspeed the
+(Avg_HourlyRelativeHumidity_current), the average hourly wind speed the
 week of collection (Avg_HourlyWindSpeed_current), the average number of
 daylight hours per day (average_daylight_hours), the average number of
 MEL captured by trap (Average_MEL), and the proportion of MEL captured
@@ -512,20 +492,28 @@ below.
 
 # Discussion
 
-The null model RMSE was 2.40. All models showed improvement over the
-null model on both the training and testing datasets. The GAM shows
-significant improvement over the null model for the training set, but
-only slightly improves over the null for the testing set. This suggests
-that beyond capturing the mean response, this GAM is not well
-generalized. The substantial improvement in the training set RSME for
-GBM and Random Forest coupled with less improvement over the null for
-the testing set, suggest a tendency for overfitting. These models may be
-capturing the training data's patterns that do not gerneralize well to
-unseen data. The the gap between the training and testing RMSE for the
-LASSO and GAMS models suggest there is less overfitting and are slightly
-better at generalizing than the others. However, given the non-linear
-relationships, the LASSO model is likely not appropriate for this
-analysis.
+The Root Mean Square Error (RMSE) comparison outlined in the table
+provides a clear perspective on the efficacy of different predictive
+models in the context of Eastern Equine Encephalitis (EEE) surveillance
+in southeastern Massachusetts. The null model, which served as a
+baseline with an RMSE of 2.40, indicates the level of error absent any
+predictive influence. This baseline was pivotal for evaluating
+enhancements brought by more complex models.
+
+The Generalized Additive Model (GAM), which incorporated eight predictors selected based on their statistical significance from preliminary analyses, demonstrated concerning signs of overfitting. While the model achieved a low RMSE of 1.7 on the training data, indicating a good fit to this dataset, its performance on the testing data was substantially worse, with an RMSE of 3.44. This significant increase in RMSE when applied to the testing data, compared to the training data, suggests that the model, despite fitting the training data well, fails to generalize to new, unseen data. This discrepancy in performance is further highlighted by the testing RMSE being higher than the RMSE of the null model at 2.40, underscoring the limitations of the GAM in this scenario. 
+
+Subsequent models such as the Random Forest, LASSO, Generalized Additive
+Model with Sparsity (GAMS), and Gradient Boosting Machine (GBM) were
+tested to potentially mitigate overfitting and enhance prediction
+accuracy. Notably, the Gradient Boosting Machine model achieved the
+lowest testing RMSE of 2.14, suggesting a model with better
+generalizability compared to others.
+
+Given that the average MIR value is 1.6, an RMSE of over 2 suggests that the models are not accurately capturing the variability in the data and are making predictions that are significantly different from the observed values.
+
+Each model's performance underlines the complex interplay of various
+ecological and environmental factors in predicting EEE transmission
+cycles.
 
 ## Strengths and Limitations
 
@@ -576,13 +564,14 @@ crowd-sourced reports. There is one standardized survey (Breeding Bird
 Survey) that seems to be more accurate and reliable. However, this data
 is not available for every year.
 
-Likely the biggest limitation \## Conclusions While all models
+## Conclusions 
+
+While all models
 demonstrated improvement over null model, none of them were robust
 enough to be used for reliable prediction. In the next phases of this
 project, the data will be expanded to include more years and cover a
 larger portion of Massachusetts. In additon to increasing the the number
 of observations, other sources of data will be incorporated. Including
-virus activity from surrounding regions and areas from which birds
-migrate to Massachusetts.
+virus activity from surrounding regions and incorporating bird population data in to the models could provide more insight into the relationship between the predictors and virus activity.
 
 # References
