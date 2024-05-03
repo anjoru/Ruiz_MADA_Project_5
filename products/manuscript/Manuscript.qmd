@@ -33,26 +33,20 @@ here::set_here()
 ::: {#summary .unnumbered}
 # Summary/Abstract
 
-Eastern equine encephalitis (EEE) is a rare but serious disease caused
+Eastern equine encephalitis (EEE) is a rare but severe disease caused
 by an Alphavirus transmitted to humans by infected mosquitoes. With a
 fatality rate of 30-50% and potential lifelong disability for survivors,
 understanding its transmission cycle is crucial. EEE transmission
 involves two cycles: an enzootic cycle between Culiseta melanura
-mosquitoes and birds, and an epizootic cycle where bridge vector
-mosquitoes transmit the virus to humans and other mammals. While C.
-melanura poses minimal direct threat to humans, isolations of EEE virus
-in these mosquitoes serve as early indicators of virus circulation.
-Conversely, isolations in bridge vector species signal heightened
-transmission risk. This research aims to identify significant
-relationships between variables to inform dissertation prospectus
-development and guide methodological approaches.
+mosquitoes and birds and an epizootic cycle where bridge vector
+mosquitoes transmit the virus to humans and other mammals. While *C. melanura* poses minimal direct threat to humans, isolations of EEE virus in these mosquitoes serve as early indicators of virus circulation. In contrast, isolations in bridge vector species signal a heightened transmission risk. This project aims to identify significant relationships between variables to inform the development of a dissertation prospectus and guide methodological approaches..
 :::
 
-# Research question
+# Research Question
 
-Which environmental,ecological, and temporal factors influence the
-transmission cycles for EEE in southeastern Massachusetts, and which
-models best describe the relationship between these factors?
+In southeastern Massachusetts, the transmission dynamics of Eastern Equine Encephalitis (EEE) remain inadequately understood, particularly how environmental, ecological, and temporal factors interplay to affect outbreak patterns. This gap in knowledge hinders effective predictive modeling and response strategies, crucial for preventing and mitigating the impact of EEE. 
+
+**Which environmental,ecological, and temporal factors influence the transmission cycles for EEE in southeastern Massachusetts, and which models best describe the relationship between these factors?**
 
 # Introduction
 
@@ -60,19 +54,19 @@ models best describe the relationship between these factors?
 
 Eastern equine encephalitis (EEE) is caused by an Alphavirus transmitted
 to humans by the bite of an infected mosquito. Human infections are
-rare, but serious [@lindseyEasternEquineEncephalitis2018]. Humans and
+rare but serious [@lindseyEasternEquineEncephalitis2018]. Humans and
 other mammals are dead-end hosts for EEE. About 94% of human EEE
 infections are asymptomatic. While symptomatic cases are rare, the
 consequences can be severe. Mortality rates associated with symptomatic
-infections range from 30 to 50% [@morensEasternEquineEncephalitis2019].
+cases range from 30 to 50% [@morensEasternEquineEncephalitis2019].
 Those who survive often experience lifelong disability that includes
 debilitating neurological damage
 [@massachusettsdepartmentofpublichealthArbovirusSurveillancePlan2024].
-On average, there are 11 cases reported in the US annually. Most occur
+On average, 11 cases reported in the US annually. Most occur
 in Massachusetts and Florida [@vanderkelenRiskIndexModel2014]. Until
 recently, nearly all human EEE cases in Massachusetts occurred in two
 counties: Bristol and Plymouth.
-
+ 
 Since 2000, there have been 45 human cases recorded in Massachusetts,
 resulting in 22 deaths
 [@massachusettsdepartmentofpublichealthArbovirusSurveillancePlan2024].
@@ -92,7 +86,7 @@ vector species are submitted to the Massachusetts Department of Health’s
 hours of submission. When rates of EEE mosquito infections are above a
 defined threshold, MDPH notifies the local boards of health and
 recommends preventive measures. Recommended measures include outreach
-and education to increase personal protective practices . Additionally,
+and education to increase personal protective practices. Additionally,
 MDPH may recommend that cities and towns in the affected areas cancel
 evening outdoor events and discourage outdoor activities when mosquito
 vectors are most active (dawn and dusk). When infection rates are high
@@ -105,8 +99,7 @@ the affected areas.
 Bristol County, Massachusetts covers 691 square miles with a population
 density of 962 people per square mile. It borders Rhode Island to the
 west, Plymouth County, MA to the east, and Norfolk County, MA to the
-north. Naushon Island and Martha's Vineyard are across Buzzard's Bay to
-the Southeast.
+north. Naushon Island and Martha's Vineyard are across Buzzard's Bay.
 
 Atlantic White Cedar (AWC) swamps cover more than 4,300 acres across
 Massachusetts, with the largest concentrations found in Plymouth and
@@ -117,7 +110,7 @@ Eastern Equine Encephalitis (EEE)
 Atlantic White Cedar (AWC) trees possess extensive root systems that
 create "crypts" capable of retaining water year-round. These crypts are
 crucial habitats for the larval growth of Culiseta melanura (MEL) and
-also provide shelter during the winter months.
+also provide shelter during the winter.
 
 Between 2003 and 2022 Plymouth and Bristol counties were the epicenters
 for EEE transmission in Massachusetts, accounting for 24 out of the
@@ -128,31 +121,8 @@ Control Project.
 
 ## Questions/Hypotheses to be addressed
 
-**Which environmental,ecological, and temporal factors influence the
-transmission cycles for EEE in southeastern Massachusetts, and which
-models best describe the relationship between these factors?** From
-prior research we know that the mosquito lifecyle is influenced by a
-number of factors. Temperature plays a major role in the mosquito life
-cyle virus transmission dynamics. As temperature increases, the rate of
-larval development also increases and the time between when a mosquito
-ingests virus in a bloodmeal and when it can transmit it decreases. The
-result is that the mosquito population can grow at faster rate and they
-will have more time to transmit the virus. However, MEL larvae develop
-in well-insulated crypts that are less sensitive to ambient air
-temperature changes, so the effect of temperature changes on MEL
-development speed may be less pronounced than other vector species that
-develop in open, standing water, like ditches and containers.
-Precipitation increases the amount of standing water and increases the
-chances of larval survival during the mosquito season and also during
-the winter months for those species that overwinter in the larval stage.
-For EEE, the main enzootic vector, MEL, overwinters as larvae.
-
-While these relationships are well known, they are not well described
-for EEE, especially in terms of quantifying the role these two factors
-play in EEE transmission. Specifically, there's a gap in the
-understanding of how these factors influence the number of EEE vectors
-mosquitoes collected in traps and the rate of virus infection among
-those mosquitoes.
+*Which environmental, ecological, and temporal factors influence the transmission cycles for EEE in southeastern Massachusetts, and which models best describe the relationship between these factors?* From prior research, we know that the mosquito lifecycle is influenced by several factors. Temperature plays a significant role in the mosquito life cycle and virus transmission dynamics. As temperature increases, the rate of larval development also increases, and the time between when a mosquito ingests the virus in a blood meal and when it can transmit it decreases. The result is that the mosquito population can grow at a faster rate, and they will have more time to transmit the virus. However, MEL larvae develop in well-insulated crypts that are less sensitive to ambient air temperature changes, so the effect of temperature changes on MEL development speed may be less pronounced than other vector species that develop in open, standing water, like ditches and containers. Precipitation increases the amount of standing water and the chances of larval survival during the mosquito season and winter for those species that overwinter in the larval stage. For EEE, the primary enzootic vector, MEL, overwinters as larvae.
+While these relationships are well known, they are not well described for EEE, especially in quantifying the role these two factors play in EEE transmission. Specifically, there’s a gap in understanding how these factors influence the number of EEE vector mosquitoes collected in traps and the rate of virus infection among those mosquitoes
 
 ## Data collection and processing
 
@@ -161,43 +131,14 @@ are publicly available for use without restrictions.
 
 ### Mosquito surveillance data
 
-The mosquito surveillance dataset encompasses counts by species from all
-mosquito traps deployed in Bristol County, MA, from 2007 to 2023. The
-raw dataset includes over 45,000 records and includes temporal and
-spatial variables. The BCMCP, perform mosquito surveillance from June
-through October annually.
+The mosquito surveillance dataset encompasses counts by species from all mosquito traps deployed in Bristol County, MA, from 2007 to 2023. The raw dataset includes over 45,000 records and includes temporal and spatial variables. The BCMCP performs mosquito surveillance from June through October annually.
+During this interval, CDC light traps baited with carbon dioxide are placed at various sentinel sites weekly. Designed to attract mosquitoes in search of blood meals, light traps serve as a reliable measure of the actively feeding mosquito population, thereby establishing them as the standard method for EEE surveillance. Some of the sentinel sites have been used for over 50 years.
+Additionally, the county employs gravid traps specifically aimed at attracting and capturing gravid Culex mosquitoes looking for egg-laying sites. While these traps are primarily used for West Nile Virus (WNV) surveillance, they also hold significant value for EEE monitoring. Given the role of Culex species as bridge vectors for EEE, their capture in gravid traps provides critical insight into the risk of virus transmission.
+The traps are installed in the afternoon and retrieved the following morning. After the traps are collected, the next are stored in a freezer to preserve and kill the mosquitoes. The mosquitoes are sorted by species using a dissecting scope. Counts for each species are recorded in the database, and a portion of the vector species are driven to the Massachusetts State Laboratory in Boston. The lab tests each mosquito pool (or batch) for WNV and EEEv using PCR. Results are shared with BCMCP on the same day of testing. Virus isolation results are recorded in the collection records.
+In addition to mosquito counts by species, the dataset includes the town or city in which they were collected, the collection date, and whether the mosquitoes were submitted for virus testing.
 
-During this period, CDC light traps, baited with carbon dioxide, are
-strategically placed at various sentinel sites weekly. These traps are
-designed to attract mosquitoes seeking blood meals and are recognized as
-a reliable method for monitoring the actively feeding mosquito
-population. Consequently, they are established as the standard approach
-for Eastern Equine Encephalitis (EEE) surveillance. Notably, some of
-these sentinel sites have been in continuous use for over 50 years.
 
-Additionally, the county deploys gravid traps, which are specifically
-aimed at attracting and capturing gravid *Culex* mosquitoes looking for
-egg-laying sites. While these traps are primarily used for West Nile
-Virus (WNV) surveillance, they hold significant value for EEE monitoring
-as well. Given the role of *Culex* species as bridge vectors for EEE,
-their capture in gravid traps provides critical insight into the risk of
-virus transmission.
-
-The traps are set up in the afternoon and collected the following
-morning. Once retrieved, the captured mosquitoes are immediately stored
-on dry ice and then in a freezer. This process kills the mosquito and
-preserves them. The mosquitoes are sorted by species under a dissecting
-scope. Counts for each species are recorded in the database and a
-portion of the vector species are driven to the Massachusetts State
-Laboratory in Boston. The lab tests each mosquito pool (or batch) for
-WNV and EEEv using PCR. Results are shared with BCMCP on the same day of
-testing. Virus isolation results are recorded in the collection records.
-
-In addition to mosquito counts by species, the dataset includes the town
-or city in which they were collected, the collection date, and whether
-the mosquitoes were submitted for virus testing.
-
-### Minimun infection rate (MIR)
+### Minimum infection rate (MIR)
 
 In our investigation into the environmental, ecological, and temporal
 factors that impact the transmission cycles of EEE in southeastern
@@ -214,23 +155,12 @@ minimum infection rate (MIR) can be calculated at various temporal and
 spatial scales from trap site over one day to all sites over an entire
 season. MIR is calculated as: $$
 MIR = \left( \frac{\text{Number of positive mosquito pools}}{\text{Total number of mosquitoes tested}} \right) \times 1000
-$$ While MIR does not directly measure the risk to humans, a higher MIR
-in mosquitoes that commonly bite humans can indicate a higher risk of
-transmission. A study pubulihsed in 2007 indicated that in years with
-human cases in Massachusetts between 1979 and 2004, the MIR was ≥1.0 by
-week 31 (mid-late July) [@hachiyaHumanEasternEquine2007]. MIR allows for
-the comparison of infection rates across different geographical areas or
-time periods. This is crucial for identifying areas or times of higher
-risk and for evaluating the effectiveness of control measures.
+$$ While MIR does not directly measure the risk to humans, a higher MIR in mosquitoes that commonly bite humans can indicate a higher risk of transmission. A study published in 2007 indicated that in years with human cases in Massachusetts between 1979 and 2004, the MIR was ≥1.0 by week 31 (mid-late July) [@hachiyaHumanEasternEquine2007]. MIR allows for comparing infection rates across different geographical areas or time periods. This is crucial for identifying areas or times of higher risk and evaluating control measures' effectiveness.
 
 ![Minimum infection rate by
 week](images/MIR_by_week_heatmap.png){fig-align="center"}
 
-The surveillance dataset is structured to conform with state and federal
-reporting requirements. As a result, the format of the data must be
-transformed to in order to make it ready for analysis. Once the data
-structure is corrected, it can be joined to other relevant datasets
-using spatial or temporal attributes.
+The surveillance dataset is structured to conform with state and federal reporting requirements. As a result, the data format must be transformed to make it ready for analysis. Once the data structure is corrected, it can be joined to other relevant datasets using spatial or temporal attributes.
 
 ### Weather data
 
@@ -245,7 +175,7 @@ the daily maximum temperature and precipitation. While daily summaries
 provide this information will less processing, the hourly summaries
 provide more granular data that can be used to calculate additional
 variables, such as the number of hours above a certain temperature
-threshold. or degree-days. Degree-days is a measure of the amount of
+threshold or degree-days. Degree-days is a measure of the amount of
 heat accumulated over a period of time. It is calculated by summing the
 difference between the average daily temperature and a base temperature.
 Degree-days are used to estimate the rate of development of insects and
@@ -339,8 +269,7 @@ simple linear model can capture.
 In response to the observed non-linear relationships in the data, a
 two-stage Generalized Additive Model (GAM) analysis was used. GAMs
 provide a versatile framework for capturing complex, non-linear
-relationships between response variables and multiple predictors, which
-are often encountered in ecological data sets.
+relationships between response variables and multiple predictors, often encountered in ecological data sets.
 
 In the first stage of the analysis, the GAM was utilized to address the
 high incidence of zeros in the dataset. This zero-inflated model allowed

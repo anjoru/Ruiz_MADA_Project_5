@@ -10,7 +10,7 @@ editor: source
 library(here)
 library(dplyr)         # for data manipulation tasks like filtering, mutating, summarizing, and arranging
 library(lubridate)     # for working with dates and times, offering functions to parse, manipulate, and format date-time objects
-library(readr)         # for reading and writing rectangular data in text format, providing faster and more consistent reading of delimited files
+library(readr)         # for reading & writing rectangular data in text format
 library(stargazer)     # for creating LaTeX and ASCII tables for descriptive statistics and regression models
 library(mgcv)          # for generalized additive models (GAMs) and other generalized ridge regression models
 library(tidyr)         # for tidying and reshaping data for analysis and visualization
@@ -616,6 +616,8 @@ plot(predictions_test_gam1, test_data_gam1$MIR,
 
 
 ## 1 Part Random Forest
+### Load the dataset, define predictors, and prepare the data for modeling.
+```{r}
 ```{r}
 # Load the dataset
 mir_1part_all <- read_csv(here("data", "processed-data", "all_mir_clean_joined.csv"))
@@ -645,7 +647,9 @@ tuning_grid <- grid_regular(
 
 # Define cross-validation folds
 cv_folds_continuous <- vfold_cv(train_data_continuous, v = 5)
-
+```
+### Define the RF model specifications, create recipe, and setup workflow
+```{r}
 # Define the Random Forest model specification
 rf_model_spec_continuous <- rand_forest(trees = 500, mtry = tune(), min_n = tune()) %>%
   set_engine("ranger", importance = "impurity", seed = 123) %>%
@@ -658,8 +662,11 @@ rf_recipe_continuous <- recipe(MIR ~ ., data = train_data_continuous)
 rf_workflow_continuous <- workflow() %>%
   add_recipe(rf_recipe_continuous) %>%
   add_model(rf_model_spec_continuous)
+```
 
-# Tune the model
+## Tune the model, extract the best hyperparameters, and fit the final model
+```{r}
+```{r}
 tuning_results_continuous <- tune_grid(
   rf_workflow_continuous,
   resamples = cv_folds_continuous,
@@ -670,12 +677,18 @@ tuning_results_continuous <- tune_grid(
 # Extract the best hyperparameters
 best_hps_continuous <- select_best(tuning_results_continuous, metric = "rmse")
 
+# View the best hyperparameters
+print(best_hps_continuous)
+
 # Fit the final model with the best hyperparameters on the full training dataset
 final_fit_continuous <- fit(
   rf_workflow_continuous %>% finalize_workflow(best_hps_continuous),
   data = train_data_continuous
 )
+```
 
+### Extract the fitted model, calculate feature importance
+```{r}
 # Extract the fit using the appropriate tidymodels function
 fitted_model <- extract_fit_engine(final_fit_continuous)
 
@@ -705,9 +718,11 @@ if(inherits(fitted_model, "ranger")) {
     cat("The extracted object is not a 'ranger' Random Forest model. Please check the model setup and extraction.\n")
 }
 print(importance_plot)
+```
+
 
 ### Calculate RMSE for the training and testing sets
-
+```{r}
 # Predict on the training and testing set
 train_preds <- predict(final_fit_continuous, new_data = train_data_continuous)$.pred
 test_preds <- predict(final_fit_continuous, new_data = test_data_continuous)$.pred
@@ -730,7 +745,10 @@ test_rmse_result_rf <- rmse(test_results, truth = truth, estimate = estimate)
 # Display the RMSE results
 cat("Training Set RMSE:", train_rmse_result_rf$.estimate, "\n")
 cat("Testing Set RMSE:", test_rmse_result_rf$.estimate, "\n")
+```
 
+### Bootstrapping to evaluate model robustness
+```{r}
 boot_fit_and_evaluate <- function(data, indices) {
   # Subset the bootstrap sample
   boot_sample <- data[indices, ]
@@ -871,16 +889,13 @@ autoplot(tuning_results_lasso)
 
 ```
 ### There still seems to be overfitting. The RMSE on the test set is higher than the training set.
+### Additionally, LASSO models are not ideal for capturing non-linear relationships.
 ### We will try a different model
 
 # Generalized Additive Models (GAMs) with sparsity
 ### GAMs are flexible models that can capture non-linear relationships between predictors and the outcome.
 ### Acts similar to LASSO adding a penalty similar to LASSO to enforce sparsity and variable selection
 ```{r}
-library(tidymodels)
-library(mgcv)
-library(readr) # For read_csv
-
 # Load the dataset
 mir_1part_all <- read_csv(here("data", "processed-data", "all_mir_clean_joined.csv"))
 
@@ -980,15 +995,10 @@ aic_value <- AIC(final_gam_model)
 cat("AIC for the final GAM model:", aic_value, "\n")
 
 ```
+
 # Gradient Boosting Machine (GBM)
+### Gradient Boosting Machine (GBM) is an ensemble learning technique that builds models sequentially, with each new model correcting errors made by the previous ones. It uses decision trees as the base learners and optimizes a loss function, making it effective for both regression and classification tasks.
 ```{r}
-
-library(tidymodels)
-library(dplyr)
-library(yardstick)
-library(ranger) # For Random Forest
-library(boot) # For bootstrapping
-
 # Load the dataset
 mir_1part_all <- read_csv(here("data", "processed-data", "all_mir_clean_joined.csv"))
 
@@ -1049,10 +1059,10 @@ final_fit_continuous <- fit(
   gbm_workflow_continuous %>% finalize_workflow(best_hps_continuous),
   data = train_data_continuous
 )
-
+```
 
 ### Calculate RMSE for the training and testing sets
-
+```{r}
 # Predict on the training and testing set
 train_preds <- predict(final_fit_continuous, new_data = train_data_continuous)$.pred
 test_preds <- predict(final_fit_continuous, new_data = test_data_continuous)$.pred
@@ -1075,7 +1085,10 @@ test_rmse_result_gbm <- rmse(test_results, truth = truth, estimate = estimate)
 # Display the RMSE results
 cat("Training Set RMSE:", train_rmse_result_gbm$.estimate, "\n")
 cat("Testing Set RMSE:", test_rmse_result_gbm$.estimate, "\n")
+```
 
+### Bootstrap to evaluate GBM robustness
+```{r}
 # Define a function to fit the model and calculate RMSE
 boot_fit_and_evaluate <- function(data, indices) {
   # Extract the bootstrap sample
@@ -1094,7 +1107,6 @@ boot_fit_and_evaluate <- function(data, indices) {
   # Return RMSE
   return(rmse)
 }
-
 
 # Continue with bootstrapping to evaluate model's robustness
 set.seed(123) # for reproducibility
@@ -1124,7 +1136,7 @@ ggsave(filename = here("results", "figures", "GBM_autoplot.png"), plot = plotGBM
 
 ```
 
-# SUmmarize the RSME values
+# Summarize the RSME values
 ```{r}
 rmse_table <- data.frame(
   Model = c("Null Model", "Generalized Additive Model", "Random Forest", "LASSO",
