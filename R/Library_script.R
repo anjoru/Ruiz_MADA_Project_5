@@ -20,7 +20,7 @@ process_qmd <- function(qmd_path) {
   library_names <- unique(unlist(lapply(library_lines, extract_libraries)))
   library_names <- gsub("\"|'", "", library_names)  # Remove potential quotes
   library_names <- trimws(library_names)  # Trim whitespace
-  library_names
+  unique(library_names)  # Ensure unique names
 }
 
 # Apply the function to each qmd file and combine the results
@@ -41,5 +41,8 @@ library_versions <- sapply(sorted_libraries, function(name) {
 # Combine names and versions into a data frame
 library_info <- data.frame(Library = sorted_libraries, Version = library_versions, stringsAsFactors = FALSE)
 
-# Print the library information in alphabetical order
-print(library_info)
+# Save to CSV file
+write.csv(library_info, here("R", "library_versions.csv"), row.names = FALSE)
+
+# Message to inform about CSV creation
+cat("Library and version information saved to: ", here("results", "library_versions.csv"), "\n")

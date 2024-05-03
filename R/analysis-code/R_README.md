@@ -1,8 +1,6 @@
 Final Version
 The code for analysis is contained in the analysis.qmd. This file should be run after running the processing and EDA code.
 
-These are the libraries and versions used in the R scripts:
-
 | Library      | Version |
 |--------------|---------|
 | boot         | 1.3.30  |
@@ -51,3 +49,5 @@ These are the libraries and versions used in the R scripts:
 | tsibble      | 1.1.4   |
 | vip          | 0.4.1   |
 | webshot2     | 0.1.1   |
+| xgboost      | 1.7.7.1 |
+| yardstick    | 1.3.1   |

@@ -830,10 +830,9 @@ data_split <- initial_split(train_data_continuous, prop = 0.75)
 train_data_continuous <- training(data_split)
 test_data_continuous <- testing(data_split)
 
-# Define a more refined tuning grid for LASSO with a wider range of penalty values
+# Define tuning grid for LASSO with a wide range of penalty values
 tuning_grid_lasso <- expand.grid(
-  penalty = 10^seq(-10, 1, length.out = 50)  # Increase the range and resolution of the penalty parameter
-)
+  penalty = 10^seq(-10, 1, length.out = 50)  
 
 # Increase the number of cross-validation folds for a more robust evaluation
 cv_folds_continuous <- vfold_cv(train_data_continuous, v = 10)
@@ -854,7 +853,7 @@ lasso_workflow <- workflow() %>%
   add_recipe(lasso_recipe) %>%
   add_model(lasso_model_spec)
 
-# Tune the model using the refined tuning grid and increased folds
+# Tune the model using the tuning grid and folds
 tuning_results_lasso <- tune_grid(
   lasso_workflow,
   resamples = cv_folds_continuous,
@@ -870,6 +869,10 @@ final_fit_lasso <- fit(
   lasso_workflow %>% finalize_workflow(best_hps_lasso),
   data = train_data_continuous
 )
+```
+
+### Extract the fitted model and calculate RMSE for the training and testing sets
+```{r}
 
 # Predict on the training and testing set using the final LASSO model
 train_preds_lasso <- predict(final_fit_lasso, new_data = train_data_continuous)$.pred
@@ -885,8 +888,6 @@ cat("Testing Set RMSE (LASSO):", test_rmse_result_lasso$.estimate, "\n")
 
 # Visualize the tuning results
 autoplot(tuning_results_lasso)
-
-
 ```
 ### There still seems to be overfitting. The RMSE on the test set is higher than the training set.
 ### Additionally, LASSO models are not ideal for capturing non-linear relationships.
