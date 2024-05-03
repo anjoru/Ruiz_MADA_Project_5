@@ -9,9 +9,9 @@ Last updated: 2024-04-29
       - Notes in the raw data qmd files provide information about the data, such as the source.
    - The processed-data folder contains the data files that have been cleaned and processed for analysis.
       - Also contains a folder of RDA files that are used to store the data in a compressed format.
-3. **data_dictionary:** Contains a searchable data dictionary tool that can be open by running the file [Data Dictionary Search Tool](data_dictionary/data_dict_search_tool.qmd)
+3. **data_dictionary:** Contains a searchable 🔍 data dictionary tool that can be open by running the file [Data Dictionary Search Tool](data_dictionary/data_dict_search_tool.qmd)
    - The searchable tool is only for those files in the **_processed-data_** files in the project. 
-   - It does not contain descriptions of the variables in the raw files since many of those are removed before anaylsis.
+   - It does not contain descriptions of the variables in the raw files since many of those are removed during cleaning and processing.
    - The data dictionary provides information about the variables in the data files, such as their names, descriptions, and units of measurement.
 4. **products:** Contains the manuscript and any other products generated from the project.It will also contain any supplemental materials.
    - The workflow schematic is located in the supplmental materials qmd. 
