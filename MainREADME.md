@@ -21,6 +21,13 @@ Last updated: 2024-04-29
    - eda-code: Contains the scripts used to explore the data and generate the tables and figures used in the exploratory data analysis.
    - processing-code: Contains the scripts used to clean and process the data.
    - *Refer to the comments in the scripts for more information on their purpose and use.*
-6. **renv:** Contains the R environment files needed to reproduce the project. When you use renv in a project, it creates a private R library just for that project. This means the project uses specific versions of packages, independent of what might be installed in the system-wide or user-specific R library. This isolation prevents conflicts between package versions needed by different projects.
+6. **renv:** This folder contains the project's R environment as managed by the renv package. It ensures reproducibility by capturing the exact state of all R packages used in this project. 
+   - Here you'll find:
+      - renv.lock: A lockfile storing the versions and sources of R packages required for this project.
+      - settings.dcf: Configuration settings for the renv environment.
+      - library/: A directory where the specific versions of packages are stored.
+   - Usage: To restore the project environment on a new machine or a different setup, run renv::restore() in R. This will install all necessary packages as specified in the renv.lock file, ensuring that the project can be run with the same package environment as when it was last worked on.
+   - Staging folder: This folder acts as an intermediary space for data and scripts that are in the process of being tested, validated, or transformed before final use. 
+      - The staging folder is intentionally empty.
 7. **results:** Contains the tables and figures generated in the project. These files are the final products of the project. They are the files that are used in the manuscript and other products. 
 8. **dataanalysis-template.Rproj:** This is the R project file. It is the file you open in RStudio to work on the project. It contains the settings for the project, such as the working directory and the R environment.
